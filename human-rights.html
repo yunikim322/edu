@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>노인인권보호지침 - 직원 교육</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f5f6fa;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #6B3FA0, #A0522D, #2E7D6A);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .top-bar a {
+      color: #6B3FA0;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .top-bar .title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    [id] { scroll-margin-top: 52px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, #4A2278 0%, #6B3FA0 60%, #8A5BBF 100%);
+      color: #fff;
+      padding: 20px 20px 16px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      word-break: keep-all;
+    }
+    .hero .sub {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* 목차 */
+    .toc {
+      margin: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #e8ecf4;
+      transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #6B3FA0; background: #f5f0fc; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .toc-num.c1 { background: #5B2D8E; }
+    .toc-num.c2 { background: #B03A2E; }
+    .toc-num.c3 { background: #7D3C98; }
+    .toc-num.c4 { background: #1A5276; }
+    .toc-num.c5 { background: #154360; }
+    .toc-num.c6 { background: #1E6B4A; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #5B2D8E; }
+    .toc-label.c2 { color: #B03A2E; }
+    .toc-label.c3 { color: #7D3C98; }
+    .toc-label.c4 { color: #1A5276; }
+    .toc-label.c5 { color: #154360; }
+    .toc-label.c6 { color: #1E6B4A; }
+    .toc-arrow { color: #777; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 */
+    .chapter { margin-top: 28px; }
+    .chapter-tag {
+      display: inline-block;
+      color: #fff;
+      font-size: 13px; font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .chapter-tag.c1 { background: #5B2D8E; }
+    .chapter-tag.c2 { background: #B03A2E; }
+    .chapter-tag.c3 { background: #7D3C98; }
+    .chapter-tag.c4 { background: #1A5276; }
+    .chapter-tag.c5 { background: #154360; }
+    .chapter-tag.c6 { background: #1E6B4A; }
+    .chapter h2 {
+      font-size: 24px; font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 14px;
+    }
+
+    /* 일반 카드 */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .card h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .card p { font-size: 19px; color: #222; line-height: 1.75; }
+
+    /* 핵심 강조 배너 */
+    .highlight-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #F0E8FA;
+      border: 1px solid #C39BD3;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 18px; font-weight: 600;
+      color: #4A235A;
+    }
+
+    /* 인권 정의 카드 */
+    .definition-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #6B3FA0;
+    }
+    .definition-card .def-label {
+      font-size: 14px; font-weight: 700;
+      color: #6B3FA0;
+      margin-bottom: 6px;
+    }
+    .definition-card p { font-size: 19px; color: #222; line-height: 1.75; }
+
+    /* 학대 유형 카드 */
+    .abuse-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #ccc;
+    }
+    .abuse-card.type1 { border-left-color: #C0392B; }
+    .abuse-card.type2 { border-left-color: #8E44AD; }
+    .abuse-card.type3 { border-left-color: #D35400; }
+    .abuse-card.type4 { border-left-color: #27AE60; }
+    .abuse-card.type5 { border-left-color: #2980B9; }
+    .abuse-card.type6 { border-left-color: #7F8C8D; }
+    .abuse-card .abuse-type {
+      font-size: 19px; font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .abuse-card.type1 .abuse-type { color: #C0392B; }
+    .abuse-card.type2 .abuse-type { color: #8E44AD; }
+    .abuse-card.type3 .abuse-type { color: #D35400; }
+    .abuse-card.type4 .abuse-type { color: #27AE60; }
+    .abuse-card.type5 .abuse-type { color: #2980B9; }
+    .abuse-card.type6 .abuse-type { color: #7F8C8D; }
+    .abuse-card p { font-size: 19px; color: #222; line-height: 1.7; }
+    .abuse-card .abuse-tip {
+      margin-top: 8px;
+      font-size: 17px; color: #555;
+      background: #f8f8f8;
+      border-radius: 8px;
+      padding: 8px 10px;
+      line-height: 1.65;
+    }
+
+    /* 통계 카드 */
+    .stat-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .stat-card {
+      flex: 1;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 12px;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .stat-num {
+      font-size: 24px; font-weight: 800;
+      color: #1A5276;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 15px; color: #555;
+      margin-top: 4px;
+    }
+
+    /* 처벌 기준 리스트 */
+    .penalty-list { display: flex; flex-direction: column; gap: 8px; }
+    .penalty-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .penalty-act {
+      font-size: 19px; font-weight: 600;
+      color: #222;
+      flex: 1;
+      line-height: 1.6;
+    }
+    .penalty-result {
+      font-size: 17px; color: #154360;
+      font-weight: 600;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* 신고 전화 배너 */
+    .call-banner {
+      background: #1A5276;
+      color: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .call-banner .call-label {
+      font-size: 16px; font-weight: 600;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+    .call-banner .call-num {
+      font-size: 28px; font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .call-banner .call-sub {
+      font-size: 15px; opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    /* 예방 지침 리스트 */
+    .guide-list { display: flex; flex-direction: column; gap: 8px; }
+    .guide-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .guide-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #1E6B4A;
+      color: #fff;
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .guide-text { font-size: 19px; color: #222; line-height: 1.65; }
+
+    /* 체크 항목 */
+    .check-group {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #ccc;
+    }
+    .check-group.danger { border-left-color: #C0392B; }
+    .check-group.safe { border-left-color: #1E6B4A; }
+    .check-group .cg-title {
+      font-size: 20px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .check-group.danger .cg-title { color: #C0392B; }
+    .check-group.safe .cg-title { color: #1E6B4A; }
+    .check-item {
+      display: flex;
+      gap: 8px;
+      padding: 5px 0;
+      font-size: 19px; color: #222;
+      line-height: 1.65;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-icon { flex-shrink: 0; }
+
+    /* 마무리 */
+    .closing {
+      text-align: center;
+      margin-top: 24px;
+      padding: 16px;
+      line-height: 1.8;
+    }
+    .closing-label {
+      font-size: 19px; color: #222; font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .closing-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .closing-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 16px; font-weight: 600;
+    }
+    .closing-badge.b1 { background: #EDE0FA; color: #5B2D8E; }
+    .closing-badge.b2 { background: #FADBD8; color: #922B21; }
+    .closing-badge.b3 { background: #D5F5E3; color: #1E6B4A; }
+    .closing-badge.b4 { background: #D6EAF8; color: #154360; }
+
+    /* 푸터 */
+    .footer-note {
+      text-align: center;
+      padding: 20px 16px 28px;
+      font-size: 16px; font-weight: 500; color: #888;
+    }
+
+    /* 플로팅 버튼 */
+    .fab-top {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #6B3FA0;
+      color: #fff;
+      border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(107,63,160,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90;
+      text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- 스크롤 프로그레스 바 -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="top-bar">
+    <a href="index.html">&larr; 목록</a>
+    <span class="title">노인인권보호지침</span>
+  </div>
+
+  <!-- 히어로 -->
+  <div class="hero" id="heroArea">
+    <h1>노인인권보호지침</h1>
+    <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+  </div>
+
+  <!-- 목차 -->
+  <nav class="toc" id="tocArea">
+    <a class="toc-item" href="#ch1">
+      <span class="toc-left"><span class="toc-num c1">1</span><span class="toc-label c1">노인인권이란</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-left"><span class="toc-num c2">2</span><span class="toc-label c2">노인학대란</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-left"><span class="toc-num c3">3</span><span class="toc-label c3">학대 유형 6가지</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch4">
+      <span class="toc-left"><span class="toc-num c4">4</span><span class="toc-label c4">학대 실태</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch5">
+      <span class="toc-left"><span class="toc-num c5">5</span><span class="toc-label c5">처벌과 신고의무</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch6">
+      <span class="toc-left"><span class="toc-num c6">6</span><span class="toc-label c6">예방과 대처법</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+  </nav>
+
+  <div class="content">
+
+    <!-- ===== 챕터 1 ===== -->
+    <div class="chapter" id="ch1">
+      <span class="chapter-tag c1">CHAPTER 1</span>
+      <h2>노인인권이란 무엇인가?</h2>
+
+      <div class="highlight-line">
+        <span>💜</span> 나라면 어떻게 대우받고 싶을까?
+      </div>
+
+      <div class="definition-card">
+        <div class="def-label">인권의 정의</div>
+        <p>자기 자신을 존중하고, 타인도 존중하는 것. 인간으로서 존엄성을 존중받고 행복하게 살아가는 데 필요한 모든 권리. 연령·성별·인종에 상관없이 누구에게나 주어집니다.</p>
+      </div>
+
+      <div class="definition-card">
+        <div class="def-label">노인인권이란</div>
+        <p>노후에도 인간답게 생활할 수 있는 권리. 노인이라는 이유로 존엄성을 차별받지 않을 권리입니다.</p>
+      </div>
+
+      <div class="card">
+        <h3>🌐 유엔 선언 (1991)</h3>
+        <p>노인의 존엄성이 보호되어야 하며, 노인은 결코 착취와 학대의 대상이 되어서는 안 된다.</p>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 2 ===== -->
+    <div class="chapter" id="ch2">
+      <span class="chapter-tag c2">CHAPTER 2</span>
+      <h2>노인학대란?</h2>
+
+      <div class="definition-card" style="border-left-color: #B03A2E;">
+        <div class="def-label" style="color:#B03A2E;">법적 정의 (노인복지법)</div>
+        <p>노인에 대한 신체적·정신적·정서적·성적 폭력 및 경제적 착취, 유기 또는 방임하는 <strong>모든 행위</strong>.</p>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ 요양보호사의 역할</h3>
+        <p>어르신의 가정을 직접 방문하기 때문에 다른 누구보다 학대 상황을 <strong>먼저 발견할 수 있는 위치</strong>에 있습니다.</p>
+      </div>
+
+      <div class="highlight-line" style="background:#FDEDEC; border-color:#E74C3C; color:#922B21;">
+        <span>📋</span> 요양보호사는 법에 의해 지정된 <strong>신고의무자</strong>입니다
+      </div>
+    </div>
+
+    <!-- ===== 챕터 3 ===== -->
+    <div class="chapter" id="ch3">
+      <span class="chapter-tag c3">CHAPTER 3</span>
+      <h2>학대 유형 6가지</h2>
+
+      <div class="abuse-card type1">
+        <div class="abuse-type">① 신체적 학대</div>
+        <p>물리적 힘·도구로 신체에 손상을 주는 행위. 때리기, 묶기, 약 억지로 먹이기, 외출 금지.</p>
+        <div class="abuse-tip">👁 방문 시 설명 안 되는 멍·상처가 있으면 의심하세요</div>
+      </div>
+
+      <div class="abuse-card type2">
+        <div class="abuse-type">② 정서적 학대</div>
+        <p>비난·모욕·위협 등 언어·비언어로 정서적 고통을 주는 행위. 고함, 무시, 결정 소외.</p>
+        <div class="abuse-tip">👁 어르신이 심하게 위축되거나 가족 앞에서 말을 못하면 주의</div>
+      </div>
+
+      <div class="abuse-card type3">
+        <div class="abuse-type">③ 성적 학대</div>
+        <p>어르신 의사에 반하는 모든 성적 행위. 원치 않는 신체 접촉, 성적 희롱, 공개된 장소에서의 기저귀 교체.</p>
+        <div class="abuse-tip">⚠️ 돌봄 행위 중에도 발생 가능 — 우리 스스로도 주의해야 합니다</div>
+      </div>
+
+      <div class="abuse-card type4">
+        <div class="abuse-type">④ 경제적 학대</div>
+        <p>허락 없이 재산 가로채기, 인감 무단 사용, 어르신이 자기 돈을 자유롭게 못 쓰게 하는 행위.</p>
+        <div class="abuse-tip">👁 "돈이 없다, 통장을 못 만진다" 하시면 주의</div>
+      </div>
+
+      <div class="abuse-card type5">
+        <div class="abuse-type">⑤ 방임</div>
+        <p>돌봄 책임을 거부·포기. 의식주 미제공, 의료 방치.</p>
+        <div class="abuse-tip">👁 음식 없음·기저귀 장시간 미교체·극도 불결 환경이면 의심</div>
+      </div>
+
+      <div class="abuse-card type6">
+        <div class="abuse-type">⑥ 유기</div>
+        <p>보호자가 어르신을 버리는 행위. 연락 두절, 시설 입소 후 왕래 없음, 낯선 장소에 두고 떠남.</p>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 4 ===== -->
+    <div class="chapter" id="ch4">
+      <span class="chapter-tag c4">CHAPTER 4</span>
+      <h2>학대 실태 (2024)</h2>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">10,932건</div>
+          <div class="stat-label">전체 학대 건수<br>(전년 대비 +2.8%)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7,167명</div>
+          <div class="stat-label">피해 노인 수<br>(여성 76.6%)</div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num" style="color:#C0392B;">43.9%</div>
+          <div class="stat-label">신체적 학대</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="color:#8E44AD;">43.8%</div>
+          <div class="stat-label">정서적 학대</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>학대의 특성</h3>
+        <p><strong>지속성·반복성·복합성·은폐성.</strong> 과반수 이상이 매일 또는 주 1회 이상 반복되며, 1년 이상 지속되는 경우가 많습니다. 가정이라는 폐쇄된 공간이라 더욱 은폐되기 쉽습니다.</p>
+      </div>
+
+      <div class="highlight-line">
+        <span>🔎</span> 우리의 방문이 어르신의 유일한 안전망이 될 수 있습니다
+      </div>
+    </div>
+
+    <!-- ===== 챕터 5 ===== -->
+    <div class="chapter" id="ch5">
+      <span class="chapter-tag c5">CHAPTER 5</span>
+      <h2>처벌과 신고의무</h2>
+
+      <div class="penalty-list">
+        <div class="penalty-item">
+          <span class="penalty-act">신체 상해</span>
+          <span class="penalty-result">7년↓ 징역 / 2천만원↓</span>
+        </div>
+        <div class="penalty-item">
+          <span class="penalty-act">신체 폭행·성폭력·성희롱</span>
+          <span class="penalty-result">5년↓ 징역 / 1,500만원↓</span>
+        </div>
+        <div class="penalty-item">
+          <span class="penalty-act">방임·유기·구걸 강요</span>
+          <span class="penalty-result">5년↓ 징역 / 1,500만원↓</span>
+        </div>
+        <div class="penalty-item">
+          <span class="penalty-act">금품 목적 외 사용</span>
+          <span class="penalty-result">3년↓ 징역 / 1천만원↓</span>
+        </div>
+        <div class="penalty-item" style="background:#FEF9E7; border: 1px solid #F9E79F;">
+          <span class="penalty-act" style="color:#922B21;"><strong>신고의무 불이행</strong></span>
+          <span class="penalty-result" style="color:#922B21;">과태료 300만원↓</span>
+        </div>
+      </div>
+
+      <div class="call-banner">
+        <div class="call-label">노인학대 신고 전화 · 24시간 운영</div>
+        <div class="call-num">☎ 1577-1389</div>
+        <div class="call-sub">신고인 신분은 법으로 철저히 보호됩니다</div>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 6 ===== -->
+    <div class="chapter" id="ch6">
+      <span class="chapter-tag c6">CHAPTER 6</span>
+      <h2>예방과 대처법</h2>
+
+      <div class="guide-list">
+        <div class="guide-item">
+          <span class="guide-num">1</span>
+          <span class="guide-text">누구도 노인을 학대할 수 없음을 <strong>명확히 인식</strong>합니다</span>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">2</span>
+          <span class="guide-text">어르신이 가능한 한 <strong>건강을 유지</strong>하도록 최선을 다해 돌봅니다</span>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">3</span>
+          <span class="guide-text">어르신이 재산과 의사결정을 <strong>스스로</strong> 할 수 있도록 존중합니다</span>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">4</span>
+          <span class="guide-text">여가·사회활동을 <strong>지지하고 격려</strong>합니다</span>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">5</span>
+          <span class="guide-text">어르신의 감정과 표현을 <strong>소중히 여기고</strong> 사랑을 나눕니다</span>
+        </div>
+      </div>
+
+      <div class="chapter" style="margin-top:20px;">
+        <div class="check-group danger">
+          <div class="cg-title">🔍 방문 시 확인 항목</div>
+          <div class="check-item"><span class="check-icon">❗</span><span>설명 안 되는 멍·상처가 있는지</span></div>
+          <div class="check-item"><span class="check-icon">❗</span><span>갑자기 위축되거나 불안해하는 모습</span></div>
+          <div class="check-item"><span class="check-icon">❗</span><span>식사·위생·주거환경이 기본 수준 이하</span></div>
+          <div class="check-item"><span class="check-icon">❗</span><span>재정적 불안 또는 통제 받는 상황</span></div>
+        </div>
+
+        <div class="check-group safe">
+          <div class="cg-title">📞 대처 방법</div>
+          <div class="check-item"><span class="check-icon">✅</span><span><strong>응급 상황</strong> — 도움 요청·피신 후 즉시 신고 (112 또는 1577-1389) + 증거 확보</span></div>
+          <div class="check-item"><span class="check-icon">✅</span><span><strong>비응급 상황</strong> — 증거 확보 후 신고</span></div>
+          <div class="check-item"><span class="check-icon">✅</span><span>의심되면 혼자 판단 말고 <strong>센터에 먼저 알리기</strong></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 마무리 -->
+    <div class="closing">
+      <p class="closing-label">어르신의 인권을 지키는 것이 우리가 이 일을 하는 이유입니다</p>
+      <div class="closing-badges">
+        <span class="closing-badge b1">존엄성</span>
+        <span class="closing-badge b2">학대 NO</span>
+        <span class="closing-badge b4">신고의무</span>
+        <span class="closing-badge b3">예방·대처</span>
+        <span class="closing-badge b4">1577-1389</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+
+  <!-- 플로팅 목차 버튼 -->
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      }
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
