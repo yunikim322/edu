@@ -46,7 +46,7 @@
       padding: 24px 20px 20px;
       text-align: center;
     }
-    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; word-break: keep-all; }
     .hero .sub { font-size: 14px; opacity: 0.92; }
 
     /* 목차 */
@@ -123,14 +123,19 @@
 
     /* 효과 태그 */
     .effect-tags {
-      display: flex; flex-wrap: wrap; gap: 5px;
+      display: flex; flex-wrap: nowrap; gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       margin-bottom: 12px;
+      padding-bottom: 2px;
     }
+    .effect-tags::-webkit-scrollbar { display: none; }
     .effect-tag {
-      display: inline-flex; align-items: center; gap: 3px;
-      padding: 6px 10px;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 7px 14px;
       border-radius: 20px;
-      font-size: 15px; font-weight: 600;
+      font-size: 16px; font-weight: 600;
+      white-space: nowrap; flex-shrink: 0;
     }
     .effect-tag.mem { background: #FFF0E0; color: #C47830; }
     .effect-tag.emo { background: #FDE8F0; color: #C44D6D; }
@@ -251,7 +256,7 @@
     .footer-note {
       text-align: center;
       padding: 20px 16px 28px;
-      font-size: 16px; font-weight: 500; color: #BBB;
+      font-size: 16px; font-weight: 500; color: #888;
     }
 
     /* 플로팅 버튼 */
@@ -293,14 +298,14 @@
       </span>
       <span class="toc-arrow">&rsaquo;</span>
     </a>
-    <a class="toc-item" href="#ch2" style="opacity:0.4; pointer-events:none;">
+    <a class="toc-item" href="#ch2">
       <span class="toc-left">
         <span class="toc-icon c2">&#x1F4C5;</span>
         <span class="toc-label c2">지남력 훈련</span>
       </span>
       <span class="toc-arrow">&rsaquo;</span>
     </a>
-    <a class="toc-item" href="#ch3" style="opacity:0.4; pointer-events:none;">
+    <a class="toc-item" href="#ch3">
       <span class="toc-left">
         <span class="toc-icon c3">&#x1F590;</span>
         <span class="toc-label c3">오감자극 대화법</span>
@@ -389,7 +394,213 @@
       </div>
     </div>
 
-    <!-- (챕터 2, 3은 피드백 후 추가 예정) -->
+    <!-- ===== 챕터 2: 지남력 훈련 ===== -->
+    <div class="chapter" id="ch2">
+      <div class="chapter-header">
+        <span class="chapter-icon c2">&#x1F4C5;</span>
+        <div class="chapter-meta">
+          <div class="chapter-tag c2">CHAPTER 2</div>
+          <h2>일상 속 지남력 훈련</h2>
+        </div>
+      </div>
+
+      <!-- 설명 -->
+      <div class="info-card">
+        <p><strong>지남력</strong>이란, 지금이 언제인지, 여기가 어디인지, 내 앞에 있는 사람이 누구인지를 아는 능력입니다. 치매가 진행되면 이 능력이 떨어지므로 <strong>일상에서 자연스럽게 훈련</strong>하는 것이 중요합니다.</p>
+      </div>
+
+      <!-- 세 영역 -->
+      <div class="effect-tags">
+        <span class="effect-tag" style="background:#E8F4E0; color:#4D8C3B;">&#x1F552; 시간</span>
+        <span class="effect-tag" style="background:#E0ECF8; color:#2B5BA0;">&#x1F4CD; 장소</span>
+        <span class="effect-tag" style="background:#FDE8F0; color:#C44D6D;">&#x1F464; 사람</span>
+      </div>
+
+      <!-- 실천 포인트 -->
+      <div class="practice-card">
+        <div class="practice-title">실천 포인트</div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#4D8C3B;">1</span>
+          <span class="practice-text"><strong>시험처럼 묻지 않기</strong> — 대화 속에 자연스럽게 질문을 녹입니다</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#4D8C3B;">2</span>
+          <span class="practice-text"><strong>일상에 녹이기</strong> — 아침 인사, 식사 시간, 외출할 때 활용</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#4D8C3B;">3</span>
+          <span class="practice-text"><strong>틀려도 부드럽게</strong> — "틀렸어요" 대신 자연스럽게 알려드리고 칭찬하기</span>
+        </div>
+      </div>
+
+      <!-- 올바른 대화 예시 -->
+      <div class="dialogue-section">
+        <div class="dialogue-label good">&#x2705; 이렇게 대화하세요</div>
+        <div class="bubble-wrap good">
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            어르신, 안녕하세요! 오늘 3월 화요일이에요. 아침부터 날씨가 참 좋죠?
+          </div>
+          <div class="bubble elder">
+            <div class="bubble-who">어르신</div>
+            응, 오늘 날이 좋구나.
+          </div>
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            네, 화요일이니까 오늘 댁에서 같이 체조하는 날이에요. 기억나시죠?
+          </div>
+          <div class="bubble elder">
+            <div class="bubble-who">어르신</div>
+            아, 화요일이 체조하는 날이지?
+          </div>
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            맞아요! 어르신 기억력이 좋으시네요. 점심 드시고 같이 해요.
+          </div>
+        </div>
+        <div class="dialogue-note">
+          인사할 때 날짜·요일을 자연스럽게 알려드림 → 요일과 일정을 연결 → 어르신이 스스로 떠올리시면 칭찬 → 자존감과 인지력이 함께 올라갑니다
+        </div>
+      </div>
+
+      <!-- 핵심 정리 -->
+      <div class="summary-card" style="background: linear-gradient(135deg, #F0F8E8 0%, #E8F4E0 100%); border-color: #B8D4A8;">
+        <div class="summary-title" style="color:#4D8C3B;">&#x1F4CC; 핵심 정리</div>
+        <div class="summary-item"><span class="summary-check" style="color:#4D8C3B;">&#x2714;</span> 시험이 아니라 대화 속에서 자연스럽게 묻는다</div>
+        <div class="summary-item"><span class="summary-check" style="color:#4D8C3B;">&#x2714;</span> 인사·식사·일정 등 일상에 녹여서 알려드린다</div>
+        <div class="summary-item"><span class="summary-check" style="color:#4D8C3B;">&#x2714;</span> 틀려도 지적하지 말고 부드럽게 알려드리고 칭찬한다</div>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 3: 오감자극 대화법 ===== -->
+    <div class="chapter" id="ch3">
+      <div class="chapter-header">
+        <span class="chapter-icon c3">&#x1F590;</span>
+        <div class="chapter-meta">
+          <div class="chapter-tag c3">CHAPTER 3</div>
+          <h2>오감자극 대화법</h2>
+        </div>
+      </div>
+
+      <!-- 설명 -->
+      <div class="info-card">
+        <p>보고, 듣고, 만지고, 맛보고, 냄새 맡는 <strong>감각을 대화에 활용</strong>하는 방법입니다. 감각을 자극하면 뇌가 활발하게 반응해서 <strong>인지 기능 유지에 매우 효과적</strong>입니다.</p>
+      </div>
+
+      <!-- 오감 예시 -->
+      <div class="practice-card">
+        <div class="practice-title">오감별 대화 예시</div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">&#x1F441;</span>
+          <span class="practice-text"><strong>시각</strong> — "창밖에 꽃이 피었네요. 무슨 색인 것 같으세요?"</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">&#x1F442;</span>
+          <span class="practice-text"><strong>청각</strong> — "새 소리 들리시죠? 참 맑죠?"</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">&#x270B;</span>
+          <span class="practice-text"><strong>촉각</strong> — "이 수건 만져보세요. 부드럽죠?"</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">&#x1F445;</span>
+          <span class="practice-text"><strong>미각</strong> — "오늘 반찬 맛이 어떠세요?"</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">&#x1F443;</span>
+          <span class="practice-text"><strong>후각</strong> — "냄새 한번 맡아보세요. 무슨 향 같으세요?"</span>
+        </div>
+      </div>
+
+      <!-- 실천 포인트 -->
+      <div class="practice-card">
+        <div class="practice-title">실천 포인트</div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">1</span>
+          <span class="practice-text"><strong>눈앞의 것 활용</strong> — 음식, 꽃, 날씨 등 지금 보이고 느껴지는 것으로 대화</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">2</span>
+          <span class="practice-text"><strong>선택형 질문</strong> — 대답이 어려우시면 "달콤한가요, 짠가요?" 처럼</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num" style="background:#C44D6D;">3</span>
+          <span class="practice-text"><strong>감각 → 감정 연결</strong> — "맛있으시죠? 기분이 좋아지시죠?"</span>
+        </div>
+      </div>
+
+      <!-- 올바른 대화 예시 -->
+      <div class="dialogue-section">
+        <div class="dialogue-label good">&#x2705; 이렇게 대화하세요</div>
+        <div class="bubble-wrap good">
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            어르신, 귤 드세요. 한번 냄새 맡아보세요. 어떤 향이 나요?
+          </div>
+          <div class="bubble elder">
+            <div class="bubble-who">어르신</div>
+            음... 새콤한 냄새가 나네.
+          </div>
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            맞아요, 새콤하죠! 한 조각 드셔보세요. 맛이 어떠세요? 달아요, 셔요?
+          </div>
+          <div class="bubble elder">
+            <div class="bubble-who">어르신</div>
+            달콤하고 좋다.
+          </div>
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            달콤하니까 기분도 좋아지시죠? 어르신 표정이 환해지셨네요!
+          </div>
+        </div>
+        <div class="dialogue-note">
+          귤 하나로 후각(냄새) → 미각(맛) → 감정(기분)까지 자연스럽게 이어지는 대화 → 어르신도 즐거우시고 뇌에 다양한 자극이 됩니다
+        </div>
+      </div>
+
+      <!-- 핵심 정리 -->
+      <div class="summary-card" style="background: linear-gradient(135deg, #FFF0F4 0%, #FDE8F0 100%); border-color: #E8B8C8;">
+        <div class="summary-title" style="color:#C44D6D;">&#x1F4CC; 핵심 정리</div>
+        <div class="summary-item"><span class="summary-check" style="color:#C44D6D;">&#x2714;</span> 눈앞에 보이는 것으로 감각 대화를 시작한다</div>
+        <div class="summary-item"><span class="summary-check" style="color:#C44D6D;">&#x2714;</span> 대답이 어려우시면 선택형 질문으로 도와드린다</div>
+        <div class="summary-item"><span class="summary-check" style="color:#C44D6D;">&#x2714;</span> 감각에서 감정으로 이어서 대화를 풍성하게 만든다</div>
+      </div>
+    </div>
+
+    <!-- ===== 마무리: 실천 체크리스트 ===== -->
+    <div class="chapter" id="closing" style="margin-top: 36px;">
+      <div class="info-card" style="background: linear-gradient(135deg, #E8853D, #D4A053, #8CB369); color: #fff; text-align: center; padding: 20px 16px;">
+        <p style="font-size: 20px; font-weight: 700; color: #fff;">오늘부터 실천해 보세요!</p>
+      </div>
+
+      <div class="practice-card" style="border: 1.5px solid #E8D4B8;">
+        <div class="practice-item">
+          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+          <span class="practice-text">인사할 때 <strong>오늘 날짜와 요일</strong>을 함께 알려드렸나요?</span>
+        </div>
+        <div class="practice-item">
+          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+          <span class="practice-text">식사 시간에 음식과 관련된 <strong>옛 이야기</strong>를 나눠보았나요?</span>
+        </div>
+        <div class="practice-item">
+          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+          <span class="practice-text">간식을 드릴 때 <strong>냄새, 맛, 느낌</strong>을 물어보았나요?</span>
+        </div>
+        <div class="practice-item">
+          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+          <span class="practice-text">어르신이 틀리셔도 <strong>부드럽게 알려드리고 칭찬</strong>해 드렸나요?</span>
+        </div>
+        <div class="practice-item">
+          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+          <span class="practice-text">어르신의 이야기에 <strong>관심을 갖고 이어서 질문</strong>했나요?</span>
+        </div>
+      </div>
+
+      <div class="info-card" style="text-align: center; margin-top: 16px; padding: 20px 16px;">
+        <p style="font-size: 19px; color: #222; font-weight: 600; line-height: 1.7;">선생님들의 따뜻한 한마디가<br>어르신의 인지 건강을 지키는<br>가장 큰 힘입니다.</p>
+      </div>
+    </div>
 
   </div>
 
