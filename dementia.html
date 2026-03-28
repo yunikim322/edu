@@ -5,98 +5,606 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>치매예방 및 관리지침 - 직원 교육</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      background: #111;
-      color: #fff;
+      background: #f5f6fa;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
     }
+
+    /* 상단 바 */
     .top-bar {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(17,17,17,0.95);
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(8px);
-      padding: 6px 12px;
+      padding: 8px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid #e0e0e0;
     }
     .top-bar a {
-      color: #fff;
+      color: #3B6CB5;
       text-decoration: none;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.1);
-    }
-    .top-bar a:hover {
-      background: rgba(255,255,255,0.2);
+      font-size: 16px;
+      font-weight: 600;
     }
     .top-bar .title {
-      font-size: 12px;
+      font-size: 15px;
       font-weight: 500;
-      color: rgba(255,255,255,0.6);
+      color: #888;
     }
-    .rotate-hint {
-      display: none;
+
+    [id] { scroll-margin-top: 52px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, #2C5F8A 0%, #3B6CB5 60%, #4A7CC5 100%);
+      color: #fff;
+      padding: 32px 20px 28px;
       text-align: center;
-      padding: 10px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.05);
     }
-    @media (max-width: 768px) and (orientation: portrait) {
-      .rotate-hint { display: block; }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
     }
-    .slides {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .hero .sub {
+      font-size: 16px;
+      opacity: 0.8;
+    }
+
+    /* 목차 - 버튼형 */
+    .toc {
+      margin: 10px 14px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 4px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #e8ecf4;
+      transition: border-color 0.15s;
+    }
+    .toc-item:active {
+      border-color: #3B6CB5;
+      background: #f0f4fc;
+    }
+    .toc-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toc-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #3B6CB5;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .toc-label {
+      font-size: 17px;
+      font-weight: 600;
+      color: #3B6CB5;
+    }
+    .toc-arrow {
+      color: #3B6CB5;
+      font-size: 24px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 */
+    .chapter { margin-top: 28px; }
+    .chapter-tag {
+      display: inline-block;
+      background: #3B6CB5;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .chapter h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 14px;
+    }
+
+    /* 일반 카드 */
+    .card {
+      background: #fff;
+      border-radius: 14px;
       padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
-    @media (max-width: 768px) {
-      .slides {
-        padding: 8px 0;
-        gap: 8px;
-      }
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
-    .slides img {
-      width: 100%;
-      display: block;
-      border-radius: 6px;
+    .card p {
+      font-size: 18px;
+      color: #444;
+      line-height: 1.7;
     }
-    @media (max-width: 768px) {
-      .slides img {
-        border-radius: 0;
-      }
+
+    /* 핵심 강조 - 1줄 */
+    .highlight-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF8E1;
+      border: 1px solid #F0D77C;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #856404;
+    }
+
+    /* 증상 카테고리 헤더 */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 19px;
+      font-weight: 700;
+    }
+    .cat-header.cog { background: #EBF0FA; color: #3B6CB5; }
+    .cat-header.beh { background: #FDF0E4; color: #C0612B; }
+    .cat-header.psy { background: #F3E8F9; color: #7D3C98; }
+
+    /* 증상 리스트 */
+    .symptom-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .symptom-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .symptom-item .term {
+      font-size: 19px;
+      font-weight: 700;
+    }
+    .symptom-item .term.cog { color: #3B6CB5; }
+    .symptom-item .term.beh { color: #C0612B; }
+    .symptom-item .term.psy { color: #7D3C98; }
+    .symptom-item .desc {
+      font-size: 17px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .symptom-item .example {
+      font-size: 16px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* 단계 카드 */
+    .stage-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #ccc;
+    }
+    .stage-card.early { border-left-color: #5BA88C; }
+    .stage-card.mid { border-left-color: #E6A23C; }
+    .stage-card.late { border-left-color: #E25C5C; }
+    .stage-card .stage-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .stage-card.early .stage-name { color: #3D8B6E; }
+    .stage-card.mid .stage-name { color: #C0872B; }
+    .stage-card.late .stage-name { color: #C0392B; }
+    .stage-card .stage-help {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .stage-card.early .stage-help { background: #E8F5E9; color: #3D8B6E; }
+    .stage-card.mid .stage-help { background: #FFF3E0; color: #C0872B; }
+    .stage-card.late .stage-help { background: #FFEBEE; color: #C0392B; }
+    .stage-card p {
+      font-size: 17px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* 3권3금3행 */
+    .rule-group {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .rule-group .rule-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rule-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 17px;
+      color: #444;
+    }
+    .rule-item .rule-num {
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* 대화원칙 넘버링 */
+    .principle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .principle-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .principle-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #3B6CB5;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .principle-text {
+      font-size: 17px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* 마무리 */
+    .closing {
+      text-align: center;
+      margin-top: 24px;
+      padding: 16px;
+      line-height: 1.8;
+    }
+    .closing-key {
+      font-size: 19px;
+      color: #333;
+    }
+    .closing-key strong {
+      color: #3B6CB5;
+    }
+    /* 푸터 */
+    .footer-note {
+      text-align: center;
+      padding: 20px 16px 28px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #888;
     }
   </style>
 </head>
 <body>
+
   <div class="top-bar">
     <a href="index.html">← 목록</a>
     <span class="title">치매예방 및 관리지침</span>
   </div>
-  <div class="rotate-hint">모바일에서는 화면을 가로로 돌리면 더 잘 보여요</div>
-  <div class="slides">
-    <img src="preview/dementia/01.png" alt="타이틀">
-    <img src="preview/dementia/02.png" alt="챕터1 - 치매란 무엇인가">
-    <img src="preview/dementia/03.png" alt="챕터2 - 증상개요">
-    <img src="preview/dementia/04.png" alt="챕터2 - 인지기능장애">
-    <img src="preview/dementia/05.png" alt="챕터2 - 행동장애">
-    <img src="preview/dementia/06.png" alt="챕터2 - 정신행동증상">
-    <img src="preview/dementia/07.png" alt="챕터3 - 단계별 변화">
-    <img src="preview/dementia/08.png" alt="챕터4 - 3권3금3행">
-    <img src="preview/dementia/09.png" alt="챕터5 - 안전도모 및 일상관리">
-    <img src="preview/dementia/10.png" alt="챕터5 - 대화 기본원칙">
-    <img src="preview/dementia/11.png" alt="마무리">
+
+  <div class="hero">
+    <div class="badge">필수 교육</div>
+    <h1>치매예방 및 관리지침</h1>
+    <p class="sub">실로암방문요양지원센터 · 요양보호사 교육</p>
   </div>
+
+  <!-- 목차 - 개별 버튼형 -->
+  <nav class="toc">
+    <a class="toc-item" href="#ch1">
+      <span class="toc-left"><span class="toc-num">1</span><span class="toc-label">치매란 무엇인가</span></span>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-left"><span class="toc-num">2</span><span class="toc-label">치매 증상</span></span>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-left"><span class="toc-num">3</span><span class="toc-label">단계별 변화</span></span>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch4">
+      <span class="toc-left"><span class="toc-num">4</span><span class="toc-label">예방법 — 3권 3금 3행</span></span>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch5">
+      <span class="toc-left"><span class="toc-num">5</span><span class="toc-label">관리 및 대화법</span></span>
+      <span class="toc-arrow">›</span>
+    </a>
+  </nav>
+
+  <div class="content">
+
+    <!-- ===== 챕터 1 ===== -->
+    <div class="chapter" id="ch1">
+      <span class="chapter-tag">CHAPTER 1</span>
+      <h2>치매란 무엇인가?</h2>
+
+      <div class="card">
+        <p>뇌 손상으로 <strong>기억력, 판단력, 언어능력</strong> 등 인지기능이 떨어져 일상생활이 어려워지는 병입니다.</p>
+      </div>
+
+      <div class="card">
+        <h3>주요 원인</h3>
+        <p><strong>알츠하이머병</strong> (55~70%) — 기억력부터 저하</p>
+        <p style="margin-top:4px;"><strong>혈관성 치매</strong> (15~20%) — 뇌혈관 문제로 발생</p>
+        <p style="margin-top:4px; color:#888; font-size:14px;">그 외 루이체·전두측두엽·알코올 치매 등</p>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 2 ===== -->
+    <div class="chapter" id="ch2">
+      <span class="chapter-tag">CHAPTER 2</span>
+      <h2>치매 증상</h2>
+
+      <div class="highlight-line">
+        <span>⭐</span> 기관평가 면담에서 가장 중요한 부분입니다
+      </div>
+
+      <!-- ① 인지기능 장애 -->
+      <div class="cat-header cog">🧠 ① 인지기능 장애</div>
+      <div class="symptom-list">
+        <div class="symptom-item">
+          <span class="term cog">기억력 저하</span>
+          <span class="desc">방금 전 일을 기억하지 못함</span>
+          <span class="example">"밥 안 줬다" 반복, 같은 질문 되풀이</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term cog">지남력 장애</span>
+          <span class="desc">시간·장소·사람을 혼동</span>
+          <span class="example">자기 집에서 "여기가 어디냐" 질문</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term cog">판단 장애</span>
+          <span class="desc">상황 판단이 어려움</span>
+          <span class="example">계절에 맞지 않는 옷 착용</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term cog">실행 장애</span>
+          <span class="desc">익숙한 동작 순서를 잊음</span>
+          <span class="example">옷 입는 순서, 수저 사용법을 모름</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term cog">실어증</span>
+          <span class="desc">말로 표현하지 못함</span>
+          <span class="example">"그거, 그거…" 하며 답답해하심</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term cog">실인증</span>
+          <span class="desc">보이는 것을 인식하지 못함</span>
+          <span class="example">거울 속 자신을 다른 사람으로 착각</span>
+        </div>
+      </div>
+
+      <!-- ② 행동장애 -->
+      <div class="cat-header beh">🚶 ② 행동장애</div>
+      <div class="symptom-list">
+        <div class="symptom-item">
+          <span class="term beh">배회</span>
+          <span class="desc">현관문을 열고 나가거나 집 안을 목적 없이 걸어다님</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term beh">폭언·폭력</span>
+          <span class="desc">소리 지르기, 밀치기 — 뇌 손상으로 인한 증상</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term beh">거부</span>
+          <span class="desc">식사, 목욕, 약 복용 등 케어를 거부</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term beh">수집·반복행동</span>
+          <span class="desc">쓸모없는 물건 모으기, 같은 말·행동 반복</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term beh">실금</span>
+          <span class="desc">화장실에 가야 한다는 것 자체를 인식하지 못함</span>
+        </div>
+      </div>
+
+      <!-- ③ 정신행동증상 -->
+      <div class="cat-header psy">💭 ③ 정신행동증상</div>
+      <div class="symptom-list">
+        <div class="symptom-item">
+          <span class="term psy">섬망</span>
+          <span class="desc">갑자기 사람을 못 알아보고, 헛것을 보거나 앞뒤 안 맞는 말을 함</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term psy">망상</span>
+          <span class="desc">사실이 아닌 것을 굳게 믿음</span>
+          <span class="example">"누가 내 돈을 훔쳐갔다" 강하게 의심</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term psy">환각</span>
+          <span class="desc">실제로 없는 것을 보거나 들음</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term psy">우울·불안</span>
+          <span class="desc">의욕 저하, 안절부절, 보호자를 졸졸 따라다님</span>
+        </div>
+        <div class="symptom-item">
+          <span class="term psy">수면장애</span>
+          <span class="desc">밤낮이 바뀌어 낮에 주무시고 밤에 배회</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 3 ===== -->
+    <div class="chapter" id="ch3">
+      <span class="chapter-tag">CHAPTER 3</span>
+      <h2>단계별 변화</h2>
+
+      <div class="stage-card early">
+        <div class="stage-name">초기</div>
+        <span class="stage-help">혼자 생활 가능</span>
+        <p>최근 일을 자주 잊고, 물건 둔 곳을 기억 못 함. 요리·청소 같은 일상 수행능력이 떨어지기 시작.</p>
+      </div>
+
+      <div class="stage-card mid">
+        <div class="stage-name">중기</div>
+        <span class="stage-help">도움 필요</span>
+        <p>가족 이름·전화번호를 잊고, 익숙한 동네에서 길을 잃음. 위생관리 불가, 배회행동 시작.</p>
+      </div>
+
+      <div class="stage-card late">
+        <div class="stage-name">말기</div>
+        <span class="stage-help">전적 도움 필요</span>
+        <p>의사소통 거의 불가. 대소변 실금, 와상 상태. 가족도 알아보지 못함.</p>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 4 ===== -->
+    <div class="chapter" id="ch4">
+      <span class="chapter-tag">CHAPTER 4</span>
+      <h2>예방법 — 3권 3금 3행</h2>
+
+      <div class="rule-group">
+        <div class="rule-title" style="color:#3D8B6E;">✅ 3권 (즐길 것)</div>
+        <div class="rule-item"><span class="rule-num" style="color:#3D8B6E;">1</span> <strong>운동</strong> — 주 3회 이상, 30분씩 걷기</div>
+        <div class="rule-item"><span class="rule-num" style="color:#3D8B6E;">2</span> <strong>식사</strong> — 생선·채소·과일 골고루</div>
+        <div class="rule-item"><span class="rule-num" style="color:#3D8B6E;">3</span> <strong>독서</strong> — 읽고 쓰기로 두뇌 활동</div>
+      </div>
+
+      <div class="rule-group">
+        <div class="rule-title" style="color:#C0392B;">🚫 3금 (참을 것)</div>
+        <div class="rule-item"><span class="rule-num" style="color:#C0392B;">1</span> <strong>절주</strong> — 한 번에 3잔 이하</div>
+        <div class="rule-item"><span class="rule-num" style="color:#C0392B;">2</span> <strong>금연</strong> — 흡연 시 치매 위험 1.59배</div>
+        <div class="rule-item"><span class="rule-num" style="color:#C0392B;">3</span> <strong>뇌손상 예방</strong> — 머리 다치지 않도록 주의</div>
+      </div>
+
+      <div class="rule-group">
+        <div class="rule-title" style="color:#3B6CB5;">💙 3행 (챙길 것)</div>
+        <div class="rule-item"><span class="rule-num" style="color:#3B6CB5;">1</span> <strong>건강검진</strong> — 혈압·혈당·콜레스테롤 정기 체크</div>
+        <div class="rule-item"><span class="rule-num" style="color:#3B6CB5;">2</span> <strong>소통</strong> — 가족·친구와 자주 만나기</div>
+        <div class="rule-item"><span class="rule-num" style="color:#3B6CB5;">3</span> <strong>치매 조기검진</strong> — 60세 이상 보건소 무료 검진</div>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 5 ===== -->
+    <div class="chapter" id="ch5">
+      <span class="chapter-tag">CHAPTER 5</span>
+      <h2>관리 및 대화법</h2>
+
+      <div class="card">
+        <h3>안전도모</h3>
+        <p>옷·가방에 이름과 연락처 표시. 화장실 위치 등 안내 표시를 잘 보이는 곳에. 흥분 요인을 파악하고 미리 주의.</p>
+      </div>
+
+      <div class="card">
+        <h3>일상관리 핵심</h3>
+        <p>과거 사용하던 물건을 가까이 두어 기억 도움. "물건 도둑맞았다" 하시면 반박 대신 함께 찾기. 이상행동 시 자극 줄이고 조용한 환경 제공.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:6px;">
+        <h3>대화 기본원칙</h3>
+      </div>
+      <div class="principle-list">
+        <div class="principle-item">
+          <span class="principle-num">1</span>
+          <span class="principle-text"><strong>짧고 간단하게</strong> 한 번에 하나씩 전달</span>
+        </div>
+        <div class="principle-item">
+          <span class="principle-num">2</span>
+          <span class="principle-text">같은 말 반복해도 <strong>화내지 않기</strong></span>
+        </div>
+        <div class="principle-item">
+          <span class="principle-num">3</span>
+          <span class="principle-text">의미를 모르는 말씀도 <strong>수용하는 태도</strong></span>
+        </div>
+        <div class="principle-item">
+          <span class="principle-num">4</span>
+          <span class="principle-text">항상 <strong>웃는 얼굴</strong> — 표정이 말보다 중요</span>
+        </div>
+        <div class="principle-item">
+          <span class="principle-num">5</span>
+          <span class="principle-text">어르신마다 <strong>개인에 맞게</strong> 조절</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 마무리 -->
+    <div class="closing">
+      <p class="closing-key">치매의 주요 증상인<br><strong>배회, 폭언, 섬망, 길잃음, 기억력저하</strong><br>등을 꼭 기억해 주세요.</p>
+    </div>
+
+  </div>
+
+  <div class="footer-note">© 2026 실로암방문요양지원센터</div>
+
 </body>
 </html>
