@@ -53,8 +53,9 @@
 
 1. **목차에 클릭 어포던스** — 화살표(›) 등으로 클릭 가능함을 표시
 2. **scroll-margin-top 설정** — 목차 클릭 시 상단바가 콘텐츠를 가리지 않도록
-3. **뱃지/태그 줄바꿈 금지** — `flex-wrap: nowrap` + `overflow-x: auto`로 가로 스크롤 처리
-4. **히어로 타이틀 줄바꿈 방지** — `word-break: keep-all`, 필요 시 `letter-spacing` 조정
+3. **마무리 뱃지는 wrap 허용** — 하단 키워드 강조용 뱃지는 `flex-wrap: wrap` + `justify-content: center`로 자연스럽게 2줄 배치. nowrap + 가로 스크롤 금지 (강조 목적이라 모두 보여야 함)
+4. **효과 태그 등 인라인 태그는 nowrap** — 챕터 내 효과 태그처럼 1줄에 들어가는 짧은 태그는 `flex-wrap: nowrap` + `overflow-x: auto`
+5. **히어로 타이틀 줄바꿈 방지** — `word-break: keep-all`, 필요 시 `letter-spacing` 조정
 
 ---
 

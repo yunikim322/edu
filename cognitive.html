@@ -34,8 +34,8 @@
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid #E8E0D6;
     }
-    .top-bar a { color: #C47830; text-decoration: none; font-size: 16px; font-weight: 600; }
-    .top-bar .title { font-size: 15px; font-weight: 500; color: #888; }
+    .top-bar a { color: #C47830; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; }
 
     [id] { scroll-margin-top: 52px; }
 
@@ -47,7 +47,7 @@
       text-align: center;
     }
     .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; word-break: keep-all; }
-    .hero .sub { font-size: 14px; opacity: 0.92; }
+    .hero .sub { font-size: 17px; opacity: 0.92; }
 
     /* 목차 */
     .toc {
@@ -134,7 +134,7 @@
       display: inline-flex; align-items: center; gap: 4px;
       padding: 7px 14px;
       border-radius: 20px;
-      font-size: 16px; font-weight: 600;
+      font-size: 17px; font-weight: 600;
       white-space: nowrap; flex-shrink: 0;
     }
     .effect-tag.mem { background: #FFF0E0; color: #C47830; }
@@ -150,7 +150,7 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     }
     .practice-title {
-      font-size: 16px; font-weight: 700; color: #777;
+      font-size: 17px; font-weight: 700; color: #555;
       margin-bottom: 10px;
       letter-spacing: 0.5px;
     }
@@ -175,7 +175,7 @@
     }
     .dialogue-label {
       display: inline-flex; align-items: center; gap: 4px;
-      font-size: 14px; font-weight: 700;
+      font-size: 17px; font-weight: 700;
       padding: 3px 10px;
       border-radius: 6px;
       margin-bottom: 8px;
@@ -241,16 +241,42 @@
       margin-top: 16px;
     }
     .summary-title {
-      font-size: 15px; font-weight: 700; color: #C47830;
+      font-size: 17px; font-weight: 700; color: #C47830;
       margin-bottom: 10px;
     }
     .summary-item {
       display: flex; gap: 8px;
       padding: 4px 0;
-      font-size: 18px; color: #333;
+      font-size: 19px; color: #222;
       line-height: 1.65;
     }
     .summary-check { color: #E8853D; font-weight: 700; flex-shrink: 0; }
+
+    /* 체크리스트 인터랙션 */
+    .check-toggle {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .chk-box {
+      width: 24px; height: 24px;
+      border: 2px solid #D4B896;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: transparent;
+      transition: all 0.15s;
+      margin-top: 2px;
+    }
+    .check-toggle.done .chk-box {
+      background: #8CB369;
+      border-color: #8CB369;
+      color: #fff;
+    }
+    .check-toggle.done .practice-text {
+      text-decoration: line-through;
+      color: #999;
+    }
 
     /* 푸터 */
     .footer-note {
@@ -575,24 +601,24 @@
       </div>
 
       <div class="practice-card" style="border: 1.5px solid #E8D4B8;">
-        <div class="practice-item">
-          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+        <div class="practice-item check-toggle" onclick="this.classList.toggle('done')">
+          <span class="chk-box">✓</span>
           <span class="practice-text">인사할 때 <strong>오늘 날짜와 요일</strong>을 함께 알려드렸나요?</span>
         </div>
-        <div class="practice-item">
-          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+        <div class="practice-item check-toggle" onclick="this.classList.toggle('done')">
+          <span class="chk-box">✓</span>
           <span class="practice-text">식사 시간에 음식과 관련된 <strong>옛 이야기</strong>를 나눠보았나요?</span>
         </div>
-        <div class="practice-item">
-          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+        <div class="practice-item check-toggle" onclick="this.classList.toggle('done')">
+          <span class="chk-box">✓</span>
           <span class="practice-text">간식을 드릴 때 <strong>냄새, 맛, 느낌</strong>을 물어보았나요?</span>
         </div>
-        <div class="practice-item">
-          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+        <div class="practice-item check-toggle" onclick="this.classList.toggle('done')">
+          <span class="chk-box">✓</span>
           <span class="practice-text">어르신이 틀리셔도 <strong>부드럽게 알려드리고 칭찬</strong>해 드렸나요?</span>
         </div>
-        <div class="practice-item">
-          <span style="font-size: 20px; flex-shrink: 0;">&#x2610;</span>
+        <div class="practice-item check-toggle" onclick="this.classList.toggle('done')">
+          <span class="chk-box">✓</span>
           <span class="practice-text">어르신의 이야기에 <strong>관심을 갖고 이어서 질문</strong>했나요?</span>
         </div>
       </div>
