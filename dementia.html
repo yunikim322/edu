@@ -16,6 +16,18 @@
       -webkit-text-size-adjust: 100%;
     }
 
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #3B6CB5, #7C6BC4, #5BA88C);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
     /* 상단 바 */
     .top-bar {
       position: sticky;
@@ -38,35 +50,26 @@
     .top-bar .title {
       font-size: 15px;
       font-weight: 500;
-      color: #888;
+      color: #555;
     }
 
     [id] { scroll-margin-top: 52px; }
 
-    /* 히어로 */
+    /* 히어로 - 축소 */
     .hero {
       background: linear-gradient(135deg, #2C5F8A 0%, #3B6CB5 60%, #4A7CC5 100%);
       color: #fff;
-      padding: 32px 20px 28px;
+      padding: 20px 20px 16px;
       text-align: center;
-    }
-    .hero .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      font-size: 14px;
-      font-weight: 600;
-      padding: 3px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
     }
     .hero h1 {
       font-size: 28px;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .hero .sub {
-      font-size: 16px;
-      opacity: 0.8;
+      font-size: 14px;
+      opacity: 0.9;
     }
 
     /* 목차 - 버튼형 */
@@ -102,7 +105,6 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #3B6CB5;
       color: #fff;
       font-size: 13px;
       font-weight: 700;
@@ -111,13 +113,23 @@
       justify-content: center;
       flex-shrink: 0;
     }
+    /* 목차 번호 챕터별 컬러 */
+    .toc-num.c1 { background: #2B5BA0; }
+    .toc-num.c2 { background: #A8511F; }
+    .toc-num.c3 { background: #6A2F85; }
+    .toc-num.c4 { background: #2E7A5E; }
+    .toc-num.c5 { background: #C87520; }
     .toc-label {
       font-size: 17px;
       font-weight: 600;
-      color: #3B6CB5;
     }
+    .toc-label.c1 { color: #2B5BA0; }
+    .toc-label.c2 { color: #A8511F; }
+    .toc-label.c3 { color: #6A2F85; }
+    .toc-label.c4 { color: #2E7A5E; }
+    .toc-label.c5 { color: #C87520; }
     .toc-arrow {
-      color: #3B6CB5;
+      color: #777;
       font-size: 24px;
       font-weight: 700;
       flex-shrink: 0;
@@ -130,7 +142,6 @@
     .chapter { margin-top: 28px; }
     .chapter-tag {
       display: inline-block;
-      background: #3B6CB5;
       color: #fff;
       font-size: 13px;
       font-weight: 700;
@@ -138,6 +149,12 @@
       border-radius: 4px;
       margin-bottom: 8px;
     }
+    /* 챕터 태그 컬러 차별화 */
+    .chapter-tag.c1 { background: #2B5BA0; }
+    .chapter-tag.c2 { background: #A8511F; }
+    .chapter-tag.c3 { background: #6A2F85; }
+    .chapter-tag.c4 { background: #2E7A5E; }
+    .chapter-tag.c5 { background: #C87520; }
     .chapter h2 {
       font-size: 24px;
       font-weight: 800;
@@ -160,7 +177,7 @@
     }
     .card p {
       font-size: 18px;
-      color: #444;
+      color: #333;
       line-height: 1.7;
     }
 
@@ -170,13 +187,13 @@
       align-items: center;
       gap: 6px;
       background: #FFF8E1;
-      border: 1px solid #F0D77C;
+      border: 1px solid #E8C840;
       border-radius: 10px;
       padding: 10px 14px;
       margin-bottom: 14px;
       font-size: 17px;
       font-weight: 600;
-      color: #856404;
+      color: #6B4F00;
     }
 
     /* 증상 카테고리 헤더 */
@@ -190,9 +207,9 @@
       font-size: 19px;
       font-weight: 700;
     }
-    .cat-header.cog { background: #EBF0FA; color: #3B6CB5; }
-    .cat-header.beh { background: #FDF0E4; color: #C0612B; }
-    .cat-header.psy { background: #F3E8F9; color: #7D3C98; }
+    .cat-header.cog { background: #DEEAFA; color: #1E4D8C; }
+    .cat-header.beh { background: #FCE8D5; color: #8C3F12; }
+    .cat-header.psy { background: #EBDAF5; color: #5C2280; }
 
     /* 증상 리스트 */
     .symptom-list {
@@ -213,17 +230,17 @@
       font-size: 19px;
       font-weight: 700;
     }
-    .symptom-item .term.cog { color: #3B6CB5; }
-    .symptom-item .term.beh { color: #C0612B; }
-    .symptom-item .term.psy { color: #7D3C98; }
+    .symptom-item .term.cog { color: #1E4D8C; }
+    .symptom-item .term.beh { color: #8C3F12; }
+    .symptom-item .term.psy { color: #5C2280; }
     .symptom-item .desc {
       font-size: 17px;
-      color: #555;
+      color: #333;
       line-height: 1.6;
     }
     .symptom-item .example {
       font-size: 16px;
-      color: #888;
+      color: #666;
       margin-top: 2px;
     }
 
@@ -244,9 +261,9 @@
       font-weight: 700;
       margin-bottom: 6px;
     }
-    .stage-card.early .stage-name { color: #3D8B6E; }
-    .stage-card.mid .stage-name { color: #C0872B; }
-    .stage-card.late .stage-name { color: #C0392B; }
+    .stage-card.early .stage-name { color: #2A6B50; }
+    .stage-card.mid .stage-name { color: #9A6B1A; }
+    .stage-card.late .stage-name { color: #A32020; }
     .stage-card .stage-help {
       display: inline-block;
       font-size: 15px;
@@ -255,23 +272,27 @@
       border-radius: 4px;
       margin-bottom: 8px;
     }
-    .stage-card.early .stage-help { background: #E8F5E9; color: #3D8B6E; }
-    .stage-card.mid .stage-help { background: #FFF3E0; color: #C0872B; }
-    .stage-card.late .stage-help { background: #FFEBEE; color: #C0392B; }
+    .stage-card.early .stage-help { background: #E8F5E9; color: #2A6B50; }
+    .stage-card.mid .stage-help { background: #FFF3E0; color: #9A6B1A; }
+    .stage-card.late .stage-help { background: #FFEBEE; color: #A32020; }
     .stage-card p {
       font-size: 17px;
-      color: #555;
+      color: #333;
       line-height: 1.7;
     }
 
-    /* 3권3금3행 */
+    /* 3권3금3행 - 좌측 컬러 바 추가 */
     .rule-group {
       background: #fff;
       border-radius: 14px;
       padding: 16px;
       margin-bottom: 10px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #ccc;
     }
+    .rule-group.do { border-left-color: #3D8B6E; }
+    .rule-group.dont { border-left-color: #C0392B; }
+    .rule-group.check { border-left-color: #3B6CB5; }
     .rule-group .rule-title {
       font-size: 20px;
       font-weight: 700;
@@ -282,15 +303,20 @@
     }
     .rule-item {
       display: flex;
-      align-items: baseline;
       gap: 8px;
-      padding: 4px 0;
-      font-size: 17px;
-      color: #444;
+      padding: 5px 0;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
     }
     .rule-item .rule-num {
       font-weight: 700;
       flex-shrink: 0;
+      min-width: 14px;
+    }
+    .rule-item .rule-text {
+      flex: 1;
+      min-width: 0;
     }
 
     /* 대화원칙 넘버링 */
@@ -312,7 +338,7 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #3B6CB5;
+      background: #E6892B;
       color: #fff;
       font-size: 14px;
       font-weight: 700;
@@ -323,68 +349,118 @@
     }
     .principle-text {
       font-size: 17px;
-      color: #444;
+      color: #333;
       line-height: 1.6;
     }
 
-    /* 마무리 */
+    /* 마무리 - 뱃지 강화 */
     .closing {
       text-align: center;
       margin-top: 24px;
       padding: 16px;
       line-height: 1.8;
     }
-    .closing-key {
-      font-size: 19px;
+    .closing-label {
+      font-size: 17px;
       color: #333;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
-    .closing-key strong {
-      color: #3B6CB5;
+    .closing-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
     }
+    .closing-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .closing-badge.b1 { background: #DEEAFA; color: #1E4D8C; }
+    .closing-badge.b2 { background: #FCE8D5; color: #8C3F12; }
+    .closing-badge.b3 { background: #EBDAF5; color: #5C2280; }
+    .closing-badge.b4 { background: #D5F0DD; color: #2A6B50; }
+
     /* 푸터 */
     .footer-note {
       text-align: center;
       padding: 20px 16px 28px;
       font-size: 16px;
       font-weight: 500;
-      color: #888;
+      color: #666;
+    }
+
+    /* 플로팅 목차 버튼 */
+    .fab-top {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #3B6CB5;
+      color: #fff;
+      border: none;
+      font-size: 22px;
+      font-weight: 700;
+      box-shadow: 0 3px 12px rgba(59,108,181,0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90;
+      text-decoration: none;
+    }
+    .fab-top.show {
+      opacity: 1;
+      pointer-events: auto;
     }
   </style>
 </head>
 <body>
 
+  <!-- 스크롤 프로그레스 바 -->
+  <div class="progress-bar" id="progressBar"></div>
+
   <div class="top-bar">
-    <a href="index.html">← 목록</a>
+    <a href="index.html">&larr; 목록</a>
     <span class="title">치매예방 및 관리지침</span>
   </div>
 
-  <div class="hero">
-    <div class="badge">필수 교육</div>
+  <!-- 히어로 축소: badge 제거, 패딩 줄임 -->
+  <div class="hero" id="heroArea">
     <h1>치매예방 및 관리지침</h1>
-    <p class="sub">실로암방문요양지원센터 · 요양보호사 교육</p>
+    <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
   </div>
 
-  <!-- 목차 - 개별 버튼형 -->
-  <nav class="toc">
+  <!-- 목차 - 챕터별 컬러 적용 -->
+  <nav class="toc" id="tocArea">
     <a class="toc-item" href="#ch1">
-      <span class="toc-left"><span class="toc-num">1</span><span class="toc-label">치매란 무엇인가</span></span>
-      <span class="toc-arrow">›</span>
+      <span class="toc-left"><span class="toc-num c1">1</span><span class="toc-label c1">치매란 무엇인가</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
     </a>
     <a class="toc-item" href="#ch2">
-      <span class="toc-left"><span class="toc-num">2</span><span class="toc-label">치매 증상</span></span>
-      <span class="toc-arrow">›</span>
+      <span class="toc-left"><span class="toc-num c2">2</span><span class="toc-label c2">치매 증상</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
     </a>
     <a class="toc-item" href="#ch3">
-      <span class="toc-left"><span class="toc-num">3</span><span class="toc-label">단계별 변화</span></span>
-      <span class="toc-arrow">›</span>
+      <span class="toc-left"><span class="toc-num c3">3</span><span class="toc-label c3">단계별 변화</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
     </a>
     <a class="toc-item" href="#ch4">
-      <span class="toc-left"><span class="toc-num">4</span><span class="toc-label">예방법 — 3권 3금 3행</span></span>
-      <span class="toc-arrow">›</span>
+      <span class="toc-left"><span class="toc-num c4">4</span><span class="toc-label c4">예방법 — 3권 3금 3행</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
     </a>
     <a class="toc-item" href="#ch5">
-      <span class="toc-left"><span class="toc-num">5</span><span class="toc-label">관리 및 대화법</span></span>
-      <span class="toc-arrow">›</span>
+      <span class="toc-left"><span class="toc-num c5">5</span><span class="toc-label c5">관리 및 대화법</span></span>
+      <span class="toc-arrow">&rsaquo;</span>
     </a>
   </nav>
 
@@ -392,7 +468,7 @@
 
     <!-- ===== 챕터 1 ===== -->
     <div class="chapter" id="ch1">
-      <span class="chapter-tag">CHAPTER 1</span>
+      <span class="chapter-tag c1">CHAPTER 1</span>
       <h2>치매란 무엇인가?</h2>
 
       <div class="card">
@@ -403,13 +479,13 @@
         <h3>주요 원인</h3>
         <p><strong>알츠하이머병</strong> (55~70%) — 기억력부터 저하</p>
         <p style="margin-top:4px;"><strong>혈관성 치매</strong> (15~20%) — 뇌혈관 문제로 발생</p>
-        <p style="margin-top:4px; color:#888; font-size:14px;">그 외 루이체·전두측두엽·알코올 치매 등</p>
+        <p style="margin-top:4px; color:#666; font-size:14px;">그 외 루이체&middot;전두측두엽&middot;알코올 치매 등</p>
       </div>
     </div>
 
     <!-- ===== 챕터 2 ===== -->
     <div class="chapter" id="ch2">
-      <span class="chapter-tag">CHAPTER 2</span>
+      <span class="chapter-tag c2">CHAPTER 2</span>
       <h2>치매 증상</h2>
 
       <div class="highlight-line">
@@ -426,7 +502,7 @@
         </div>
         <div class="symptom-item">
           <span class="term cog">지남력 장애</span>
-          <span class="desc">시간·장소·사람을 혼동</span>
+          <span class="desc">시간&middot;장소&middot;사람을 혼동</span>
           <span class="example">자기 집에서 "여기가 어디냐" 질문</span>
         </div>
         <div class="symptom-item">
@@ -459,7 +535,7 @@
           <span class="desc">현관문을 열고 나가거나 집 안을 목적 없이 걸어다님</span>
         </div>
         <div class="symptom-item">
-          <span class="term beh">폭언·폭력</span>
+          <span class="term beh">폭언&middot;폭력</span>
           <span class="desc">소리 지르기, 밀치기 — 뇌 손상으로 인한 증상</span>
         </div>
         <div class="symptom-item">
@@ -467,8 +543,8 @@
           <span class="desc">식사, 목욕, 약 복용 등 케어를 거부</span>
         </div>
         <div class="symptom-item">
-          <span class="term beh">수집·반복행동</span>
-          <span class="desc">쓸모없는 물건 모으기, 같은 말·행동 반복</span>
+          <span class="term beh">수집&middot;반복행동</span>
+          <span class="desc">쓸모없는 물건 모으기, 같은 말&middot;행동 반복</span>
         </div>
         <div class="symptom-item">
           <span class="term beh">실금</span>
@@ -493,7 +569,7 @@
           <span class="desc">실제로 없는 것을 보거나 들음</span>
         </div>
         <div class="symptom-item">
-          <span class="term psy">우울·불안</span>
+          <span class="term psy">우울&middot;불안</span>
           <span class="desc">의욕 저하, 안절부절, 보호자를 졸졸 따라다님</span>
         </div>
         <div class="symptom-item">
@@ -505,19 +581,19 @@
 
     <!-- ===== 챕터 3 ===== -->
     <div class="chapter" id="ch3">
-      <span class="chapter-tag">CHAPTER 3</span>
+      <span class="chapter-tag c3">CHAPTER 3</span>
       <h2>단계별 변화</h2>
 
       <div class="stage-card early">
         <div class="stage-name">초기</div>
         <span class="stage-help">혼자 생활 가능</span>
-        <p>최근 일을 자주 잊고, 물건 둔 곳을 기억 못 함. 요리·청소 같은 일상 수행능력이 떨어지기 시작.</p>
+        <p>최근 일을 자주 잊고, 물건 둔 곳을 기억 못 함. 요리&middot;청소 같은 일상 수행능력이 떨어지기 시작.</p>
       </div>
 
       <div class="stage-card mid">
         <div class="stage-name">중기</div>
         <span class="stage-help">도움 필요</span>
-        <p>가족 이름·전화번호를 잊고, 익숙한 동네에서 길을 잃음. 위생관리 불가, 배회행동 시작.</p>
+        <p>가족 이름&middot;전화번호를 잊고, 익숙한 동네에서 길을 잃음. 위생관리 불가, 배회행동 시작.</p>
       </div>
 
       <div class="stage-card late">
@@ -529,39 +605,39 @@
 
     <!-- ===== 챕터 4 ===== -->
     <div class="chapter" id="ch4">
-      <span class="chapter-tag">CHAPTER 4</span>
+      <span class="chapter-tag c4">CHAPTER 4</span>
       <h2>예방법 — 3권 3금 3행</h2>
 
-      <div class="rule-group">
-        <div class="rule-title" style="color:#3D8B6E;">✅ 3권 (즐길 것)</div>
-        <div class="rule-item"><span class="rule-num" style="color:#3D8B6E;">1</span> <strong>운동</strong> — 주 3회 이상, 30분씩 걷기</div>
-        <div class="rule-item"><span class="rule-num" style="color:#3D8B6E;">2</span> <strong>식사</strong> — 생선·채소·과일 골고루</div>
-        <div class="rule-item"><span class="rule-num" style="color:#3D8B6E;">3</span> <strong>독서</strong> — 읽고 쓰기로 두뇌 활동</div>
+      <div class="rule-group do">
+        <div class="rule-title" style="color:#2A6B50;">✅ 3권 (즐길 것)</div>
+        <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">1</span><span class="rule-text"><strong>운동</strong> — 주 3회 이상, 30분씩 걷기</span></div>
+        <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">2</span><span class="rule-text"><strong>식사</strong> — 생선&middot;채소&middot;과일 골고루</span></div>
+        <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">3</span><span class="rule-text"><strong>독서</strong> — 읽고 쓰기로 두뇌 활동</span></div>
       </div>
 
-      <div class="rule-group">
-        <div class="rule-title" style="color:#C0392B;">🚫 3금 (참을 것)</div>
-        <div class="rule-item"><span class="rule-num" style="color:#C0392B;">1</span> <strong>절주</strong> — 한 번에 3잔 이하</div>
-        <div class="rule-item"><span class="rule-num" style="color:#C0392B;">2</span> <strong>금연</strong> — 흡연 시 치매 위험 1.59배</div>
-        <div class="rule-item"><span class="rule-num" style="color:#C0392B;">3</span> <strong>뇌손상 예방</strong> — 머리 다치지 않도록 주의</div>
+      <div class="rule-group dont">
+        <div class="rule-title" style="color:#A32020;">🚫 3금 (참을 것)</div>
+        <div class="rule-item"><span class="rule-num" style="color:#A32020;">1</span><span class="rule-text"><strong>절주</strong> — 한 번에 3잔 이하</span></div>
+        <div class="rule-item"><span class="rule-num" style="color:#A32020;">2</span><span class="rule-text"><strong>금연</strong> — 흡연 시 치매 위험 1.59배</span></div>
+        <div class="rule-item"><span class="rule-num" style="color:#A32020;">3</span><span class="rule-text"><strong>뇌손상 예방</strong> — 머리 다치지 않도록 주의</span></div>
       </div>
 
-      <div class="rule-group">
-        <div class="rule-title" style="color:#3B6CB5;">💙 3행 (챙길 것)</div>
-        <div class="rule-item"><span class="rule-num" style="color:#3B6CB5;">1</span> <strong>건강검진</strong> — 혈압·혈당·콜레스테롤 정기 체크</div>
-        <div class="rule-item"><span class="rule-num" style="color:#3B6CB5;">2</span> <strong>소통</strong> — 가족·친구와 자주 만나기</div>
-        <div class="rule-item"><span class="rule-num" style="color:#3B6CB5;">3</span> <strong>치매 조기검진</strong> — 60세 이상 보건소 무료 검진</div>
+      <div class="rule-group check">
+        <div class="rule-title" style="color:#1E4D8C;">💙 3행 (챙길 것)</div>
+        <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">1</span><span class="rule-text"><strong>건강검진</strong> — 혈압&middot;혈당&middot;콜레스테롤 정기 체크</span></div>
+        <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">2</span><span class="rule-text"><strong>소통</strong> — 가족&middot;친구와 자주 만나기</span></div>
+        <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">3</span><span class="rule-text"><strong>치매 조기검진</strong> — 60세 이상 보건소 무료 검진</span></div>
       </div>
     </div>
 
     <!-- ===== 챕터 5 ===== -->
     <div class="chapter" id="ch5">
-      <span class="chapter-tag">CHAPTER 5</span>
+      <span class="chapter-tag c5">CHAPTER 5</span>
       <h2>관리 및 대화법</h2>
 
       <div class="card">
         <h3>안전도모</h3>
-        <p>옷·가방에 이름과 연락처 표시. 화장실 위치 등 안내 표시를 잘 보이는 곳에. 흥분 요인을 파악하고 미리 주의.</p>
+        <p>옷&middot;가방에 이름과 연락처 표시. 화장실 위치 등 안내 표시를 잘 보이는 곳에. 흥분 요인을 파악하고 미리 주의.</p>
       </div>
 
       <div class="card">
@@ -597,14 +673,44 @@
 
     </div>
 
-    <!-- 마무리 -->
+    <!-- 마무리 - 뱃지 강화 -->
     <div class="closing">
-      <p class="closing-key">치매의 주요 증상인<br><strong>배회, 폭언, 섬망, 길잃음, 기억력저하</strong><br>등을 꼭 기억해 주세요.</p>
+      <p class="closing-label">치매의 주요 증상을 꼭 기억해 주세요</p>
+      <div class="closing-badges">
+        <span class="closing-badge b2">배회</span>
+        <span class="closing-badge b2">폭언</span>
+        <span class="closing-badge b3">섬망</span>
+        <span class="closing-badge b1">길잃음</span>
+        <span class="closing-badge b1">기억력저하</span>
+        <span class="closing-badge b3">망상</span>
+        <span class="closing-badge b3">수면장애</span>
+      </div>
     </div>
 
   </div>
 
-  <div class="footer-note">© 2026 실로암방문요양지원센터</div>
+  <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+
+  <!-- 플로팅 목차 버튼 -->
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    // 스크롤 프로그레스 바 + 플로팅 버튼 표시
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      }
+      if (scrollTop > 400) {
+        fabTop.classList.add('show');
+      } else {
+        fabTop.classList.remove('show');
+      }
+    });
+  </script>
 
 </body>
 </html>
