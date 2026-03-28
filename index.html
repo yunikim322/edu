@@ -9,20 +9,37 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      background: #111; color: #fff;
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; padding: 60px 20px;
+      background: #f5f5f5;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
     }
     .top-accent { position: fixed; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #3B6CB5, #7C6BC4, #5BA88C); z-index: 10; }
-    h1 { font-size: 36px; font-weight: 700; margin-bottom: 10px; }
-    .subtitle { font-size: 18px; color: rgba(255,255,255,0.5); margin-bottom: 50px; }
-    .card-list { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 700px; }
-    .card { background: #1a1a2e; border-radius: 16px; padding: 30px 36px; text-decoration: none; color: #fff; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid rgba(255,255,255,0.08); }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(91,168,140,0.2); border-color: rgba(91,168,140,0.4); }
-    .card .label { font-size: 13px; font-weight: 500; color: #5BA88C; letter-spacing: 1px; margin-bottom: 8px; }
-    .card .title { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
-    .card .desc { font-size: 14px; color: rgba(255,255,255,0.5); }
-    .footer { margin-top: 60px; font-size: 13px; color: rgba(255,255,255,0.3); }
+    h1 { font-size: 32px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+    .subtitle { font-size: 16px; color: #888; margin-bottom: 40px; }
+    .card-list { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 700px; }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 32px;
+      text-decoration: none;
+      color: #222;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(59,108,181,0.15);
+      border-color: #3B6CB5;
+    }
+    .card .label { font-size: 13px; font-weight: 600; color: #3B6CB5; letter-spacing: 1px; margin-bottom: 6px; }
+    .card .title { font-size: 20px; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+    .card .desc { font-size: 14px; color: #888; }
+    .footer { margin-top: 50px; font-size: 13px; color: #bbb; }
   </style>
 </head>
 <body>
@@ -36,6 +53,6 @@
       <div class="desc">치매의 정의, 증상, 단계별 변화, 예방수칙 및 돌봄 관리 지침</div>
     </a>
   </div>
-  <p class="footer">© 2026 직원 교육 포털</p>
+  <p class="footer">&copy; 2026 직원 교육 포털</p>
 </body>
 </html>
