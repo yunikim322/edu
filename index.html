@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>직원 교육 자료</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #111; color: #fff;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; padding: 60px 20px;
+    }
+    .top-accent { position: fixed; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #3B6CB5, #7C6BC4, #5BA88C); z-index: 10; }
+    h1 { font-size: 36px; font-weight: 700; margin-bottom: 10px; }
+    .subtitle { font-size: 18px; color: rgba(255,255,255,0.5); margin-bottom: 50px; }
+    .card-list { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 700px; }
+    .card { background: #1a1a2e; border-radius: 16px; padding: 30px 36px; text-decoration: none; color: #fff; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid rgba(255,255,255,0.08); }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(91,168,140,0.2); border-color: rgba(91,168,140,0.4); }
+    .card .label { font-size: 13px; font-weight: 500; color: #5BA88C; letter-spacing: 1px; margin-bottom: 8px; }
+    .card .title { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+    .card .desc { font-size: 14px; color: rgba(255,255,255,0.5); }
+    .footer { margin-top: 60px; font-size: 13px; color: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+  <div class="top-accent"></div>
+  <h1>직원 교육 자료</h1>
+  <p class="subtitle">아래 교육 과정을 선택하세요</p>
+  <div class="card-list">
+    <a class="card" href="dementia.html">
+      <div class="label">필수 교육</div>
+      <div class="title">치매예방 및 관리지침</div>
+      <div class="desc">치매의 정의, 증상, 단계별 변화, 예방수칙 및 돌봄 관리 지침</div>
+    </a>
+  </div>
+  <p class="footer">© 2026 직원 교육 포털</p>
+</body>
+</html>
