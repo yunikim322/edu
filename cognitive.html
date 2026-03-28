@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>인지프로그램 대화법 - 직원 교육</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #FBF8F4;
+      color: #2D2D2D;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed; top: 0; left: 0;
+      width: 0%; height: 3px;
+      background: linear-gradient(90deg, #E8853D, #D4A053, #8CB369);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,248,244,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #E8E0D6;
+    }
+    .top-bar a { color: #C47830; text-decoration: none; font-size: 16px; font-weight: 600; }
+    .top-bar .title { font-size: 15px; font-weight: 500; color: #888; }
+
+    [id] { scroll-margin-top: 52px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, #E8853D 0%, #D4A053 50%, #8CB369 100%);
+      color: #fff;
+      padding: 24px 20px 20px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    .hero .sub { font-size: 14px; opacity: 0.92; }
+
+    /* 목차 */
+    .toc {
+      margin: 10px 14px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none; color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      border: 1px solid #EDE6DD;
+      transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #E8853D; background: #FFF8F0; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon {
+      width: 32px; height: 32px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .toc-icon.c1 { background: #FFF0E0; }
+    .toc-icon.c2 { background: #E8F4E0; }
+    .toc-icon.c3 { background: #FDE8F0; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #C47830; }
+    .toc-label.c2 { color: #4D8C3B; }
+    .toc-label.c3 { color: #C44D6D; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 */
+    .chapter { margin-top: 28px; }
+    .chapter-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .chapter-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .chapter-icon.c1 { background: #FFF0E0; }
+    .chapter-icon.c2 { background: #E8F4E0; }
+    .chapter-icon.c3 { background: #FDE8F0; }
+    .chapter-meta { flex: 1; }
+    .chapter-tag {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .chapter-tag.c1 { color: #C47830; }
+    .chapter-tag.c2 { color: #4D8C3B; }
+    .chapter-tag.c3 { color: #C44D6D; }
+    .chapter h2 {
+      font-size: 22px; font-weight: 800; color: #2D2D2D;
+      margin: 0;
+    }
+
+    /* 설명 카드 */
+    .info-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .info-card p { font-size: 17px; color: #444; line-height: 1.7; }
+    .info-card strong { color: #2D2D2D; }
+
+    /* 효과 태그 */
+    .effect-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 12px;
+    }
+    .effect-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 15px; font-weight: 600;
+    }
+    .effect-tag.mem { background: #FFF0E0; color: #C47830; }
+    .effect-tag.emo { background: #FDE8F0; color: #C44D6D; }
+    .effect-tag.com { background: #E8F4E0; color: #4D8C3B; }
+
+    /* 실천 포인트 */
+    .practice-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .practice-title {
+      font-size: 15px; font-weight: 700; color: #999;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .practice-item {
+      display: flex; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #F5F0EB;
+    }
+    .practice-item:last-child { border-bottom: none; }
+    .practice-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #E8853D; color: #fff;
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .practice-text { font-size: 17px; color: #333; line-height: 1.6; }
+
+    /* 대화 예시 섹션 */
+    .dialogue-section {
+      margin-top: 16px; margin-bottom: 10px;
+    }
+    .dialogue-label {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 14px; font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .dialogue-label.good { background: #E8F4E0; color: #3D7A2B; }
+    .dialogue-label.bad { background: #FDEBEB; color: #C0392B; }
+
+    /* 말풍선 */
+    .bubble-wrap {
+      display: flex; flex-direction: column; gap: 6px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .bubble-wrap.good { border: 1.5px solid #C8E6B8; }
+    .bubble-wrap.bad { border: 1.5px solid #F5CACA; }
+    .bubble {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 16px;
+      line-height: 1.6;
+      position: relative;
+    }
+    .bubble.carer {
+      align-self: flex-end;
+      background: #E8F4E0;
+      color: #2A5A1E;
+      border-bottom-right-radius: 4px;
+    }
+    .bubble.elder {
+      align-self: flex-start;
+      background: #F5F0EB;
+      color: #555;
+      border-bottom-left-radius: 4px;
+    }
+    .bubble-who {
+      font-size: 12px; font-weight: 700; color: #999;
+      margin-bottom: 2px;
+    }
+    .bubble.carer .bubble-who { text-align: right; color: #6AAF50; }
+    .bubble.elder .bubble-who { color: #B89870; }
+
+    /* 대화 해설 */
+    .dialogue-note {
+      background: #FFFDF5;
+      border-left: 3px solid #E8C840;
+      border-radius: 0 10px 10px 0;
+      padding: 10px 14px;
+      margin-top: 8px;
+      font-size: 15px;
+      color: #6B5B00;
+      line-height: 1.6;
+    }
+
+    /* 핵심 정리 */
+    .summary-card {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFF5E8 100%);
+      border: 1.5px solid #E8D4B8;
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .summary-title {
+      font-size: 15px; font-weight: 700; color: #C47830;
+      margin-bottom: 10px;
+    }
+    .summary-item {
+      display: flex; gap: 8px;
+      padding: 4px 0;
+      font-size: 16px; color: #555;
+      line-height: 1.6;
+    }
+    .summary-check { color: #E8853D; font-weight: 700; flex-shrink: 0; }
+
+    /* 푸터 */
+    .footer-note {
+      text-align: center;
+      padding: 20px 16px 28px;
+      font-size: 16px; font-weight: 500; color: #BBB;
+    }
+
+    /* 플로팅 버튼 */
+    .fab-top {
+      position: fixed; bottom: 24px; right: 20px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #E8853D; color: #fff; border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(232,133,61,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90; text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="top-bar">
+    <a href="index.html">&larr; 목록</a>
+    <span class="title">인지프로그램 대화법</span>
+  </div>
+
+  <div class="hero" id="heroArea">
+    <h1>어르신과 함께하는 인지 대화법</h1>
+    <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+  </div>
+
+  <!-- 목차 -->
+  <nav class="toc" id="tocArea">
+    <a class="toc-item" href="#ch1">
+      <span class="toc-left">
+        <span class="toc-icon c1">&#x1F4AC;</span>
+        <span class="toc-label c1">회상활동 대화법</span>
+      </span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch2" style="opacity:0.4; pointer-events:none;">
+      <span class="toc-left">
+        <span class="toc-icon c2">&#x1F4C5;</span>
+        <span class="toc-label c2">지남력 훈련</span>
+      </span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+    <a class="toc-item" href="#ch3" style="opacity:0.4; pointer-events:none;">
+      <span class="toc-left">
+        <span class="toc-icon c3">&#x1F590;</span>
+        <span class="toc-label c3">오감자극 대화법</span>
+      </span>
+      <span class="toc-arrow">&rsaquo;</span>
+    </a>
+  </nav>
+
+  <div class="content">
+
+    <!-- ===== 챕터 1: 회상활동 ===== -->
+    <div class="chapter" id="ch1">
+      <div class="chapter-header">
+        <span class="chapter-icon c1">&#x1F4AC;</span>
+        <div class="chapter-meta">
+          <div class="chapter-tag c1">CHAPTER 1</div>
+          <h2>회상활동 대화법</h2>
+        </div>
+      </div>
+
+      <!-- 설명 -->
+      <div class="info-card">
+        <p>어르신의 <strong>과거 경험</strong>을 대화로 나누는 활동입니다. 옛 기억을 떠올리는 과정이 <strong>뇌를 자극</strong>해서 인지 기능 유지에 큰 도움이 됩니다.</p>
+      </div>
+
+      <!-- 효과 -->
+      <div class="effect-tags">
+        <span class="effect-tag mem">&#x1F9E0; 기억력 자극</span>
+        <span class="effect-tag emo">&#x1F49B; 정서 안정</span>
+        <span class="effect-tag com">&#x1F91D; 소통 증진</span>
+      </div>
+
+      <!-- 실천 포인트 -->
+      <div class="practice-card">
+        <div class="practice-title">실천 포인트</div>
+        <div class="practice-item">
+          <span class="practice-num">1</span>
+          <span class="practice-text"><strong>구체적으로 질문</strong> — "옛날에 뭐 하셨어요?"보다 "고향에서 어릴 때 뭘 하고 노셨어요?"</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num">2</span>
+          <span class="practice-text"><strong>사진·물건 활용</strong> — 익숙한 물건을 보여드리면 기억이 더 잘 떠오릅니다</span>
+        </div>
+        <div class="practice-item">
+          <span class="practice-num">3</span>
+          <span class="practice-text"><strong>경청하고 공감</strong> — 끝까지 들어드리고, 관심을 보이며 이어서 질문하기</span>
+        </div>
+      </div>
+
+      <!-- 올바른 대화 예시 -->
+      <div class="dialogue-section">
+        <div class="dialogue-label good">&#x2705; 이렇게 대화하세요</div>
+        <div class="bubble-wrap good">
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            어르신, 점심에 된장찌개 드셨잖아요. 혹시 옛날에 직접 된장 담가 보신 적 있으세요?
+          </div>
+          <div class="bubble elder">
+            <div class="bubble-who">어르신</div>
+            그럼~ 시골에서는 다 집에서 담갔지. 메주 띄우고...
+          </div>
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            아, 메주를 직접 띄우셨어요? 만드는 게 힘들지 않으셨어요?
+          </div>
+          <div class="bubble elder">
+            <div class="bubble-who">어르신</div>
+            콩을 삶아가지고 절구로 찧었어. 온 가족이 같이 했지.
+          </div>
+          <div class="bubble carer">
+            <div class="bubble-who">요양보호사</div>
+            온 가족이 함께 하셨구나. 그때 누가 제일 잘하셨어요?
+          </div>
+        </div>
+        <div class="dialogue-note">
+          일상(점심 식사)에서 자연스럽게 옛 기억으로 이어지는 질문 → 어르신 대답에 관심을 보이며 구체적으로 이어 질문 → 대화가 풍성해지고 기억력도 자극됩니다
+        </div>
+      </div>
+
+      <!-- 핵심 정리 -->
+      <div class="summary-card">
+        <div class="summary-title">&#x1F4CC; 핵심 정리</div>
+        <div class="summary-item"><span class="summary-check">&#x2714;</span> 구체적인 주제로 질문한다</div>
+        <div class="summary-item"><span class="summary-check">&#x2714;</span> 사진이나 물건을 활용한다</div>
+        <div class="summary-item"><span class="summary-check">&#x2714;</span> 이야기에 공감하고 이어서 질문한다</div>
+      </div>
+    </div>
+
+    <!-- (챕터 2, 3은 피드백 후 추가 예정) -->
+
+  </div>
+
+  <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
