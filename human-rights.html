@@ -490,6 +490,240 @@
       text-decoration: none;
     }
     .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .check-grid-pc { }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #e8eaf0; }
+
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #f5f6fa;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      .top-bar { padding: 12px 40px; }
+      .top-bar a { font-size: 16px; }
+      .top-bar .title { font-size: 16px; }
+
+      .hero { padding: 56px 48px 44px; }
+      .hero h1 { font-size: 36px; letter-spacing: -0.5px; }
+      .hero .sub { font-size: 18px; margin-top: 8px; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 16px 40px;
+        background: #fff;
+        border-bottom: 1px solid #e8ecf4;
+      }
+      .toc-item {
+        flex: 1 1 calc(33.333% - 8px);
+        min-width: 140px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid #e8ecf4;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #6B3FA0;
+        background: #f5f0fc;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(107,63,160,0.1);
+      }
+      .toc-arrow { display: none; }
+      .toc-left { justify-content: center; }
+
+      .content { padding: 10px 40px 60px; }
+
+      .chapter { margin-top: 52px; }
+      .chapter-header {
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #e8ecf4;
+      }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-meta .tag { font-size: 13px; letter-spacing: 1.5px; }
+      .chapter-meta h2 { font-size: 28px; }
+
+      .card {
+        padding: 28px 32px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        border: 1px solid #eee;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      }
+      .card h3 { font-size: 22px; margin-bottom: 8px; }
+      .card p { font-size: 18px; }
+
+      .highlight-line {
+        font-size: 20px;
+        padding: 16px 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      .definition-card {
+        padding: 24px 28px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .definition-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      }
+      .definition-card p { font-size: 18px; }
+
+      /* 학대 유형 — 2열 그리드 */
+      .abuse-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .abuse-row {
+        padding: 18px 20px;
+        border-radius: 14px;
+        border-left-width: 5px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .abuse-row:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      }
+      .abuse-row .ar-name { font-size: 20px; }
+      .abuse-row .ar-def { font-size: 18px; }
+
+      /* 통계 카드 */
+      .stat-row { gap: 16px; margin-bottom: 16px; }
+      .stat-card {
+        padding: 24px 20px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      }
+      .stat-num { font-size: 30px; }
+
+      .stat-bar-group {
+        padding: 24px 28px;
+        border-radius: 16px;
+      }
+
+      /* 처벌 리스트 — 2열 */
+      .penalty-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .penalty-item {
+        padding: 18px 20px;
+        border-radius: 14px;
+        border: 1px solid #f0f0f0;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .penalty-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      }
+      .penalty-warning {
+        padding: 20px 28px;
+        border-radius: 14px;
+        font-size: 20px;
+      }
+
+      .call-banner {
+        padding: 28px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+      }
+      .call-banner .call-num { font-size: 32px; }
+
+      /* 예방 지침 — 2열 */
+      .guide-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .guide-item {
+        padding: 18px 20px;
+        border-radius: 14px;
+        border: 1px solid #f0f0f0;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .guide-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      }
+      .guide-text { font-size: 18px; }
+
+      /* 체크 그룹 — 2열 가로 */
+      .check-grid-pc { display: flex; gap: 16px; }
+      .check-group {
+        flex: 1;
+        padding: 24px 28px;
+        border-radius: 16px;
+        border-left-width: 5px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .check-group:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      }
+
+      .closing {
+        margin-top: 48px;
+        padding: 36px;
+        background: #fff;
+        border-radius: 16px;
+      }
+      .closing-label { font-size: 21px; }
+      .closing-badges { gap: 12px; margin-top: 14px; }
+      .closing-badge {
+        font-size: 18px;
+        padding: 10px 22px;
+        border-radius: 24px;
+        transition: transform 0.15s;
+      }
+      .closing-badge:hover { transform: scale(1.06); }
+
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+
+      .fab-top {
+        width: 50px; height: 50px;
+        font-size: 24px;
+        bottom: 32px; right: 32px;
+        border-radius: 14px;
+      }
+
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .abuse-list { grid-template-columns: repeat(3, 1fr); }
+      .content { padding: 10px 56px 60px; }
+      .toc { padding: 18px 56px; }
+      .top-bar { padding: 12px 56px; }
+      .hero { padding: 60px 56px 48px; }
+      .hero h1 { font-size: 42px; }
+      .footer-note { padding: 28px 56px 40px; }
+    }
   </style>
 </head>
 <body>
@@ -497,7 +731,8 @@
   <!-- 스크롤 프로그레스 바 -->
   <div class="progress-bar" id="progressBar"></div>
 
-  <div class="top-bar">
+  <div class="pc-wrapper">
+    <div class="top-bar">
     <a href="index.html">&larr; 목록</a>
     <span class="title">노인인권보호지침</span>
   </div>
@@ -732,9 +967,9 @@
           <div class="penalty-act">금품 목적 외 사용</div>
           <div class="penalty-result">→ 3년↓ 징역 / 1천만원↓</div>
         </div>
-        <div class="penalty-item" style="background:#FEF9E7; border: 1px solid #F9E79F; margin-bottom: 14px;">
-          <div class="penalty-act" style="color:#922B21;"><strong>신고의무 불이행 과태료 300만원</strong></div>
-        </div>
+      </div>
+      <div class="penalty-item penalty-warning" style="background:#FEF9E7; border: 1px solid #F9E79F; margin-top: 12px; margin-bottom: 14px; border-radius: 12px; padding: 14px 16px; text-align: center;">
+        <div class="penalty-act" style="color:#922B21;"><strong>신고의무 불이행 과태료 300만원</strong></div>
       </div>
 
       <div class="call-banner">
@@ -777,7 +1012,7 @@
         </div>
       </div>
 
-      <div style="margin-top:20px;">
+      <div class="check-grid-pc" style="margin-top:20px;">
         <div class="check-group danger">
           <div class="cg-title">🔍 방문 시 확인 항목</div>
           <div class="check-item" onclick="this.classList.toggle('checked')">
@@ -813,7 +1048,7 @@
             <span class="check-text">의심되면 혼자 판단 말고 <strong>센터에 먼저 알리기</strong></span>
           </div>
         </div>
-      </div>
+      </div><!-- /check-grid-pc -->
     </div>
 
     <!-- 마무리 -->
@@ -831,6 +1066,7 @@
   </div>
 
   <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
 
   <!-- 플로팅 목차 버튼 -->
   <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>

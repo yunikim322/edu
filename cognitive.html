@@ -299,13 +299,173 @@
       z-index: 90; text-decoration: none;
     }
     .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    /* PC 래퍼 — 모바일에서는 투명 */
+    .pc-wrapper { }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #e8e5e0; }
+
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #FBF8F4;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      .top-bar { padding: 12px 40px; }
+      .top-bar a { font-size: 16px; }
+      .top-bar .title { font-size: 16px; }
+
+      .hero { padding: 56px 48px 44px; }
+      .hero h1 { font-size: 36px; }
+      .hero .sub { font-size: 18px; margin-top: 8px; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 16px 40px;
+        background: #fff;
+        border-bottom: 1px solid #EDE6DD;
+      }
+      .toc-item {
+        flex: 1 1 0;
+        min-width: 140px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid #EDE6DD;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #E8853D;
+        background: #FFF8F0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(232,133,61,0.1);
+      }
+      .toc-arrow { display: none; }
+      .toc-left { justify-content: center; }
+
+      .content { padding: 10px 40px 60px; }
+
+      .chapter { margin-top: 52px; }
+      .chapter-header {
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #EDE6DD;
+      }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-tag { font-size: 13px; letter-spacing: 1.5px; }
+      .chapter h2 { font-size: 28px; }
+
+      .info-card {
+        padding: 28px 32px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        border: 1px solid #f0ebe4;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .info-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      }
+      .info-card p { font-size: 18px; }
+
+      .effect-tags { margin-bottom: 16px; }
+      .effect-tag { font-size: 18px; padding: 9px 18px; }
+
+      .practice-card {
+        padding: 24px 28px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        border: 1px solid #f0ebe4;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .practice-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      }
+      .practice-title { font-size: 18px; }
+      .practice-text { font-size: 18px; }
+
+      /* 대화 예시 — 2열 배치 (좋은예 + 해설) */
+      .dialogue-section { margin-top: 24px; margin-bottom: 16px; }
+      .dialogue-label { font-size: 18px; }
+
+      .bubble-wrap {
+        padding: 20px;
+        border-radius: 16px;
+      }
+      .bubble { font-size: 17px; padding: 13px 18px; }
+
+      .dialogue-note {
+        padding: 14px 20px;
+        font-size: 18px;
+        border-radius: 0 12px 12px 0;
+      }
+
+      .summary-card {
+        padding: 24px 28px;
+        border-radius: 16px;
+        margin-top: 20px;
+      }
+      .summary-title { font-size: 18px; }
+      .summary-item { font-size: 18px; }
+
+      /* 마무리 체크리스트 */
+      .check-toggle .practice-text { font-size: 18px; }
+
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+
+      .fab-top {
+        width: 50px; height: 50px;
+        font-size: 24px;
+        bottom: 32px; right: 32px;
+        border-radius: 14px;
+      }
+
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { padding: 18px 56px; }
+      .top-bar { padding: 12px 56px; }
+      .hero { padding: 60px 56px 48px; }
+      .hero h1 { font-size: 42px; }
+      .footer-note { padding: 28px 56px 40px; }
+
+      /* 챕터들 2열 배치 — 대화 예시는 나란히 */
+      .chapter {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .chapter-header { grid-column: 1 / -1; }
+
+      /* 실천 포인트 + 대화 예시를 나란히 배치 */
+      .chapter-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="progress-bar" id="progressBar"></div>
 
-  <div class="top-bar">
+  <div class="pc-wrapper">
+    <div class="top-bar">
     <a href="index.html">&larr; 목록</a>
     <span class="title">인지프로그램 대화법</span>
   </div>
@@ -631,6 +791,7 @@
   </div>
 
   <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
 
   <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
 

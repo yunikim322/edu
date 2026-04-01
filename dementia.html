@@ -412,6 +412,11 @@
       color: #555;
     }
 
+    /* PC 래퍼 — 모바일에서는 투명 */
+    .pc-wrapper { }
+    .stage-grid-pc { }
+    .rule-grid-pc { }
+
     /* 플로팅 목차 버튼 */
     .fab-top {
       position: fixed;
@@ -440,6 +445,261 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body {
+        background: #e9ecf2;
+      }
+
+      /* 페이지 래퍼 — 카드형 콘텐츠 영역 */
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #f5f6fa;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      /* 상단바 */
+      .top-bar {
+        padding: 12px 40px;
+      }
+      .top-bar a { font-size: 16px; }
+      .top-bar .title { font-size: 16px; }
+
+      /* 히어로 — 넓고 시원하게 */
+      .hero {
+        padding: 56px 48px 44px;
+      }
+      .hero h1 {
+        font-size: 38px;
+        letter-spacing: -0.5px;
+      }
+      .hero .sub {
+        font-size: 18px;
+        margin-top: 8px;
+      }
+
+      /* 목차 — 가로 한 줄 탭 스타일 */
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 16px 40px;
+        background: #fff;
+        border-bottom: 1px solid #e8ecf4;
+      }
+      .toc-item {
+        flex: 1 1 0;
+        min-width: 120px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid #e8ecf4;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #3B6CB5;
+        background: #f0f4fc;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(59,108,181,0.1);
+      }
+      .toc-arrow { display: none; }
+      .toc-left { justify-content: center; }
+
+      /* 콘텐츠 — 넉넉한 좌우 여백 */
+      .content {
+        padding: 10px 40px 60px;
+      }
+
+      /* 챕터 */
+      .chapter { margin-top: 52px; }
+      .chapter-header {
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #e8ecf4;
+      }
+      .chapter-icon {
+        width: 56px; height: 56px;
+        border-radius: 14px;
+        font-size: 26px;
+      }
+      .chapter-meta .tag {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+      }
+      .chapter-meta h2 {
+        font-size: 28px;
+      }
+
+      /* 카드 */
+      .card {
+        padding: 28px 32px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        border: 1px solid #eee;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      }
+      .card h3 { font-size: 22px; margin-bottom: 8px; }
+      .card p { font-size: 18px; }
+
+      /* 강조 라인 */
+      .highlight-line {
+        font-size: 20px;
+        padding: 16px 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      /* 증상 카테고리 헤더 */
+      .cat-header {
+        font-size: 20px;
+        padding: 14px 20px;
+        border-radius: 12px;
+        margin: 32px 0 16px;
+      }
+
+      /* 증상 리스트 — 2열 */
+      .symptom-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .symptom-item {
+        padding: 20px 24px;
+        border-radius: 14px;
+        border: 1px solid #f0f0f0;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .symptom-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      }
+      .symptom-item .term { font-size: 20px; }
+      .symptom-item .desc { font-size: 18px; }
+
+      /* 단계 카드 — 3열 flex */
+      .stage-grid-pc {
+        display: flex;
+        gap: 16px;
+      }
+      .stage-card {
+        flex: 1;
+        margin-bottom: 0;
+        padding: 28px;
+        border-radius: 16px;
+        border-left-width: 5px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .stage-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .stage-card .stage-name { font-size: 22px; }
+      .stage-card p { font-size: 18px; }
+
+      /* 3권3금3행 — 3열 flex */
+      .rule-grid-pc {
+        display: flex;
+        gap: 16px;
+      }
+      .rule-group {
+        flex: 1;
+        padding: 28px;
+        border-radius: 16px;
+        border-left-width: 5px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .rule-group:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .rule-group .rule-title { font-size: 21px; }
+      .rule-item { font-size: 18px; }
+
+      /* 대화원칙 — 2~3열 그리드 */
+      .principle-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .principle-item {
+        padding: 22px 24px;
+        border-radius: 14px;
+        border: 1px solid #f0f0f0;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .principle-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      }
+      .principle-text { font-size: 18px; }
+
+      /* 마무리 */
+      .closing {
+        margin-top: 48px;
+        padding: 36px;
+        background: #fff;
+        border-radius: 16px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .closing-label { font-size: 21px; }
+      .closing-badges { gap: 12px; margin-top: 14px; }
+      .closing-badge {
+        font-size: 18px;
+        padding: 10px 22px;
+        border-radius: 24px;
+        transition: transform 0.15s;
+      }
+      .closing-badge:hover { transform: scale(1.06); }
+
+      /* 푸터 */
+      .footer-note {
+        padding: 28px 40px 36px;
+        font-size: 15px;
+      }
+
+      /* 플로팅 버튼 */
+      .fab-top {
+        width: 50px; height: 50px;
+        font-size: 24px;
+        bottom: 32px;
+        right: 32px;
+        border-radius: 14px;
+      }
+
+      /* 프로그레스 바 */
+      .progress-bar { height: 4px; }
+    }
+
+    /* ===== 넓은 PC (1200px 이상) ===== */
+    @media (min-width: 1200px) {
+      .pc-wrapper {
+        max-width: 1200px;
+        border-radius: 0;
+      }
+
+      /* 증상 3열 */
+      .symptom-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .content { padding: 10px 56px 60px; }
+      .toc { padding: 18px 56px; }
+      .top-bar { padding: 12px 56px; }
+      .hero { padding: 60px 56px 48px; }
+      .hero h1 { font-size: 42px; }
+      .footer-note { padding: 28px 56px 40px; }
+    }
   </style>
 </head>
 <body>
@@ -447,6 +707,7 @@
   <!-- 스크롤 프로그레스 바 -->
   <div class="progress-bar" id="progressBar"></div>
 
+  <div class="pc-wrapper">
   <div class="top-bar">
     <a href="index.html">&larr; 목록</a>
     <span class="title">치매예방 및 관리지침</span>
@@ -617,28 +878,30 @@
         </div>
       </div>
 
-      <div class="stage-card early">
-        <div class="stage-top">
-          <div class="stage-name">초기</div>
-          <span class="stage-help">혼자 생활 가능</span>
+      <div class="stage-grid-pc">
+        <div class="stage-card early">
+          <div class="stage-top">
+            <div class="stage-name">초기</div>
+            <span class="stage-help">혼자 생활 가능</span>
+          </div>
+          <p>최근 일을 자주 잊고, 물건 둔 곳을 기억 못 함. 요리&middot;청소 같은 일상 수행능력이 떨어지기 시작.</p>
         </div>
-        <p>최근 일을 자주 잊고, 물건 둔 곳을 기억 못 함. 요리&middot;청소 같은 일상 수행능력이 떨어지기 시작.</p>
-      </div>
 
-      <div class="stage-card mid">
-        <div class="stage-top">
-          <div class="stage-name">중기</div>
-          <span class="stage-help">도움 필요</span>
+        <div class="stage-card mid">
+          <div class="stage-top">
+            <div class="stage-name">중기</div>
+            <span class="stage-help">도움 필요</span>
+          </div>
+          <p>가족 이름&middot;전화번호를 잊고, 익숙한 동네에서 길을 잃음. 위생관리 불가, 배회행동 시작.</p>
         </div>
-        <p>가족 이름&middot;전화번호를 잊고, 익숙한 동네에서 길을 잃음. 위생관리 불가, 배회행동 시작.</p>
-      </div>
 
-      <div class="stage-card late">
-        <div class="stage-top">
-          <div class="stage-name">말기</div>
-          <span class="stage-help">전적 도움 필요</span>
+        <div class="stage-card late">
+          <div class="stage-top">
+            <div class="stage-name">말기</div>
+            <span class="stage-help">전적 도움 필요</span>
+          </div>
+          <p>의사소통 거의 불가. 대소변 실금, 와상 상태. 가족도 알아보지 못함.</p>
         </div>
-        <p>의사소통 거의 불가. 대소변 실금, 와상 상태. 가족도 알아보지 못함.</p>
       </div>
     </div>
 
@@ -652,25 +915,27 @@
         </div>
       </div>
 
-      <div class="rule-group do">
-        <div class="rule-title" style="color:#2A6B50;">✅ 3권 (즐길 것)</div>
-        <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">1</span><span class="rule-text"><strong>운동</strong> — 주 3회 이상, 30분씩 걷기</span></div>
-        <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">2</span><span class="rule-text"><strong>식사</strong> — 생선&middot;채소&middot;과일 골고루</span></div>
-        <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">3</span><span class="rule-text"><strong>독서</strong> — 읽고 쓰기로 두뇌 활동</span></div>
-      </div>
+      <div class="rule-grid-pc">
+        <div class="rule-group do">
+          <div class="rule-title" style="color:#2A6B50;">✅ 3권 (즐길 것)</div>
+          <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">1</span><span class="rule-text"><strong>운동</strong> — 주 3회 이상, 30분씩 걷기</span></div>
+          <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">2</span><span class="rule-text"><strong>식사</strong> — 생선&middot;채소&middot;과일 골고루</span></div>
+          <div class="rule-item"><span class="rule-num" style="color:#2A6B50;">3</span><span class="rule-text"><strong>독서</strong> — 읽고 쓰기로 두뇌 활동</span></div>
+        </div>
 
-      <div class="rule-group dont">
-        <div class="rule-title" style="color:#A32020;">🚫 3금 (참을 것)</div>
-        <div class="rule-item"><span class="rule-num" style="color:#A32020;">1</span><span class="rule-text"><strong>절주</strong> — 한 번에 3잔 이하</span></div>
-        <div class="rule-item"><span class="rule-num" style="color:#A32020;">2</span><span class="rule-text"><strong>금연</strong> — 흡연 시 치매 위험 1.59배</span></div>
-        <div class="rule-item"><span class="rule-num" style="color:#A32020;">3</span><span class="rule-text"><strong>뇌손상 예방</strong> — 머리 다치지 않도록 주의</span></div>
-      </div>
+        <div class="rule-group dont">
+          <div class="rule-title" style="color:#A32020;">🚫 3금 (참을 것)</div>
+          <div class="rule-item"><span class="rule-num" style="color:#A32020;">1</span><span class="rule-text"><strong>절주</strong> — 한 번에 3잔 이하</span></div>
+          <div class="rule-item"><span class="rule-num" style="color:#A32020;">2</span><span class="rule-text"><strong>금연</strong> — 흡연 시 치매 위험 1.59배</span></div>
+          <div class="rule-item"><span class="rule-num" style="color:#A32020;">3</span><span class="rule-text"><strong>뇌손상 예방</strong> — 머리 다치지 않도록 주의</span></div>
+        </div>
 
-      <div class="rule-group check">
-        <div class="rule-title" style="color:#1E4D8C;">💙 3행 (챙길 것)</div>
-        <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">1</span><span class="rule-text"><strong>건강검진</strong> — 혈압&middot;혈당&middot;콜레스테롤 정기 체크</span></div>
-        <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">2</span><span class="rule-text"><strong>소통</strong> — 가족&middot;친구와 자주 만나기</span></div>
-        <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">3</span><span class="rule-text"><strong>치매 조기검진</strong> — 60세 이상 보건소 무료 검진</span></div>
+        <div class="rule-group check">
+          <div class="rule-title" style="color:#1E4D8C;">💙 3행 (챙길 것)</div>
+          <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">1</span><span class="rule-text"><strong>건강검진</strong> — 혈압&middot;혈당&middot;콜레스테롤 정기 체크</span></div>
+          <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">2</span><span class="rule-text"><strong>소통</strong> — 가족&middot;친구와 자주 만나기</span></div>
+          <div class="rule-item"><span class="rule-num" style="color:#1E4D8C;">3</span><span class="rule-text"><strong>치매 조기검진</strong> — 60세 이상 보건소 무료 검진</span></div>
+        </div>
       </div>
     </div>
 
@@ -739,6 +1004,7 @@
   </div>
 
   <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
 
   <!-- 플로팅 목차 버튼 -->
   <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
