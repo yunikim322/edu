@@ -343,9 +343,11 @@
       font-size: 18px;
       font-weight: 600;
       color: #0F766E;
-      word-break: keep-all;
+      overflow-wrap: anywhere;
+      word-break: break-word;
       line-height: 1.4;
       flex: 1;
+      min-width: 0;
     }
     .contact-row.static .contact-value {
       color: #222;
@@ -567,8 +569,16 @@
     .fab-top.show { opacity: 1; pointer-events: auto; }
 
     .pc-wrapper { }
-    .channel-grid-pc { }
-    .stage-grid-pc { }
+    .channel-grid-pc {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stage-grid-pc {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
     /* ===== PC 반응형 (768px 이상) ===== */
     @media (min-width: 768px) {
