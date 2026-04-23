@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>고충처리지침 - 직원 교육</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f4f7f8;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #0F766E, #14B8A6, #F97316);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .top-bar a {
+      color: #0F766E;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+    }
+    .top-bar .title {
+      font-size: 17px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    [id] { scroll-margin-top: 52px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, #134E4A 0%, #0F766E 55%, #14B8A6 100%);
+      color: #fff;
+      padding: 22px 20px 18px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      word-break: keep-all;
+    }
+    .hero .sub {
+      font-size: 17px;
+      opacity: 0.92;
+    }
+
+    /* 목차 */
+    .toc {
+      margin: 12px 14px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #e3ecec;
+      transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #0F766E; background: #ecfdf5; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .toc-icon.c1 { background: #CCFBF1; }
+    .toc-icon.c2 { background: #FEF3C7; }
+    .toc-icon.c3 { background: #E0F2FE; }
+    .toc-icon.c4 { background: #FFE4E6; }
+    .toc-icon.c5 { background: #D1FAE5; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #0F766E; }
+    .toc-label.c2 { color: #B45309; }
+    .toc-label.c3 { color: #0369A1; }
+    .toc-label.c4 { color: #BE123C; }
+    .toc-label.c5 { color: #047857; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 헤더 */
+    .chapter { margin-top: 28px; }
+    .chapter-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .chapter-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .chapter-icon.c1 { background: #CCFBF1; }
+    .chapter-icon.c2 { background: #FEF3C7; }
+    .chapter-icon.c3 { background: #E0F2FE; }
+    .chapter-icon.c4 { background: #FFE4E6; }
+    .chapter-icon.c5 { background: #D1FAE5; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag {
+      display: inline-block;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .chapter-meta .tag.c1 { color: #0F766E; }
+    .chapter-meta .tag.c2 { color: #B45309; }
+    .chapter-meta .tag.c3 { color: #0369A1; }
+    .chapter-meta .tag.c4 { color: #BE123C; }
+    .chapter-meta .tag.c5 { color: #047857; }
+    .chapter-meta h2 {
+      font-size: 22px; font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.3;
+    }
+
+    /* 강조 배너 */
+    .highlight-line {
+      background: #CCFBF1;
+      border: 1px solid #5EEAD4;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 19px; font-weight: 600;
+      color: #134E4A;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    /* 정의 카드 */
+    .definition-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #0F766E;
+    }
+    .definition-card .def-label {
+      font-size: 17px; font-weight: 700;
+      color: #0F766E;
+      margin-bottom: 6px;
+    }
+    .definition-card p { font-size: 19px; color: #222; line-height: 1.75; }
+
+    /* 채널 카드 (접수 방법) */
+    .channel-list { display: flex; flex-direction: column; gap: 12px; }
+    .channel-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #e3ecec;
+    }
+    .channel-card .ch-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .channel-card .ch-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #0F766E;
+      color: #fff;
+      font-size: 16px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .channel-card.online .ch-num { background: #F97316; }
+    .channel-card .ch-title {
+      font-size: 20px; font-weight: 800;
+      color: #1a1a2e;
+    }
+    .channel-card .ch-desc {
+      font-size: 19px; color: #222;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .channel-photo {
+      width: 100%;
+      max-width: 320px;
+      margin: 6px auto 10px;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .channel-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: #F97316;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 18px; font-weight: 700;
+      box-shadow: 0 2px 8px rgba(249,115,22,0.3);
+    }
+    .channel-cta:active { background: #EA580C; }
+    .channel-caption {
+      display: block;
+      text-align: center;
+      font-size: 17px; color: #555;
+      margin-top: 4px;
+    }
+
+    /* 온라인 2단계 플로우 */
+    .online-flow {
+      margin: 8px 0 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .flow-step {
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+    .flow-img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      display: block;
+      margin: 0 auto;
+    }
+    .flow-cap {
+      font-size: 17px;
+      color: #333;
+      margin-top: 8px;
+      line-height: 1.5;
+      word-break: keep-all;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .flow-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #F97316;
+      color: #fff;
+      font-size: 13px; font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .flow-arrow {
+      font-size: 22px;
+      color: #F97316;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    /* 연락처 카드 — 그 외 접수 방법 */
+    .contact-card {
+      margin-top: 16px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #e3ecec;
+    }
+    .contact-title {
+      font-size: 17px; font-weight: 700;
+      color: #0F766E;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      text-decoration: none;
+      color: #222;
+      border-bottom: 1px solid #f5f5f5;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row:active { background: #f0fdfa; }
+    .contact-row.static { cursor: default; }
+    .contact-row.static:active { background: transparent; }
+    .contact-ico {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+    .contact-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #555;
+      flex-shrink: 0;
+      white-space: nowrap;
+      min-width: 78px;
+    }
+    .contact-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0F766E;
+      word-break: keep-all;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .contact-row.static .contact-value {
+      color: #222;
+      font-weight: 500;
+    }
+
+    /* 익명성 안내 카드 */
+    .anon-card {
+      background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 10px;
+      border: 1px solid #5EEAD4;
+    }
+    .anon-card .anon-title {
+      font-size: 20px; font-weight: 800;
+      color: #134E4A;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .anon-card p {
+      font-size: 19px; color: #134E4A;
+      line-height: 1.7;
+    }
+    .anon-card .anon-hint {
+      font-size: 17px; color: #0F766E;
+      margin-top: 6px;
+    }
+
+    /* 핵심 원칙 4가지 카드 */
+    .core-principles {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .cp-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-left: 4px solid #ccc;
+    }
+    .cp-card.cp1 { border-left-color: #0F766E; }
+    .cp-card.cp2 { border-left-color: #BE123C; }
+    .cp-card.cp3 { border-left-color: #2563EB; }
+    .cp-card.cp4 { border-left-color: #F59E0B; }
+    .cp-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .cp-body { flex: 1; }
+    .cp-name {
+      font-size: 19px; font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    .cp-card.cp1 .cp-name { color: #0F766E; }
+    .cp-card.cp2 .cp-name { color: #BE123C; }
+    .cp-card.cp3 .cp-name { color: #2563EB; }
+    .cp-card.cp4 .cp-name { color: #B45309; }
+    .cp-desc { font-size: 18px; color: #222; line-height: 1.65; }
+
+    /* 그 외 원칙 (작게) */
+    .sub-principles {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px dashed #cbd5e1;
+    }
+    .sub-principles .sp-title {
+      font-size: 15px; font-weight: 700;
+      color: #64748b;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+    .sp-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 4px 0;
+    }
+    .sp-tag {
+      font-size: 16px; font-weight: 700;
+      color: #475569;
+      min-width: 70px;
+      flex-shrink: 0;
+    }
+    .sp-text {
+      font-size: 17px; color: #555;
+      line-height: 1.5;
+    }
+
+    /* 단계 카드 — 처리 과정 */
+    .stage-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stage-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-left: 4px solid #0F766E;
+    }
+    .stage-card .stage-num {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #0F766E;
+      color: #fff;
+      font-size: 18px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .stage-card.s2 { border-left-color: #F59E0B; }
+    .stage-card.s2 .stage-num { background: #F59E0B; }
+    .stage-card.s3 { border-left-color: #2563EB; }
+    .stage-card.s3 .stage-num { background: #2563EB; }
+    .stage-card.s4 { border-left-color: #7C3AED; }
+    .stage-card.s4 .stage-num { background: #7C3AED; }
+    .stage-body .stage-name {
+      font-size: 19px; font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    .stage-body .stage-desc {
+      font-size: 19px; color: #222;
+      line-height: 1.65;
+    }
+
+    /* 처리 기한 박스 */
+    .deadline-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .deadline-label {
+      font-size: 17px; font-weight: 600; color: #555;
+      margin-bottom: 4px;
+    }
+    .deadline-value {
+      font-size: 26px; font-weight: 800;
+      color: #0F766E;
+      line-height: 1.3;
+    }
+    .deadline-sub {
+      font-size: 17px; color: #555;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* 마무리 */
+    .closing {
+      text-align: center;
+      margin-top: 24px;
+      padding: 16px;
+      line-height: 1.8;
+    }
+    .closing-label {
+      font-size: 19px; color: #222; font-weight: 600;
+      margin-bottom: 10px;
+      word-break: keep-all;
+    }
+    .closing-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .closing-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 16px; font-weight: 600;
+    }
+    .closing-badge.b1 { background: #CCFBF1; color: #0F766E; }
+    .closing-badge.b2 { background: #FEF3C7; color: #B45309; }
+    .closing-badge.b3 { background: #FFE4E6; color: #BE123C; }
+    .closing-badge.b4 { background: #D1FAE5; color: #047857; }
+    .closing-badge.b5 { background: #E0F2FE; color: #0369A1; }
+
+    /* 푸터 */
+    .footer-note {
+      text-align: center;
+      padding: 20px 16px 28px;
+      font-size: 16px; font-weight: 500; color: #555;
+    }
+
+    /* 플로팅 버튼 */
+    .fab-top {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #0F766E;
+      color: #fff;
+      border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(15,118,110,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90;
+      text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .channel-grid-pc { }
+    .stage-grid-pc { }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #e8ecec; }
+
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #f4f7f8;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      .top-bar { padding: 12px 40px; }
+      .top-bar a { font-size: 16px; }
+      .top-bar .title { font-size: 16px; }
+
+      .hero { padding: 56px 48px 44px; }
+      .hero h1 { font-size: 36px; letter-spacing: -0.5px; }
+      .hero .sub { font-size: 18px; margin-top: 8px; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 16px 40px;
+        background: #fff;
+        border-bottom: 1px solid #e3ecec;
+      }
+      .toc-item {
+        flex: 1 1 calc(20% - 8px);
+        min-width: 150px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid #e3ecec;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #0F766E;
+        background: #ecfdf5;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(15,118,110,0.1);
+      }
+      .toc-arrow { display: none; }
+      .toc-left { justify-content: center; }
+
+      .content { padding: 10px 40px 60px; }
+
+      .chapter { margin-top: 52px; }
+      .chapter-header {
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #e3ecec;
+      }
+      .chapter-icon { width: 52px; height: 52px; font-size: 26px; }
+      .chapter-meta h2 { font-size: 26px; }
+
+      .channel-grid-pc {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+      .channel-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .channel-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(15,118,110,0.1);
+      }
+      .channel-photo { max-width: 100%; }
+
+      .online-flow {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .flow-step { max-width: 260px; }
+      .flow-img { max-width: 260px; }
+
+      .core-principles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .sub-principles {
+        padding: 14px 18px;
+      }
+      .sp-row { padding: 5px 0; }
+
+      .stage-grid-pc {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .stage-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .stage-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      }
+
+      .deadline-box { padding: 24px; }
+      .deadline-value { font-size: 32px; }
+
+      .closing { padding: 32px 16px; }
+      .closing-label { font-size: 22px; }
+      .closing-badge {
+        font-size: 17px;
+        padding: 8px 18px;
+        border-radius: 24px;
+        transition: transform 0.15s;
+      }
+      .closing-badge:hover { transform: scale(1.06); }
+
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+
+      .fab-top {
+        width: 50px; height: 50px;
+        font-size: 24px;
+        bottom: 32px; right: 32px;
+        border-radius: 14px;
+      }
+
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { padding: 18px 56px; }
+      .top-bar { padding: 12px 56px; }
+      .hero { padding: 60px 56px 48px; }
+      .hero h1 { font-size: 42px; }
+      .footer-note { padding: 28px 56px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 스크롤 프로그레스 바 -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">고충처리지침</span>
+    </div>
+
+    <!-- 히어로 -->
+    <div class="hero" id="heroArea">
+      <h1>고충처리지침</h1>
+      <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <!-- 목차 -->
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left"><span class="toc-icon c1">💬</span><span class="toc-label c1">고충처리란</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left"><span class="toc-icon c2">📮</span><span class="toc-label c2">접수 방법</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left"><span class="toc-icon c3">⚖️</span><span class="toc-label c3">기본원칙</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left"><span class="toc-icon c4">🔄</span><span class="toc-label c4">처리 과정</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left"><span class="toc-icon c5">⏱️</span><span class="toc-label c5">처리 기한</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <div class="chapter-icon c1">💬</div>
+          <div class="chapter-meta">
+            <span class="tag c1">CHAPTER 1</span>
+            <h2>고충처리지침이란?</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          <span>💬</span> 혼자 끙끙 앓지 마세요. 센터가 함께 고민합니다.
+        </div>
+
+        <div class="definition-card">
+          <div class="def-label">고충처리란</div>
+          <p>업무 중에 겪는 <strong>불만·건의사항·어려움</strong>을 접수하고 공정하게 처리하는 절차입니다.</p>
+        </div>
+
+        <div class="definition-card">
+          <div class="def-label">왜 필요한가요?</div>
+          <p>직원이 안심하고 일할 수 있는 환경을 만들기 위해서입니다. 작은 불편도 <strong>편하게 말할 수 있어야</strong> 센터가 더 나아집니다.</p>
+        </div>
+
+        <div class="highlight-line" style="background:#E0F2FE; border-color:#7DD3FC; color:#0C4A6E; margin-top:10px; margin-bottom:0;">
+          <span>👥</span> 직원뿐 아니라 <strong>수급자(어르신)</strong>의 고충도 함께 처리합니다
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 — 접수 방법 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <div class="chapter-icon c2">📮</div>
+          <div class="chapter-meta">
+            <span class="tag c2">CHAPTER 2</span>
+            <h2>접수 방법 — 두 가지 창구</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line" style="background:#FEF3C7; border-color:#FCD34D; color:#78350F;">
+          <span>📮</span> 편한 방법으로 <strong>언제든지</strong> 접수하세요
+        </div>
+
+        <div class="channel-grid-pc">
+          <!-- 오프라인 -->
+          <div class="channel-card">
+            <div class="ch-head">
+              <span class="ch-num">1</span>
+              <span class="ch-title">사무실 고충처리함</span>
+            </div>
+            <p class="ch-desc">센터 사무실에 비치된 고충처리함에 쪽지를 넣어주세요.</p>
+            <img class="channel-photo" src="images/grievance-box.jpg" alt="사무실 고충처리함">
+            <span class="channel-caption">📍 센터 사무실 비치</span>
+          </div>
+
+          <!-- 온라인 -->
+          <div class="channel-card online">
+            <div class="ch-head">
+              <span class="ch-num">2</span>
+              <span class="ch-title">온라인 고충처리함</span>
+            </div>
+            <p class="ch-desc">센터 <strong>카카오톡 채널</strong>에서 언제 어디서든 작성</p>
+
+            <!-- 2단계 시각 안내 -->
+            <div class="online-flow">
+              <div class="flow-step">
+                <img class="flow-img" src="images/kakao-channel.jpg" alt="카카오 채널 메뉴">
+                <div class="flow-cap"><span class="flow-num">1</span> 채널 메뉴 → <strong>고충처리함</strong> 클릭</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <img class="flow-img" src="images/online-form.jpg" alt="온라인 고충처리 폼 화면">
+                <div class="flow-cap"><span class="flow-num">2</span> <strong>익명으로 작성</strong> 후 제출</div>
+              </div>
+            </div>
+
+            <div style="text-align:center; margin-top:14px;">
+              <a class="channel-cta" href="https://naver.me/Fl2bzFJu" target="_blank" rel="noopener">
+                <span>💬</span><span>온라인 고충처리함 바로가기</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 그 외 접수 방법 — 연락처 -->
+        <div class="contact-card">
+          <div class="contact-title">📞 그 외 접수 방법</div>
+          <a class="contact-row" href="tel:031-222-1153">
+            <span class="contact-ico">☎️</span>
+            <span class="contact-label">전화 · 문자</span>
+            <span class="contact-value">031-222-1153</span>
+          </a>
+          <a class="contact-row" href="mailto:siloamcare@naver.com">
+            <span class="contact-ico">✉️</span>
+            <span class="contact-label">이메일</span>
+            <span class="contact-value">siloamcare@naver.com</span>
+          </a>
+          <div class="contact-row static">
+            <span class="contact-ico">📍</span>
+            <span class="contact-label">방문</span>
+            <span class="contact-value">경기도 수원시 권선구 세권로 114-1, 2층</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 3 — 기본원칙 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <div class="chapter-icon c3">⚖️</div>
+          <div class="chapter-meta">
+            <span class="tag c3">CHAPTER 3</span>
+            <h2>고충처리 기본원칙</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line" style="background:#E0F2FE; border-color:#7DD3FC; color:#0C4A6E;">
+          <span>⚖️</span> 무엇보다 <strong>안심하고</strong> 접수할 수 있어야 합니다
+        </div>
+
+        <!-- 핵심 4원칙 -->
+        <div class="core-principles">
+          <div class="cp-card cp1">
+            <div class="cp-icon">🔒</div>
+            <div class="cp-body">
+              <div class="cp-name">비밀보장</div>
+              <div class="cp-desc">신원과 내용은 <strong>철저히 비밀</strong>로 보호. 누가 접수했는지 확인하지 않습니다.</div>
+            </div>
+          </div>
+          <div class="cp-card cp2">
+            <div class="cp-icon">🛡️</div>
+            <div class="cp-body">
+              <div class="cp-name">불이익 금지</div>
+              <div class="cp-desc">고충을 제기했다는 이유로 <strong>어떠한 불이익도 없습니다.</strong></div>
+            </div>
+          </div>
+          <div class="cp-card cp3">
+            <div class="cp-icon">⚖️</div>
+            <div class="cp-body">
+              <div class="cp-name">공정성</div>
+              <div class="cp-desc">지위·직급·관계에 차별 없이 <strong>객관적·중립적</strong>으로 처리합니다.</div>
+            </div>
+          </div>
+          <div class="cp-card cp4">
+            <div class="cp-icon">⚡</div>
+            <div class="cp-body">
+              <div class="cp-name">신속성</div>
+              <div class="cp-desc">접수 즉시 확인하고 <strong>처리기한을 준수</strong>합니다.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 그 외 원칙 3가지 (약하게) -->
+        <div class="sub-principles">
+          <div class="sp-title">그 외 원칙</div>
+          <div class="sp-row">
+            <span class="sp-tag">투명성</span>
+            <span class="sp-text">절차와 결과를 명확하게 안내</span>
+          </div>
+          <div class="sp-row">
+            <span class="sp-tag">존중·배려</span>
+            <span class="sp-text">경청의 자세로 응대</span>
+          </div>
+          <div class="sp-row">
+            <span class="sp-tag">예방 중심</span>
+            <span class="sp-text">원인 분석과 재발 방지</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 4 — 처리 과정 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <div class="chapter-icon c4">🔄</div>
+          <div class="chapter-meta">
+            <span class="tag c4">CHAPTER 4</span>
+            <h2>처리 과정 (4단계)</h2>
+          </div>
+        </div>
+
+        <div class="stage-grid-pc">
+          <div class="stage-card">
+            <span class="stage-num">1</span>
+            <div class="stage-body">
+              <div class="stage-name">접수</div>
+              <div class="stage-desc">고충처리함·카카오 채널로 접수된 내용을 <strong>담당자가 확인</strong>합니다.</div>
+            </div>
+          </div>
+
+          <div class="stage-card s2">
+            <span class="stage-num">2</span>
+            <div class="stage-body">
+              <div class="stage-name">조사·회의</div>
+              <div class="stage-desc">사실관계를 조사하고 처리방안·재발방지 대책을 <strong>회의에서 결정</strong>합니다.</div>
+            </div>
+          </div>
+
+          <div class="stage-card s3">
+            <span class="stage-num">3</span>
+            <div class="stage-body">
+              <div class="stage-name">조치 및 결과 통보</div>
+              <div class="stage-desc">조치를 시행하고 처리 결과를 <strong>피해자에게 통보</strong>합니다.</div>
+            </div>
+          </div>
+
+          <div class="stage-card s4">
+            <span class="stage-num">4</span>
+            <div class="stage-body">
+              <div class="stage-name">사후관리</div>
+              <div class="stage-desc"><strong>재발 여부를 확인</strong>하고 권리회복을 돕습니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5 — 처리 기한 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <div class="chapter-icon c5">⏱️</div>
+          <div class="chapter-meta">
+            <span class="tag c5">CHAPTER 5</span>
+            <h2>처리 기한</h2>
+          </div>
+        </div>
+
+        <div class="deadline-box">
+          <div class="deadline-label">접수 후</div>
+          <div class="deadline-value">10일 이내 조사 완료</div>
+          <div class="deadline-sub">특별한 사정이 있는 경우 10일 범위 안에서 연장 가능</div>
+        </div>
+
+        <div class="definition-card" style="border-left-color:#047857;">
+          <div class="def-label" style="color:#047857;">긴급한 사안은</div>
+          <p>인권침해·안전 관련 <strong>긴급 사안</strong>은 접수 즉시 검토하고 빠르게 조치합니다.</p>
+        </div>
+      </div>
+
+      <!-- 마무리 -->
+      <div class="closing">
+        <p class="closing-label">작은 어려움도 편하게 말씀해 주세요.<br>여러분의 목소리가 더 좋은 센터를 만듭니다.</p>
+        <div class="closing-badges">
+          <span class="closing-badge b1">누구나</span>
+          <span class="closing-badge b2">언제든</span>
+          <span class="closing-badge b3">익명으로</span>
+          <span class="closing-badge b4">공정하게</span>
+          <span class="closing-badge b5">10일 이내</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <!-- 플로팅 목차 버튼 -->
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      }
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
