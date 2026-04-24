@@ -481,7 +481,20 @@
     .support-item .si-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
     .support-item .si-name { font-size: 18px; font-weight: 700; color: #1E3A5F; }
     .support-item .si-num { font-size: 17px; font-weight: 800; color: #C0392B; letter-spacing: 0.5px; }
+    .support-item .si-num a { color: #C0392B; text-decoration: none; }
     .support-item .si-desc { font-size: 17px; color: #555; line-height: 1.55; }
+    .support-item .si-meta { font-size: 15px; color: #777; margin-top: 4px; line-height: 1.5; }
+    .support-item .si-meta a { color: #1E3A5F; text-decoration: none; font-weight: 500; }
+
+    /* 서브섹션 라벨 */
+    .sub-label {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1E3A5F;
+      margin: 16px 0 8px;
+      padding-left: 10px;
+      border-left: 3px solid #F59E0B;
+    }
 
     /* 센터 고충처리 안내 */
     .grievance-box {
@@ -1215,6 +1228,8 @@
           <span>💙</span> 혼자 해결하려 하지 마세요. 함께 대응할 곳이 있습니다.
         </div>
 
+        <!-- 긴급 -->
+        <div class="sub-label">🚨 긴급</div>
         <div class="call-row">
           <div class="call-tile red">
             <div class="ct-label">경찰 신고</div>
@@ -1226,26 +1241,53 @@
           </div>
         </div>
 
+        <!-- 상담·전문 지원 -->
+        <div class="sub-label">🤝 상담·전문 지원</div>
         <div class="support-list">
           <div class="support-item">
             <div class="si-head">
               <span class="si-name">여성긴급전화</span>
-              <span class="si-num">1366</span>
+              <span class="si-num"><a href="tel:1366">☎ 1366</a></span>
             </div>
-            <div class="si-desc">성희롱·성폭력 <strong>24시간 상담</strong></div>
+            <div class="si-desc">성희롱·성폭력 <strong>365일 24시간</strong> 무료 상담</div>
+            <div class="si-meta">국번 없이 <strong>1366</strong> &middot; 문자·채팅 상담 가능 &middot; <a href="https://www.women1366.kr" target="_blank">www.women1366.kr</a></div>
           </div>
           <div class="support-item">
             <div class="si-head">
               <span class="si-name">해바라기 센터</span>
+              <span class="si-num"><a href="tel:1899-3075">☎ 1899-3075</a></span>
             </div>
-            <div class="si-desc">상담·의료·법률·심리치료 <strong>통합 지원</strong></div>
+            <div class="si-desc">성폭력·가정폭력 피해자 <strong>상담·의료·법률·심리치료 통합 지원</strong> (24시간)</div>
+            <div class="si-meta">전국 39개 센터 운영 &middot; <a href="https://www.stop.or.kr" target="_blank">www.stop.or.kr</a></div>
           </div>
           <div class="support-item">
             <div class="si-head">
               <span class="si-name">대한법률구조공단</span>
-              <span class="si-num">132</span>
+              <span class="si-num"><a href="tel:132">☎ 132</a></span>
             </div>
-            <div class="si-desc">피해자 <strong>국선변호사</strong>·민사소송 지원</div>
+            <div class="si-desc">피해자 <strong>국선변호사</strong>·민·형사 소송 무료 법률 지원</div>
+            <div class="si-meta">평일 09:00~18:00 &middot; <a href="https://www.klac.or.kr" target="_blank">www.klac.or.kr</a></div>
+          </div>
+        </div>
+
+        <!-- 근로자 보호 -->
+        <div class="sub-label">👷 근로자 보호</div>
+        <div class="support-list">
+          <div class="support-item">
+            <div class="si-head">
+              <span class="si-name">고용노동부 고객상담센터</span>
+              <span class="si-num"><a href="tel:1350">☎ 1350</a></span>
+            </div>
+            <div class="si-desc">고객 폭언·성희롱 <strong>건강장해 예방</strong>, 직장 내 괴롭힘 관련 상담·신고</div>
+            <div class="si-meta">평일 09:00~18:00 &middot; <a href="https://www.moel.go.kr" target="_blank">www.moel.go.kr</a></div>
+          </div>
+          <div class="support-item">
+            <div class="si-head">
+              <span class="si-name">근로복지공단</span>
+              <span class="si-num"><a href="tel:1588-0075">☎ 1588-0075</a></span>
+            </div>
+            <div class="si-desc">업무 중 발생한 <strong>신체·정신 피해</strong>의 <strong>산재보상</strong> 신청</div>
+            <div class="si-meta">평일 09:00~18:00 &middot; <a href="https://www.comwel.or.kr" target="_blank">www.comwel.or.kr</a></div>
           </div>
         </div>
 
