@@ -520,9 +520,31 @@
       border: 1px solid #F59E0B;
     }
     .grievance-box .gb-channel .gbc-icon { font-size: 22px; display: block; margin-bottom: 4px; }
-    .grievance-box .gb-channel strong { display: block; font-size: 17px; color: #7B4B0A; }
-    .grievance-box .gb-channel span { font-size: 15px; color: #666; }
+    .grievance-box .gb-channel strong { display: block; font-size: 17px; color: #7B4B0A; word-break: keep-all; }
+    .grievance-box .gb-channel span { font-size: 15px; color: #666; word-break: keep-all; }
+    /* 클릭 가능한 채널 (카카오톡 바로가기) */
+    a.gb-channel.gb-link {
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+    a.gb-channel.gb-link:active {
+      background: #FFF7E6;
+      transform: translateY(-1px);
+    }
+    a.gb-channel.gb-link .gbc-cta {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      background: #F59E0B;
+      color: #fff !important;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 10px;
+      letter-spacing: 0.3px;
+    }
     .grievance-box .gb-note { font-size: 15px; color: #7B4B0A; text-align: center; line-height: 1.5; }
+    .grievance-box .gb-note a { color: #7B4B0A; font-weight: 700; text-decoration: underline; }
 
     /* 법령 카드 */
     .law-list { display: flex; flex-direction: column; gap: 8px; }
@@ -1299,13 +1321,14 @@
               <strong>사무실 고충처리함</strong>
               <span>쪽지로 접수</span>
             </div>
-            <div class="gb-channel">
+            <a class="gb-channel gb-link" href="https://naver.me/Fl2bzFJu" target="_blank" rel="noopener">
               <span class="gbc-icon">💬</span>
-              <strong>온라인(카카오톡 채널)</strong>
-              <span>익명 접수 가능</span>
-            </div>
+              <strong>온라인 고충처리함</strong>
+              <span>카카오톡 채널 · 익명 접수</span>
+              <span class="gbc-cta">바로가기 →</span>
+            </a>
           </div>
-          <div class="gb-note">전화·문자 031-222-1153 &middot; siloamcare@naver.com &middot; 방문 접수 가능</div>
+          <div class="gb-note">전화·문자 <a href="tel:031-222-1153">031-222-1153</a> &middot; <a href="mailto:siloamcare@naver.com">siloamcare@naver.com</a> &middot; 방문 접수 가능</div>
         </div>
 
         <div class="highlight-line info" style="margin-top:16px;">
