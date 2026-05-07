@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>고향의 봄 인지자극 프로그램 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #FFFDF7;
+      color: #2D2D2D;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+      word-break: keep-all;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed; top: 0; left: 0;
+      width: 0%; height: 3px;
+      background: linear-gradient(90deg, #F8BBD0, #C2185B, #C8E6C9, #558B2F);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,253,247,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #F2E6D9;
+    }
+    .top-bar a { color: #C2185B; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; font-family: 'Gowun Dodum', sans-serif; }
+
+    [id] { scroll-margin-top: 56px; }
+
+    /* 히어로 */
+    .hero {
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(248,187,208,0.55) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(200,230,201,0.55) 0%, transparent 55%),
+        linear-gradient(135deg, #FFF5F8 0%, #FFFDF7 50%, #F1F8E9 100%);
+      color: #2D2D2D;
+      padding: 32px 22px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .deco {
+      position: absolute;
+      font-size: 38px;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .hero .deco.tl { top: 14px; left: 16px; }
+    .hero .deco.br { bottom: 14px; right: 16px; }
+    .hero .label {
+      display: inline-block;
+      font-size: 14px; font-weight: 700;
+      color: #C2185B;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      background: #FFF;
+      border: 1.5px solid #F8BBD0;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 32px; font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .hero .sub {
+      font-size: 17px; color: #555;
+      line-height: 1.6;
+    }
+    .hero .org {
+      margin-top: 14px;
+      font-size: 14px; color: #888;
+      letter-spacing: 0.3px;
+    }
+
+    /* 가사 — 손글씨 인용 */
+    .lyrics-quote {
+      margin: 18px 14px 0;
+      padding: 22px 18px 20px;
+      background: #FFFAF1;
+      border: 1.5px dashed #F8BBD0;
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+    }
+    .lyrics-quote::before {
+      content: "🌸";
+      position: absolute;
+      top: -14px; left: 50%; transform: translateX(-50%);
+      background: #FFFDF7;
+      padding: 0 8px;
+      font-size: 22px;
+    }
+    .lyrics-quote .line {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 26px;
+      color: #4A2533;
+      line-height: 1.55;
+      letter-spacing: 0.5px;
+    }
+    .lyrics-quote .src {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #999;
+      letter-spacing: 0.3px;
+    }
+
+    /* 목차 */
+    .toc {
+      margin: 14px 14px 0;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px;
+      background: #fff;
+      border-radius: 14px;
+      text-decoration: none; color: #333;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.06);
+      border: 1px solid #F2E6D9;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .toc-item:active {
+      border-color: #C2185B;
+      background: #FFF5F8;
+    }
+    .toc-item.placeholder {
+      opacity: 0.55;
+      pointer-events: none;
+      background: #FAF6EE;
+    }
+    .toc-left { display: flex; align-items: center; gap: 11px; }
+    .toc-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .toc-icon.c1 { background: #FCE4EC; }
+    .toc-icon.c2 { background: #FFF3E0; }
+    .toc-icon.c3 { background: #E8F5E9; }
+    .toc-icon.c4 { background: #FFF8E1; }
+    .toc-icon.c5 { background: #F3E5F5; }
+    .toc-icon.c6 { background: #E1F5FE; }
+    .toc-icon.c7 { background: #FFEBEE; }
+    .toc-icon.c8 { background: #ECEFF1; }
+    .toc-label { font-size: 17px; font-weight: 600; color: #333; }
+    .toc-num {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 13px;
+      color: #999;
+      margin-right: 4px;
+    }
+    .toc-soon {
+      font-size: 12px; color: #999;
+      font-weight: 500;
+      background: #fff;
+      padding: 3px 8px;
+      border-radius: 10px;
+      border: 1px solid #E5DFD5;
+    }
+    .toc-arrow { color: #C2185B; font-size: 22px; font-weight: 600; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 */
+    .chapter { margin-top: 32px; }
+    .chapter-header {
+      display: flex; align-items: center; gap: 11px;
+      margin-bottom: 14px;
+    }
+    .chapter-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 21px; flex-shrink: 0;
+    }
+    .chapter-icon.c1 { background: #FCE4EC; }
+    .chapter-icon.c2 { background: #FFF3E0; }
+    .chapter-icon.c3 { background: #E8F5E9; }
+    .chapter-icon.c4 { background: #FFF8E1; }
+    .chapter-icon.c5 { background: #FCE4EC; }
+    .chapter-icon.c6 { background: #E1F5FE; }
+    .chapter-icon.c7 { background: #FFEBEE; }
+    .chapter-icon.c8 { background: #ECEFF1; }
+    .chapter-meta { flex: 1; }
+    .chapter-tag {
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      color: #999;
+    }
+    .chapter-tag.c1 { color: #C2185B; }
+    .chapter-tag.c2 { color: #E8853D; }
+    .chapter-tag.c3 { color: #558B2F; }
+    .chapter-tag.c4 { color: #C58F1E; }
+    .chapter-tag.c5 { color: #B8336A; }
+    .chapter-tag.c6 { color: #0277BD; }
+    .chapter-tag.c7 { color: #C0392B; }
+    .chapter-tag.c8 { color: #455A64; }
+    .chapter h2 {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 24px; font-weight: 700; color: #2D2D2D;
+      margin: 2px 0 0;
+      letter-spacing: -0.3px;
+    }
+
+    /* 정보 카드 */
+    .info-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+    }
+    .info-card p { font-size: 19px; color: #222; line-height: 1.75; }
+    .info-card strong { color: #C2185B; font-weight: 700; }
+
+    /* 메타 정보 (출처 / 활용 시기) */
+    .meta-list {
+      background: #fff;
+      border-radius: 14px;
+      padding: 6px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+    }
+    .meta-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #F5EDE3;
+    }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-key {
+      flex-shrink: 0;
+      font-size: 15px; font-weight: 700;
+      color: #C2185B;
+      width: 70px;
+      padding-top: 1px;
+    }
+    .meta-val { font-size: 18px; color: #222; line-height: 1.65; flex: 1; }
+    .meta-val strong { color: #111; font-weight: 700; }
+
+    /* 활동 목표 3가지 카드 */
+    .goal-grid {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 12px;
+    }
+    .goal-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+      border-left: 6px solid #C2185B;
+      display: flex; gap: 14px;
+      align-items: flex-start;
+    }
+    .goal-card.g1 { border-left-color: #C2185B; }
+    .goal-card.g2 { border-left-color: #558B2F; }
+    .goal-card.g3 { border-left-color: #29B6F6; }
+    .goal-emoji {
+      font-size: 32px;
+      flex-shrink: 0;
+      width: 50px; height: 50px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: #FCE4EC;
+    }
+    .goal-card.g2 .goal-emoji { background: #E8F5E9; }
+    .goal-card.g3 .goal-emoji { background: #E1F5FE; }
+    .goal-body { flex: 1; }
+    .goal-title {
+      font-size: 18px; font-weight: 700;
+      color: #C2185B;
+      margin-bottom: 4px;
+    }
+    .goal-card.g2 .goal-title { color: #558B2F; }
+    .goal-card.g3 .goal-title { color: #0277BD; }
+    .goal-desc { font-size: 17px; color: #333; line-height: 1.65; }
+
+    /* 준비물 */
+    .supply-list {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 12px;
+    }
+    .supply-item {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 13px 16px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+    }
+    .supply-emoji {
+      font-size: 26px;
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      background: #F1F8E9;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .supply-name {
+      font-size: 18px; font-weight: 600; color: #222;
+      flex: 1;
+    }
+    .supply-name .qty {
+      display: inline-block;
+      font-size: 14px; font-weight: 600;
+      color: #558B2F;
+      background: #E8F5E9;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-left: 6px;
+    }
+
+    /* 노트 박스 */
+    .note-box {
+      background: #FFFAF1;
+      border-left: 4px solid #F8BBD0;
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px;
+      margin-top: 8px;
+      font-size: 17px;
+      color: #4A3F00;
+      line-height: 1.65;
+    }
+    .note-box strong { color: #C2185B; }
+
+    /* 단계 카드 (도입 / 본 활동 / 마무리 공용) */
+    .step-list {
+      display: flex; flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .step-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 16px 14px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+      position: relative;
+    }
+    .step-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 6px;
+    }
+    .step-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #FCE4EC;
+      color: #C2185B;
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 17px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-card.s-c4 .step-num { background: #FFF3DA; color: #C58F1E; }
+    .step-card.s-c5 .step-num { background: #FCE4EC; color: #B8336A; }
+    .step-card.s-c6 .step-num { background: #E1F5FE; color: #0277BD; }
+    .step-icon { font-size: 22px; flex-shrink: 0; }
+    .step-title {
+      font-size: 18px; font-weight: 700;
+      color: #2D2D2D;
+      flex: 1;
+      line-height: 1.4;
+    }
+    .step-desc {
+      font-size: 17px;
+      color: #333;
+      line-height: 1.65;
+    }
+    .step-tip {
+      margin-top: 8px;
+      background: #FFFAF1;
+      border-left: 3px solid #F8BBD0;
+      border-radius: 0 10px 10px 0;
+      padding: 9px 13px;
+      font-size: 16px;
+      color: #4A3F00;
+      line-height: 1.6;
+    }
+    .step-tip strong { color: #C2185B; }
+    .step-tip.warn { border-left-color: #EF9A9A; background: #FFF5F5; }
+    .step-tip.warn strong { color: #C0392B; }
+    .step-tip.green { border-left-color: #A5D6A7; background: #F4FBED; color: #1B4D1F; }
+    .step-tip.green strong { color: #558B2F; }
+
+    /* 꽃 사진 갤러리 */
+    .flower-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .flower-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.08);
+      border: 1px solid #F5EDE3;
+    }
+    .flower-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+    }
+    .flower-card .name {
+      padding: 8px 4px;
+      font-size: 15px;
+      text-align: center;
+      font-weight: 700;
+      color: #C2185B;
+      letter-spacing: -0.3px;
+    }
+
+    /* 빈칸 가사 표시 */
+    .lyrics-blank-box {
+      background: #FFFAF1;
+      border: 1.5px dashed #C8E6C9;
+      border-radius: 14px;
+      padding: 20px 14px 18px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .lyrics-blank-box .line {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 24px;
+      color: #4A2533;
+      line-height: 1.85;
+      letter-spacing: 0.3px;
+    }
+    .blank-word {
+      display: inline-block;
+      background: #fff;
+      border: 2px solid #F8BBD0;
+      border-radius: 6px;
+      padding: 0 9px;
+      margin: 0 1px;
+      color: #C2185B;
+      font-weight: 700;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 17px;
+      vertical-align: 1px;
+    }
+    .lyrics-blank-box .legend {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* 색칠 가이드 (시화) */
+    .color-guide {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .color-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 12px;
+      background: #fff;
+      border-radius: 999px;
+      border: 1.5px solid #F5EDE3;
+      font-size: 15px; font-weight: 600;
+      color: #333;
+    }
+    .color-chip .swatch {
+      width: 14px; height: 14px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .color-chip.pink .swatch { background: #F48FB1; }
+    .color-chip.green .swatch { background: #A5D6A7; }
+    .color-chip.free .swatch { background: linear-gradient(135deg, #F48FB1, #FFE082, #A5D6A7, #81D4FA); }
+
+    /* 유의사항 카드 */
+    .warn-list {
+      display: flex; flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .warn-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px 14px 14px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+      border-left: 5px solid #EF9A9A;
+      display: flex; gap: 12px;
+      align-items: flex-start;
+    }
+    .warn-card.dont { border-left-color: #EF9A9A; }
+    .warn-card.advice { border-left-color: #FFCC80; }
+    .warn-card.tip { border-left-color: #A5D6A7; }
+    .warn-num {
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: #FFEBEE;
+      color: #C0392B;
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .warn-card.advice .warn-num { background: #FFF3E0; color: #C58F1E; }
+    .warn-card.tip .warn-num { background: #E8F5E9; color: #558B2F; }
+    .warn-body { flex: 1; }
+    .warn-title {
+      font-size: 17px; font-weight: 700;
+      color: #2D2D2D;
+      line-height: 1.45;
+      margin-bottom: 3px;
+    }
+    .warn-desc {
+      font-size: 16px; color: #555;
+      line-height: 1.6;
+    }
+
+    /* 다운로드 카드 */
+    .download-section-title {
+      font-size: 14px; font-weight: 700;
+      color: #455A64;
+      letter-spacing: 1px;
+      margin: 16px 0 8px;
+      padding-left: 4px;
+    }
+    .download-list {
+      display: flex; flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .download-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(120,80,90,0.05);
+      border: 1px solid #F5EDE3;
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+      color: #2D2D2D;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .download-card:active { border-color: #C2185B; background: #FFF5F8; }
+    .dl-icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: 11px;
+      background: #FCE4EC;
+      color: #C2185B;
+      font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .download-card.staff .dl-icon { background: #FFF3E0; color: #C58F1E; }
+    .dl-info { flex: 1; min-width: 0; }
+    .dl-name {
+      font-size: 17px; font-weight: 700;
+      color: #2D2D2D;
+      margin-bottom: 2px;
+      line-height: 1.4;
+    }
+    .dl-meta { font-size: 14px; color: #777; }
+    .dl-arrow {
+      flex-shrink: 0;
+      font-size: 22px;
+      color: #C2185B;
+      font-weight: 700;
+    }
+    .download-card.staff .dl-arrow { color: #C58F1E; }
+    .dl-badge {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: #FCE4EC;
+      color: #C2185B;
+      margin-left: 6px;
+      vertical-align: 1px;
+    }
+    .download-card.staff .dl-badge { background: #FFF3E0; color: #C58F1E; }
+
+    /* 영상 임베드 */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #000;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      margin-top: 8px;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .video-meta {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #777;
+    }
+    .video-meta .yt-link {
+      color: #C2185B;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .video-meta .yt-link:hover { text-decoration: underline; }
+
+    /* 클로징 메시지 */
+    .closing-card {
+      background: linear-gradient(135deg, #FFF5F8 0%, #FFFDF7 50%, #F1F8E9 100%);
+      border: 1.5px solid #F8BBD0;
+      border-radius: 16px;
+      padding: 22px 18px;
+      text-align: center;
+      margin-top: 24px;
+    }
+    .closing-card .ck-line {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 19px;
+      color: #2D2D2D;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+    .closing-card .ck-sub {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #777;
+    }
+
+    /* placeholder 챕터 */
+    .placeholder-chapter {
+      background: #FAF6EE;
+      border: 1.5px dashed #E5D5C0;
+      border-radius: 14px;
+      padding: 22px 18px;
+      margin-top: 18px;
+      text-align: center;
+    }
+    .placeholder-chapter .ph-title {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 18px; font-weight: 700;
+      color: #999;
+      margin-bottom: 4px;
+    }
+    .placeholder-chapter .ph-desc {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* 푸터 */
+    .footer-note {
+      text-align: center;
+      padding: 24px 16px 32px;
+      font-size: 14px; font-weight: 500; color: #999;
+    }
+
+    /* 플로팅 버튼 */
+    .fab-top {
+      position: fixed; bottom: 24px; right: 20px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #C2185B; color: #fff; border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(194,24,91,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90; text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    /* PC 래퍼 */
+    .pc-wrapper { }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #ECE6DA; }
+
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #FFFDF7;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      .top-bar { padding: 12px 40px; }
+      .top-bar a { font-size: 16px; }
+      .top-bar .title { font-size: 17px; }
+
+      .hero { padding: 60px 48px 48px; }
+      .hero h1 { font-size: 42px; }
+      .hero .sub { font-size: 19px; margin-top: 4px; }
+      .hero .label { font-size: 15px; padding: 5px 18px; }
+      .hero .deco { font-size: 56px; }
+
+      .lyrics-quote { margin: 24px 40px 0; padding: 28px 24px 24px; }
+      .lyrics-quote .line { font-size: 32px; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 40px 0;
+      }
+      .toc-item {
+        flex: 1 1 calc(25% - 10px);
+        min-width: 180px;
+        padding: 14px 14px;
+        border-radius: 12px;
+        justify-content: flex-start;
+        gap: 10px;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #C2185B;
+        background: #FFF5F8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(194,24,91,0.1);
+      }
+      .toc-arrow { display: none; }
+
+      .content { padding: 10px 40px 60px; }
+
+      .chapter { margin-top: 56px; }
+      .chapter-header {
+        gap: 16px;
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #F2E6D9;
+      }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-tag { font-size: 13px; letter-spacing: 1.5px; }
+      .chapter h2 { font-size: 30px; }
+
+      .info-card { padding: 26px 30px; border-radius: 16px; margin-bottom: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .info-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(120,80,90,0.08); }
+      .info-card p { font-size: 19px; }
+
+      .meta-list { padding: 6px 30px; border-radius: 16px; }
+      .meta-row { padding: 16px 0; }
+      .meta-key { font-size: 16px; width: 90px; }
+      .meta-val { font-size: 19px; }
+
+      .goal-grid {
+        flex-direction: row;
+        gap: 14px;
+      }
+      .goal-card {
+        flex: 1;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 22px 20px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .goal-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(120,80,90,0.1);
+      }
+      .goal-emoji {
+        width: 60px; height: 60px;
+        font-size: 36px;
+        border-radius: 14px;
+      }
+      .goal-title { font-size: 19px; margin-top: 12px; }
+      .goal-desc { font-size: 17px; }
+
+      .supply-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .supply-item { padding: 16px 18px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .supply-item:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(120,80,90,0.08); }
+
+      .note-box { padding: 16px 22px; font-size: 18px; border-radius: 0 14px 14px 0; }
+
+      /* 단계 카드 PC */
+      .step-list { gap: 14px; }
+      .step-card {
+        padding: 22px 24px 20px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .step-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(120,80,90,0.08);
+      }
+      .step-num { width: 38px; height: 38px; font-size: 19px; }
+      .step-icon { font-size: 26px; }
+      .step-title { font-size: 20px; }
+      .step-desc { font-size: 18px; }
+      .step-tip { font-size: 17px; padding: 12px 18px; border-radius: 0 12px 12px 0; }
+
+      /* 꽃 갤러리 PC */
+      .flower-gallery { gap: 14px; }
+      .flower-card { border-radius: 14px; transition: transform 0.2s; }
+      .flower-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(120,80,90,0.12); }
+      .flower-card img { height: 180px; }
+      .flower-card .name { padding: 10px 4px; font-size: 17px; }
+
+      /* 빈칸 가사 PC */
+      .lyrics-blank-box { padding: 28px 20px 24px; }
+      .lyrics-blank-box .line { font-size: 30px; }
+      .blank-word { font-size: 19px; padding: 0 12px; }
+
+      .color-chip { font-size: 16px; padding: 9px 16px; }
+
+      /* 유의사항 PC */
+      .warn-list { gap: 14px; }
+      .warn-card {
+        padding: 18px 22px 18px 18px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .warn-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(120,80,90,0.08);
+      }
+      .warn-num { width: 36px; height: 36px; font-size: 18px; }
+      .warn-title { font-size: 19px; }
+      .warn-desc { font-size: 17px; }
+
+      /* 다운로드 PC */
+      .download-section-title { font-size: 15px; margin: 24px 0 10px; }
+      .download-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .download-card {
+        padding: 18px 20px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.15s;
+      }
+      .download-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(120,80,90,0.1);
+        border-color: #F8BBD0;
+      }
+      .dl-icon { width: 52px; height: 52px; font-size: 26px; border-radius: 13px; }
+      .dl-name { font-size: 18px; }
+      .dl-meta { font-size: 15px; }
+
+      /* 클로징 PC */
+      .closing-card {
+        padding: 32px 24px;
+        margin-top: 36px;
+        border-radius: 18px;
+      }
+      .closing-card .ck-line { font-size: 22px; }
+      .closing-card .ck-sub { font-size: 16px; }
+
+      .placeholder-chapter { padding: 36px 24px; margin-top: 28px; }
+      .placeholder-chapter .ph-title { font-size: 22px; }
+      .placeholder-chapter .ph-desc { font-size: 15px; }
+
+      .footer-note { padding: 32px 40px 40px; font-size: 15px; }
+
+      .fab-top {
+        width: 52px; height: 52px;
+        font-size: 24px;
+        bottom: 32px; right: 32px;
+        border-radius: 16px;
+      }
+
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { margin: 18px 56px 0; }
+      .top-bar { padding: 14px 56px; }
+      .hero { padding: 72px 56px 56px; }
+      .hero h1 { font-size: 48px; }
+      .lyrics-quote { margin: 28px 56px 0; padding: 36px 28px; }
+      .lyrics-quote .line { font-size: 36px; }
+      .footer-note { padding: 36px 56px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">고향의 봄</span>
+    </div>
+
+    <!-- ===== 히어로 ===== -->
+    <div class="hero" id="heroArea">
+      <span class="deco tl">🌸</span>
+      <span class="deco br">🌿</span>
+      <span class="label">인지자극 프로그램 · 5등급</span>
+      <h1>고향의 봄</h1>
+      <p class="sub">노래로 떠나는 어린 시절 봄나들이</p>
+      <p class="org">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <!-- ===== 가사 인용 ===== -->
+    <div class="lyrics-quote">
+      <p class="line">
+        나의 살던 고향은 꽃 피는 산골<br>
+        복숭아꽃 살구꽃 아기 진달래<br>
+        울긋불긋 꽃 대궐 차린 동네<br>
+        그 속에서 놀던 때가 그립습니다
+      </p>
+      <p class="src">「고향의 봄」 1절 · 이원수 작사 · 홍난파 작곡 · 1927</p>
+    </div>
+
+    <!-- ===== 목차 ===== -->
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left">
+          <span class="toc-icon c1">🌸</span>
+          <span class="toc-label"><span class="toc-num">01</span>프로그램 개요</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left">
+          <span class="toc-icon c2">🎯</span>
+          <span class="toc-label"><span class="toc-num">02</span>활동 목표</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left">
+          <span class="toc-icon c3">✏️</span>
+          <span class="toc-label"><span class="toc-num">03</span>준비물</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left">
+          <span class="toc-icon c4">👋</span>
+          <span class="toc-label"><span class="toc-num">04</span>도입 활동</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left">
+          <span class="toc-icon c5">🌷</span>
+          <span class="toc-label"><span class="toc-num">05</span>본 활동</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch6">
+        <span class="toc-left">
+          <span class="toc-icon c6">👏</span>
+          <span class="toc-label"><span class="toc-num">06</span>마무리</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch7">
+        <span class="toc-left">
+          <span class="toc-icon c7">⚠️</span>
+          <span class="toc-label"><span class="toc-num">07</span>유의사항</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch8">
+        <span class="toc-left">
+          <span class="toc-icon c8">📥</span>
+          <span class="toc-label"><span class="toc-num">08</span>자료 · 영상</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1: 프로그램 개요 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <span class="chapter-icon c1">🌸</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c1">CHAPTER 1</div>
+            <h2>프로그램 개요</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p><strong>「고향의 봄」</strong>은 어르신들께서 어린 시절부터 늘 들어오신 친숙한 동요입니다. 함께 부르는 것만으로도 잊고 지내시던 옛 기억과 정서가 자연스럽게 떠오릅니다.</p>
+        </div>
+
+        <div class="meta-list">
+          <div class="meta-row">
+            <span class="meta-key">출처</span>
+            <span class="meta-val">동요 「고향의 봄」<br>이원수 작사 · 홍난파 작곡 · <strong>1927년</strong></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">활용 시기</span>
+            <span class="meta-val"><strong>봄철(3~5월)</strong>에 가장 좋고,<br>어버이날 즈음 · 회상이 필요하신 어르신 · 마음이 가라앉아 계신 어르신께도 상시 활용</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">중심축</span>
+            <span class="meta-val"><strong>노래 · 회상 · 언어</strong> 중심 (만들기보다 부르고 이야기하는 프로그램)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2: 활동 목표 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <span class="chapter-icon c2">🎯</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c2">CHAPTER 2</div>
+            <h2>활동 목표</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>이 프로그램은 <strong>세 가지 영역</strong>을 동시에 자극합니다.</p>
+        </div>
+
+        <div class="goal-grid">
+          <div class="goal-card g1">
+            <div class="goal-emoji">💬</div>
+            <div class="goal-body">
+              <div class="goal-title">언어 · 발화</div>
+              <div class="goal-desc">노랫말 따라 부르기, 가사 빈칸 채우기, 옛 이야기 나누기 — 말로 표현하는 능력이 자연스럽게 자극됩니다.</div>
+            </div>
+          </div>
+          <div class="goal-card g2">
+            <div class="goal-emoji">🧠</div>
+            <div class="goal-body">
+              <div class="goal-title">회상기억</div>
+              <div class="goal-desc">「고향의 봄」은 누구에게나 어린 시절을 떠올리게 합니다. 깊이 잠들어 있던 옛 기억을 부드럽게 끌어내는 것이 핵심입니다.</div>
+            </div>
+          </div>
+          <div class="goal-card g3">
+            <div class="goal-emoji">💛</div>
+            <div class="goal-body">
+              <div class="goal-title">정서 안정 · 청각</div>
+              <div class="goal-desc">귀에 익은 멜로디는 마음을 편안하게 합니다. 함께 부르는 즐거움은 "혼자가 아니다"라는 연결감을 안겨드립니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 3: 준비물 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <span class="chapter-icon c3">✏️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c3">CHAPTER 3</div>
+            <h2>준비물</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>준비물은 <strong>아주 간단합니다.</strong> 가위·풀은 필요하지 않습니다.</p>
+        </div>
+
+        <div class="supply-list">
+          <div class="supply-item">
+            <span class="supply-emoji">🖼️</span>
+            <span class="supply-name">시화 도안<span class="qty">1장</span></span>
+          </div>
+          <div class="supply-item">
+            <span class="supply-emoji">📝</span>
+            <span class="supply-name">가사 빈칸 인쇄지<span class="qty">1장</span></span>
+          </div>
+          <div class="supply-item">
+            <span class="supply-emoji">🖍️</span>
+            <span class="supply-name">색연필<span class="qty">자유</span></span>
+          </div>
+          <div class="supply-item">
+            <span class="supply-emoji">✏️</span>
+            <span class="supply-name">연필 · 지우개</span>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <strong>💡 가능하면 준비:</strong> 휴대폰 등 노래 음원 · 깨끗하고 안정적인 테이블
+        </div>
+      </div>
+
+      <!-- ===== 챕터 4: 도입 활동 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <span class="chapter-icon c4">👋</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c4">CHAPTER 4</div>
+            <h2>도입 활동</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>본 활동에 들어가기 전, <strong>네 단계로 어르신과 호흡을 맞춥니다.</strong> 천천히, 따뜻하게, 정답을 묻지 않는 분위기로.</p>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card s-c4">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-icon">⏰</span>
+              <span class="step-title">시간 지남력 인사</span>
+            </div>
+            <p class="step-desc">오늘의 계절과 날짜를 자연스럽게 알려드리며 인사합니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"오늘은 4월 26일, 봄꽃이 한창인 일요일이에요."</strong>
+            </div>
+          </div>
+
+          <div class="step-card s-c4">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-icon">🎵</span>
+              <span class="step-title">노래 소개</span>
+            </div>
+            <p class="step-desc">오늘 함께 부를 노래 「고향의 봄」을 부드럽게 꺼내 봅니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"혹시 이 노래 아세요?"</strong>
+            </div>
+          </div>
+
+          <div class="step-card s-c4">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-icon">🎤</span>
+              <span class="step-title">노래 1절 함께 부르기</span>
+            </div>
+            <p class="step-desc">진행자가 한 줄씩 먼저 부르고, 어르신이 따라 부르시도록 합니다.</p>
+            <div class="step-tip warn">
+              ⚠ <strong>음정·박자가 틀려도 절대 교정하지 마세요.</strong> 함께 부르는 즐거움이 정확함보다 훨씬 중요합니다.
+            </div>
+          </div>
+
+          <div class="step-card s-c4">
+            <div class="step-head">
+              <span class="step-num">4</span>
+              <span class="step-icon">💭</span>
+              <span class="step-title">회상 질문</span>
+            </div>
+            <p class="step-desc">어르신의 어린 시절을 부드럽게 여쭤봅니다. 천천히 경청하시면 됩니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"어디서 자라셨어요?"</strong> · <strong>"어릴 적 고향에는 어떤 꽃이 많았어요?"</strong> · <strong>"봄에 자주 가던 곳이 있으세요?"</strong>
+            </div>
+            <div class="step-tip green">
+              💚 <strong>답이 짧거나 침묵이 있어도 괜찮습니다.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5: 본 활동 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <span class="chapter-icon c5">🌷</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c5">CHAPTER 5</div>
+            <h2>본 활동</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>본 활동은 <strong>가사 읽기 → 꽃 이름 맞히기 → 빈칸 채우기 → 시화 색칠</strong> 네 단계로 진행됩니다.</p>
+        </div>
+
+        <div class="step-list">
+          <!-- 본활동 ① 가사 읽기 -->
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-icon">📖</span>
+              <span class="step-title">가사 1절 함께 읽기</span>
+            </div>
+            <p class="step-desc">큰 글씨로 인쇄된 가사 인쇄지를 보시며 천천히 함께 소리 내어 읽습니다. <strong>시각과 언어가 동시에 자극</strong>됩니다.</p>
+          </div>
+
+          <!-- 본활동 ② 꽃 이름 맞히기 -->
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-icon">🌸</span>
+              <span class="step-title">가사 속 꽃 이름 맞히기</span>
+            </div>
+            <p class="step-desc">세 가지 꽃 사진을 한 장씩 보여드리며 여쭙니다 — <strong>"이건 무슨 꽃일까요?"</strong></p>
+            <div class="flower-gallery">
+              <div class="flower-card">
+                <img src="images/복숭아꽃.jpg" alt="복숭아꽃">
+                <div class="name">복숭아꽃</div>
+              </div>
+              <div class="flower-card">
+                <img src="images/살구꽃.jpg" alt="살구꽃">
+                <div class="name">살구꽃</div>
+              </div>
+              <div class="flower-card">
+                <img src="images/진달래꽃.jpg" alt="진달래">
+                <div class="name">진달래</div>
+              </div>
+            </div>
+            <div class="step-tip">
+              모르시면 <strong>함께 따라 말해 보시며 자연스럽게 알려 드리시면</strong> 됩니다.
+            </div>
+          </div>
+
+          <!-- 본활동 ③ 빈칸 채우기 -->
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-icon">✍️</span>
+              <span class="step-title">가사 빈칸 채우기</span>
+            </div>
+            <p class="step-desc">다섯 개 빈칸이 있는 인쇄지를 드리고, 어르신이 직접 연필로 적어 보시도록 합니다.</p>
+            <div class="lyrics-blank-box">
+              <p class="line">
+                나의 살던 고향은 꽃 피는 <span class="blank-word">산골</span><br>
+                <span class="blank-word">복숭아꽃</span> <span class="blank-word">살구꽃</span> 아기 <span class="blank-word">진달래</span><br>
+                울긋불긋 꽃 대궐 차린 동네<br>
+                그 속에서 놀던 때가 <span class="blank-word">그립습니다</span>
+              </p>
+              <p class="legend">— 빈칸 5개 (정답)</p>
+            </div>
+            <div class="step-tip">
+              안 떠오르시면 <strong>함께 노래를 한 번 더 부르며 힌트</strong>를 드리세요.
+            </div>
+          </div>
+
+          <!-- 본활동 ④ 시화 색칠 -->
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">4</span>
+              <span class="step-icon">🎨</span>
+              <span class="step-title">봄 풍경 시화 색칠</span>
+            </div>
+            <p class="step-desc">가사와 풍경이 한 장에 인쇄된 시화를 색칠하실 차례입니다.</p>
+            <div class="color-guide">
+              <span class="color-chip pink"><span class="swatch"></span>분홍은 꽃에</span>
+              <span class="color-chip green"><span class="swatch"></span>연두는 산과 들에</span>
+              <span class="color-chip free"><span class="swatch"></span>그 외 자유롭게</span>
+            </div>
+            <div class="step-tip green">
+              🌿 천천히 칠하시도록 격려하시고, <strong>선 밖으로 나가도 괜찮다</strong>고 말씀해 주세요.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 6: 마무리 ===== -->
+      <div class="chapter" id="ch6">
+        <div class="chapter-header">
+          <span class="chapter-icon c6">👏</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c6">CHAPTER 6</div>
+            <h2>마무리</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p><strong>시작과 끝이 같은 노래</strong>로 이어지면 프로그램이 자연스럽게 마무리됩니다. 짧지만 따뜻하게.</p>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card s-c6">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-icon">👏</span>
+              <span class="step-title">박수와 칭찬</span>
+            </div>
+            <p class="step-desc">완성한 후에는 박수를 쳐 주세요. <strong>칭찬과 격려</strong>는 자신감을 크게 높여 드립니다.</p>
+          </div>
+
+          <div class="step-card s-c6">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-icon">🎶</span>
+              <span class="step-title">「고향의 봄」 한 번 더</span>
+            </div>
+            <p class="step-desc">도입 때 부른 노래 1절을 <strong>한 번 더 함께</strong> 부릅니다. 시작과 끝이 같은 노래로 이어지면 마음에 잔잔한 여운이 남습니다.</p>
+          </div>
+
+          <div class="step-card s-c6">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-icon">🙏</span>
+              <span class="step-title">끝인사</span>
+            </div>
+            <p class="step-desc">수고하신 어르신께 감사의 마음을 전하고, <strong>다음 회차에 대한 기대감</strong>을 담아 인사로 마칩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 7: 유의사항 ===== -->
+      <div class="chapter" id="ch7">
+        <div class="chapter-header">
+          <span class="chapter-icon c7">⚠️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c7">CHAPTER 7</div>
+            <h2>유의사항</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>진행 중에 <strong>꼭 기억해 주실 다섯 가지</strong>입니다. 정확함보다 함께 즐기는 마음이 우선이에요.</p>
+        </div>
+
+        <div class="warn-list">
+          <div class="warn-card dont">
+            <span class="warn-num">1</span>
+            <div class="warn-body">
+              <div class="warn-title">음정 · 박자 교정 금지</div>
+              <div class="warn-desc">함께 부르는 즐거움이 정확함보다 훨씬 중요합니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card dont">
+            <span class="warn-num">2</span>
+            <div class="warn-body">
+              <div class="warn-title">슬픈 기억 · 침묵 평가 금지</div>
+              <div class="warn-desc">"그러셨군요" 정도로 부드럽게 받아주시고 자연스럽게 다음으로 넘어가세요.</div>
+            </div>
+          </div>
+
+          <div class="warn-card tip">
+            <span class="warn-num">3</span>
+            <div class="warn-body">
+              <div class="warn-title">가사를 못 외우셔도 괜찮습니다</div>
+              <div class="warn-desc">함께 읽고 부르는 과정 자체가 인지 자극입니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card advice">
+            <span class="warn-num">4</span>
+            <div class="warn-body">
+              <div class="warn-title">편마비 어르신 — 도안 4면 고정</div>
+              <div class="warn-desc">시화 도안 네 면을 스카치테이프로 고정해 드리시면 한 손만으로도 안정적으로 색칠하실 수 있습니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card tip">
+            <span class="warn-num">5</span>
+            <div class="warn-body">
+              <div class="warn-title">색칠은 정확함보다 즐거움</div>
+              <div class="warn-desc">선 밖으로 나가도 괜찮다는 마음으로 격려해 주세요.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 8: 자료 · 영상 ===== -->
+      <div class="chapter" id="ch8">
+        <div class="chapter-header">
+          <span class="chapter-icon c8">📥</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag c8">CHAPTER 8</div>
+            <h2>자료 · 영상</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>진행에 필요한 <strong>인쇄용 자료 3종</strong>과 교육 영상입니다. 출력해서 어르신께 사용하시면 됩니다.</p>
+        </div>
+
+        <div class="download-section-title">📄 어르신용 (출력해서 드리는 자료)</div>
+        <div class="download-list">
+          <a class="download-card" href="printables/hometown-spring/시화_도안.pdf" download>
+            <span class="dl-icon">🖼️</span>
+            <div class="dl-info">
+              <div class="dl-name">시화 도안</div>
+              <div class="dl-meta">A4 · 가사 + 봄 풍경 색칠용</div>
+            </div>
+            <span class="dl-arrow">↓</span>
+          </a>
+          <a class="download-card" href="printables/hometown-spring/가사_빈칸_인쇄지.pdf" download>
+            <span class="dl-icon">📝</span>
+            <div class="dl-info">
+              <div class="dl-name">가사 빈칸 인쇄지</div>
+              <div class="dl-meta">A4 · 빈칸 5개 채우기 활동지</div>
+            </div>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+        <div class="download-section-title">📋 진행자용</div>
+        <div class="download-list">
+          <a class="download-card staff" href="printables/hometown-spring/가사_빈칸_답안지.pdf" download>
+            <span class="dl-icon">✅</span>
+            <div class="dl-info">
+              <div class="dl-name">가사 빈칸 답안지<span class="dl-badge">진행자</span></div>
+              <div class="dl-meta">정답 + 진행 팁 포함</div>
+            </div>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+        <div class="download-section-title">🎬 교육 영상</div>
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/k9Pmv4fOtLE"
+            title="고향의 봄 인지자극 프로그램 교육 영상"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+        <div class="video-meta">
+          <span>약 6분 10초 ·</span>
+          <a class="yt-link" href="https://youtu.be/k9Pmv4fOtLE" target="_blank" rel="noopener">YouTube에서 열기 ↗</a>
+        </div>
+
+        <div class="closing-card">
+          <p class="ck-line">
+            함께 부른 노래는<br>
+            어르신의 마음에 오래 남습니다 🌸
+          </p>
+          <p class="ck-sub">실로암방문요양지원센터 · 요양보호사 교육</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
