@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>응급상황 대응지침 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚨</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #FDF2F2;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #C0392B, #E85D04);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* pc-wrapper */
+    .pc-wrapper { }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #F5C6C2;
+    }
+    .top-bar a {
+      color: #C0392B;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+    }
+    .top-bar .title {
+      font-size: 17px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    [id] { scroll-margin-top: 52px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, #7B0D0D 0%, #C0392B 55%, #E74C3C 100%);
+      color: #fff;
+      padding: 32px 20px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #E85D04, #F5A953, #E85D04);
+    }
+    .hero .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #FAC9C5;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      word-break: keep-all;
+      line-height: 1.3;
+    }
+    .hero h1 .accent { color: #FDCECE; }
+    .hero .sub {
+      font-size: 17px;
+      opacity: 0.9;
+    }
+
+    /* 119 긴급 버튼 */
+    .emergency-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      background: #fff;
+      color: #C0392B;
+      font-size: 20px;
+      font-weight: 800;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    /* 목차 */
+    .toc {
+      margin: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #F5C6C2;
+      transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #C0392B; background: #FEF5F5; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .toc-icon.c1 { background: #FEE8E6; }
+    .toc-icon.c2 { background: #FFF3E8; }
+    .toc-icon.c3 { background: #FDECEC; }
+    .toc-icon.c4 { background: #FEF0F0; }
+    .toc-icon.c5 { background: #FFF8EE; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #C0392B; }
+    .toc-label.c2 { color: #B5601A; }
+    .toc-label.c3 { color: #922B21; }
+    .toc-label.c4 { color: #A04020; }
+    .toc-label.c5 { color: #7A4E10; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 헤더 */
+    .chapter { margin-top: 28px; }
+    .chapter-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .chapter-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .chapter-icon.c1 { background: #FEE8E6; }
+    .chapter-icon.c2 { background: #FFF3E8; }
+    .chapter-icon.c3 { background: #FDECEC; }
+    .chapter-icon.c4 { background: #FEF0F0; }
+    .chapter-icon.c5 { background: #FFF8EE; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag {
+      display: inline-block;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .chapter-meta .tag.c1 { color: #C0392B; }
+    .chapter-meta .tag.c2 { color: #B5601A; }
+    .chapter-meta .tag.c3 { color: #922B21; }
+    .chapter-meta .tag.c4 { color: #A04020; }
+    .chapter-meta .tag.c5 { color: #7A4E10; }
+    .chapter-meta h2 {
+      font-size: 22px; font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.3;
+    }
+
+    /* 핵심 강조 배너 */
+    .highlight-line {
+      background: #FEF5F5;
+      border: 1px solid #C0392B;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 19px; font-weight: 600;
+      color: #7B0D0D;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+    .highlight-line.warning {
+      background: #FFF3E8;
+      border-color: #E8852A;
+      color: #7A3C10;
+    }
+    .highlight-line.info {
+      background: #EFF6FF;
+      border-color: #1A5A8A;
+      color: #0D3D6A;
+    }
+    .highlight-line.success {
+      background: #E8F5EE;
+      border-color: #1A6B4A;
+      color: #0D4A30;
+    }
+
+    /* 흐름도 카드 */
+    .flow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 14px;
+    }
+    .flow-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 5px solid #C0392B;
+      position: relative;
+    }
+    .flow-item.low { border-left-color: #E8852A; }
+    .flow-connector {
+      display: flex;
+      justify-content: flex-start;
+      padding: 2px 0 2px 23px;
+      color: #C0392B;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .flow-item .fi-label {
+      font-size: 13px; font-weight: 700;
+      color: #C0392B; letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .flow-item.low .fi-label { color: #B5601A; }
+    .flow-item .fi-title { font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 6px; }
+    .flow-item .fi-desc { font-size: 19px; color: #333; line-height: 1.6; }
+
+    /* 원칙 카드 */
+    .principle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .principle-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .principle-card .pc-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #C0392B;
+      color: #fff;
+      font-size: 18px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .principle-card .pc-body {}
+    .principle-card .pc-title { font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+    .principle-card .pc-desc { font-size: 19px; color: #333; line-height: 1.65; }
+
+    /* 응급상황 카드 */
+    .emg-section {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+    .emg-section.urgent { border-top: 4px solid #C0392B; }
+    .emg-section.moderate { border-top: 4px solid #E8852A; }
+    .emg-section.general { border-top: 4px solid #1A5A8A; }
+
+    .emg-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .emg-badge {
+      font-size: 12px; font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .emg-badge.urgent { background: #C0392B; color: #fff; }
+    .emg-badge.moderate { background: #E8852A; color: #fff; }
+    .emg-badge.general { background: #1A5A8A; color: #fff; }
+    .emg-name { font-size: 21px; font-weight: 800; color: #1a1a2e; }
+
+    .emg-signal {
+      background: #FEF5F5;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      border-left: 4px solid #C0392B;
+    }
+    .emg-signal.moderate { background: #FFF8EE; border-left-color: #E8852A; }
+    .emg-signal.general { background: #EFF6FF; border-left-color: #1A5A8A; }
+    .emg-signal .sig-label {
+      font-size: 13px; font-weight: 700;
+      color: #C0392B; margin-bottom: 4px;
+    }
+    .emg-signal.moderate .sig-label { color: #B5601A; }
+    .emg-signal.general .sig-label { color: #0D3D6A; }
+    .emg-signal .sig-text { font-size: 19px; color: #222; line-height: 1.6; }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #C0392B;
+      color: #fff;
+      font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-item.moderate .step-num { background: #E8852A; }
+    .step-item.general .step-num { background: #1A5A8A; }
+    .step-text { font-size: 19px; color: #222; line-height: 1.65; }
+    .step-text strong { color: #C0392B; }
+    .step-item.moderate .step-text strong { color: #B5601A; }
+    .step-item.general .step-text strong { color: #0D3D6A; }
+
+    /* 경고 박스 */
+    .warn-box {
+      background: #FFF3E8;
+      border: 1px solid #E8852A;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 18px; color: #7A3C10;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+    .warn-box.danger {
+      background: #FDECEC;
+      border-color: #C0392B;
+      color: #7B0D0D;
+    }
+
+    /* 마무리 */
+    .wrap-up {
+      background: linear-gradient(135deg, #7B0D0D, #C0392B);
+      border-radius: 16px;
+      padding: 22px 18px;
+      margin-top: 28px;
+      color: #fff;
+    }
+    .wrap-up .wu-title {
+      font-size: 22px; font-weight: 800;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .wrap-up .wu-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .wrap-up .wu-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.5);
+      font-size: 18px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .wrap-up .wu-body {}
+    .wrap-up .wu-head { font-size: 20px; font-weight: 800; margin-bottom: 2px; }
+    .wrap-up .wu-desc { font-size: 18px; opacity: 0.88; line-height: 1.6; word-break: keep-all; }
+
+    /* 마무리 뱃지 */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .badge {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 18px; font-weight: 700;
+      color: #fff;
+    }
+
+    /* 푸터 */
+    .footer {
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 15px;
+      color: #999;
+    }
+
+    /* 플로팅 버튼 */
+    .fab-top {
+      position: fixed;
+      bottom: 20px;
+      right: 16px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #C0392B;
+      color: #fff;
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(192,57,43,0.4);
+      z-index: 50;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .fab-top.show { opacity: 1; }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #E8D0CF; padding: 0; }
+
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #FDF2F2;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      }
+
+      .hero { padding: 48px 60px 40px; }
+      .hero h1 { font-size: 36px; }
+
+      .toc {
+        margin: 14px 40px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .toc-item {
+        flex: 1 1 calc(33% - 8px);
+        min-width: 180px;
+      }
+      .toc-arrow { display: none; }
+
+      .content { padding: 0 40px 60px; }
+
+      .emg-grid-pc { display: flex; gap: 14px; flex-wrap: wrap; }
+      .emg-grid-pc .emg-section { flex: 1 1 calc(50% - 7px); min-width: 280px; }
+
+      .principle-list { flex-direction: row; flex-wrap: wrap; }
+      .principle-card { flex: 1 1 calc(50% - 10px); }
+
+      .chapter-meta h2 { font-size: 26px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .toc { margin: 14px 60px; }
+      .content { padding: 0 60px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="pc-wrapper">
+
+  <!-- 상단 바 -->
+  <div class="top-bar">
+    <a href="index.html">← 목록</a>
+    <span class="title">응급상황 대응지침</span>
+  </div>
+
+  <!-- 히어로 -->
+  <div class="hero">
+    <div class="hero-badge">직원 교육 · 실로암방문요양지원센터</div>
+    <h1>응급상황 <span class="accent">대응지침</span></h1>
+    <div class="sub">어르신 곁에서 생명을 지키는 첫 번째 대응</div>
+    <a href="tel:119" class="emergency-btn">🚨 119 응급신고</a>
+  </div>
+
+  <!-- 목차 -->
+  <nav class="toc">
+    <a class="toc-item" href="#ch1">
+      <div class="toc-left">
+        <div class="toc-icon c1">🔄</div>
+        <span class="toc-label c1">대응체계</span>
+      </div>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <div class="toc-left">
+        <div class="toc-icon c2">📋</div>
+        <span class="toc-label c2">기본 원칙</span>
+      </div>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <div class="toc-left">
+        <div class="toc-icon c3">🚨</div>
+        <span class="toc-label c3">즉각 대응 ★</span>
+      </div>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch4">
+      <div class="toc-left">
+        <div class="toc-icon c4">🩹</div>
+        <span class="toc-label c4">외상·골절·화상</span>
+      </div>
+      <span class="toc-arrow">›</span>
+    </a>
+    <a class="toc-item" href="#ch5">
+      <div class="toc-left">
+        <div class="toc-icon c5">💊</div>
+        <span class="toc-label c5">혈압·혈당·기타</span>
+      </div>
+      <span class="toc-arrow">›</span>
+    </a>
+  </nav>
+
+  <div class="content">
+
+    <!-- ===== 챕터 1: 대응체계 ===== -->
+    <div class="chapter" id="ch1">
+      <div class="chapter-header">
+        <div class="chapter-icon c1">🔄</div>
+        <div class="chapter-meta">
+          <div class="tag c1">CHAPTER 1</div>
+          <h2>응급상황 대응체계</h2>
+        </div>
+      </div>
+
+      <div class="highlight-line">응급상황 발생 → 즉시 상태 파악 → 119 신고 또는 관리자 보고 → 응급처치 → 이송 · 기록</div>
+
+      <div class="flow-list">
+        <div class="flow-item">
+          <div class="fi-label">위급한 경우</div>
+          <div class="fi-title">즉시 119 신고</div>
+          <div class="fi-desc">구급차 도착까지 응급처치 시행 → 가능하면 직원 동승 이송 → 센터에 이송 병원 보고 → 센터에서 보호자 연락</div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-item low">
+          <div class="fi-label">위급성이 낮은 경우</div>
+          <div class="fi-title">응급처치 후 관리자 보고</div>
+          <div class="fi-desc">센터장·관리자 지시에 따라 병원 이송 여부 결정</div>
+        </div>
+      </div>
+
+      <div class="principle-list">
+        <div class="principle-card">
+          <div class="pc-num">!</div>
+          <div class="pc-body">
+            <div class="pc-title">절대 혼자 판단 금지</div>
+            <div class="pc-desc">어떤 상황이든 반드시 관리자에게 즉시 보고하세요</div>
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="pc-num">📝</div>
+          <div class="pc-body">
+            <div class="pc-title">반드시 기록</div>
+            <div class="pc-desc">발생 내용과 후속 조치를 응급상황발생기록대장에 기록</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 2: 기본 원칙 ===== -->
+    <div class="chapter" id="ch2">
+      <div class="chapter-header">
+        <div class="chapter-icon c2">📋</div>
+        <div class="chapter-meta">
+          <div class="tag c2">CHAPTER 2</div>
+          <h2>응급처치 기본 원칙</h2>
+        </div>
+      </div>
+
+      <div class="principle-list">
+        <div class="principle-card">
+          <div class="pc-num">1</div>
+          <div class="pc-body">
+            <div class="pc-title">의료인에게 인계 전까지만</div>
+            <div class="pc-desc">요양보호사는 의료 행위 불가. 의약품은 외용약·상비약 범위 내에서만 허용</div>
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="pc-num">2</div>
+          <div class="pc-body">
+            <div class="pc-title">침착하고 신속하게</div>
+            <div class="pc-desc">가장 위급한 어르신을 우선으로 대응</div>
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="pc-num">3</div>
+          <div class="pc-body">
+            <div class="pc-title">함부로 이동 금지</div>
+            <div class="pc-desc">골절·뇌졸중 등에서 잘못된 이동은 더 큰 손상을 유발</div>
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="pc-num">4</div>
+          <div class="pc-body">
+            <div class="pc-title">복약 정보 미리 메모</div>
+            <div class="pc-desc">평소 복용 약·병원 정보를 메모해 응급 시 병원에 제출. 구토물·원인 약물도 함께 가져가기</div>
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="pc-num">5</div>
+          <div class="pc-body">
+            <div class="pc-title">모든 상황 기록 필수</div>
+            <div class="pc-desc">응급상황 발생 내용과 처치 내용을 반드시 기록에 남기기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 챕터 3: 즉각 대응 필수 (★) ===== -->
+    <div class="chapter" id="ch3">
+      <div class="chapter-header">
+        <div class="chapter-icon c3">🚨</div>
+        <div class="chapter-meta">
+          <div class="tag c3">CHAPTER 3</div>
+          <h2>즉각 대응 필수 ★</h2>
+        </div>
+      </div>
+
+      <div class="highlight-line">아래 상황은 즉각 대응이 생명을 결정합니다. 망설이지 마세요.</div>
+
+      <!-- 낙상 -->
+      <div class="emg-section urgent" id="emg-fall">
+        <div class="emg-title-row">
+          <span class="emg-badge urgent">★ 낙상</span>
+          <span class="emg-name">넘어짐·쓰러짐</span>
+        </div>
+        <div class="emg-signal">
+          <div class="sig-label">확인 신호</div>
+          <div class="sig-text">어르신이 넘어지거나 쓰러짐 / 통증 호소 / 출혈</div>
+        </div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>어르신 안정</strong> — 의식 있으면 어떻게 넘어졌는지, 어디 아픈지 여쭤보기</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>통증 있으면 억지로 구부리거나 펴지 않기</strong> — 골절 악화 위험</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">관리자 보고 + 가족·보호자 연락</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">출혈 있으면 <strong>지혈</strong> → 환부 부목 고정 → 의료기관 이송</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 질식 -->
+      <div class="emg-section urgent" id="emg-choke">
+        <div class="emg-title-row">
+          <span class="emg-badge urgent">★ 질식</span>
+          <span class="emg-name">기도폐쇄</span>
+        </div>
+        <div class="emg-signal">
+          <div class="sig-label">확인 신호</div>
+          <div class="sig-text">갑자기 말 못 함 / 두 손으로 목을 감싸쥠 / 입술·얼굴이 파랗게 변함(청색증)</div>
+        </div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">입 안에 보이는 이물질 <strong>즉시 제거</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">등 어깨뼈 사이를 손바닥으로 <strong>세게 5회 두드리기</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>하임리히법</strong> (의식 있는 경우) — 어르신 뒤에 서서 허리 감싸안고, 배꼽과 명치 사이에 주먹 대고 위로 힘차게 밀어올리기. 이물질 나올 때까지 반복</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>의식 없는 경우</strong> — 바닥에 눕히고 배꼽-명치 사이를 4~5회 눌러올린 후 이물질 제거</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-text">청색증 심하거나 호흡 미회복 시 <strong>즉시 119 신고</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 경련 -->
+      <div class="emg-section urgent" id="emg-seizure">
+        <div class="emg-title-row">
+          <span class="emg-badge urgent">★ 경련</span>
+          <span class="emg-name">발작·경기</span>
+        </div>
+        <div class="emg-signal">
+          <div class="sig-label">확인 신호</div>
+          <div class="sig-text">몸을 부들부들 떨거나 경직 / 의식 흐림</div>
+        </div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">주변 <strong>위험한 물건 치우기</strong> / 허리벨트·단추 풀기</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">머리 아래 부드러운 것 받치기 / <strong>기도 확보</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">경련 중 <strong>억지로 붙잡거나 입에 물건 넣지 않기</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">대부분 1~2분 내 멈춤 — 경련 양상 관찰하며 대기</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-text">경련성 질환 없던 어르신 / <strong>5분 이상 지속</strong> 시 즉시 119 신고 후 이송</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 심장마비 -->
+      <div class="emg-section urgent" id="emg-cardiac">
+        <div class="emg-title-row">
+          <span class="emg-badge urgent">★ 심장마비</span>
+          <span class="emg-name">흉통·맥박 없음</span>
+        </div>
+        <div class="emg-signal">
+          <div class="sig-label">확인 신호</div>
+          <div class="sig-text">가슴을 짓누르는 심한 통증 / 청색증 / 식은땀·구역감 / 불규칙한 맥박 / 호흡곤란</div>
+        </div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">활력징후 측정 / <strong>반좌위</strong>(상체 약간 올린 자세)로 눕히기</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">목·가슴·허리 조이는 옷 풀기 / 금식 유지</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">니트로글리세린 응급약 있으면 혀 밑에 넣기</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>즉시 병원 이송</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-text">호흡·맥박 없으면 <strong>즉시 CPR 시작</strong> ↓</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CPR -->
+      <div class="emg-section urgent" id="emg-cpr">
+        <div class="emg-title-row">
+          <span class="emg-badge urgent">★ CPR·AED</span>
+          <span class="emg-name">심폐소생술</span>
+        </div>
+        <div class="highlight-line" style="margin-bottom:12px;">호흡·맥박이 없으면 즉시 CPR을 시작하세요. 1분이 생명입니다.</div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">어깨 두드려 반응 확인 → 없으면 <strong>즉시 119 신고</strong> + AED 요청</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">딱딱한 바닥에 눕히기 / 압박 위치: <strong>양쪽 젖꼭지 사이 흉부 정중앙</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">두 손 겹쳐 <strong>분당 100~120회, 깊이 약 5cm</strong>로 30회 압박</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">기도 열기(이마 누르기+턱 들기) → 코 막고 <strong>인공호흡 2회</strong></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-text"><strong>가슴압박 30회 + 인공호흡 2회</strong> 반복 → 119 도착까지 멈추지 않기. 2인 구조 시 5주기마다 교대</div>
+          </div>
+        </div>
+        <div class="warn-box" style="margin-top:12px;">
+          <strong>AED 사용법</strong><br>
+          기기 켜기 → 패드 붙이기(오른쪽 쇄골 아래 / 왼쪽 젖꼭지 아래 옆구리) → 심장 리듬 분석 중 어르신 몸에 닿지 않기 → 충격 버튼 누르기 → 즉시 CPR 재시작
+        </div>
+      </div>
+
+    </div>
+    <!-- /챕터 3 -->
+
+    <!-- ===== 챕터 4: 외상·골절·화상 ===== -->
+    <div class="chapter" id="ch4">
+      <div class="chapter-header">
+        <div class="chapter-icon c4">🩹</div>
+        <div class="chapter-meta">
+          <div class="tag c4">CHAPTER 4</div>
+          <h2>외상·골절·화상</h2>
+        </div>
+      </div>
+
+      <div class="emg-grid-pc">
+
+        <!-- 골절 -->
+        <div class="emg-section moderate" id="emg-fracture">
+          <div class="emg-title-row">
+            <span class="emg-badge moderate">골절</span>
+            <span class="emg-name">뼈 부러짐</span>
+          </div>
+          <div class="emg-signal moderate">
+            <div class="sig-label">확인 신호</div>
+            <div class="sig-text">통증 호소 / 팔다리 모양 이상 / 움직임 제한</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item moderate">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>함부로 움직이지 않기</strong> — 즉시 119 연락</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">2</div>
+              <div class="step-text">편평한 곳에 눕혀 불필요한 움직임 막기</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">3</div>
+              <div class="step-text">출혈 있으면 지혈 → 거즈로 느슨하게 감싸기</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">4</div>
+              <div class="step-text">부목으로 <strong>다친 위아래 관절 함께 고정</strong></div>
+            </div>
+          </div>
+          <div class="warn-box">뼈가 피부 밖으로 나온 경우 절대 밀어 넣지 않기. 감염 위험 — 그대로 즉시 이송</div>
+        </div>
+
+        <!-- 외상 -->
+        <div class="emg-section moderate" id="emg-wound">
+          <div class="emg-title-row">
+            <span class="emg-badge moderate">외상</span>
+            <span class="emg-name">베임·찢어짐·관통상</span>
+          </div>
+          <div class="emg-signal moderate">
+            <div class="sig-label">확인 신호</div>
+            <div class="sig-text">날카로운 것에 베임 / 출혈</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item moderate">
+              <div class="step-num">1</div>
+              <div class="step-text">깨끗한 천·거즈로 <strong>눌러서 지혈</strong></div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">2</div>
+              <div class="step-text">출혈 멈추면 약한 수돗물로 상처 세척 (입으로 빨지 않기)</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">3</div>
+              <div class="step-text">지혈 후 부목 고정</div>
+            </div>
+          </div>
+          <div class="warn-box">
+            <strong>절단 시</strong><br>
+            생리식염수 세척 → 거즈로 감싸 비닐 밀봉 → 얼음물 보관(직접 접촉 금지) → 즉시 이송
+          </div>
+        </div>
+
+        <!-- 화상 -->
+        <div class="emg-section urgent" id="emg-burn">
+          <div class="emg-title-row">
+            <span class="emg-badge urgent">★ 화상</span>
+            <span class="emg-name">열·불·뜨거운 것</span>
+          </div>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>찬물로 15~20분 식히기</strong> — 얼음 직접 대지 않기, 세게 틀지 않기</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-text">옷은 <strong>가위로 잘라내기</strong> (잡아당기지 않기) / 반지·시계·팔찌 즉시 제거</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>1도</strong>(빨개짐) — 찬물로 통증 완화<br>
+                <strong>2도</strong>(물집) — 물집 터뜨리지 않기. 병원 소독·드레싱 필수<br>
+                <strong>3도</strong>(검게 타거나 하얗게 변함) — 상처 건드리지 않고 즉시 이송
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 뇌졸중 -->
+        <div class="emg-section moderate" id="emg-stroke">
+          <div class="emg-title-row">
+            <span class="emg-badge moderate">뇌졸중</span>
+            <span class="emg-name">골든타임 중요</span>
+          </div>
+          <div class="emg-signal moderate">
+            <div class="sig-label">확인 신호</div>
+            <div class="sig-text">한쪽 팔·다리 힘 빠짐 / 입가 처짐·말 어눌해짐 / 심한 두통·구토 / 한쪽 눈 안 보임</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item moderate">
+              <div class="step-num">1</div>
+              <div class="step-text">머리 움직이지 않게 하며 안전한 곳으로 이동</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">2</div>
+              <div class="step-text"><strong>마비 없는 쪽이 아래로</strong> 가게 옆으로 눕히기 (토사물 흡인 방지)</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">3</div>
+              <div class="step-text">머리·어깨 약간 올리고, 다리는 낮추기 (뇌압 상승 방지)</div>
+            </div>
+            <div class="step-item moderate">
+              <div class="step-num">4</div>
+              <div class="step-text"><strong>즉시 119 신고</strong> — 골든 타임 이내 이송</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /emg-grid-pc -->
+    </div>
+    <!-- /챕터 4 -->
+
+    <!-- ===== 챕터 5: 혈압·혈당·기타 ===== -->
+    <div class="chapter" id="ch5">
+      <div class="chapter-header">
+        <div class="chapter-icon c5">💊</div>
+        <div class="chapter-meta">
+          <div class="tag c5">CHAPTER 5</div>
+          <h2>혈압·혈당·기타</h2>
+        </div>
+      </div>
+
+      <div class="emg-grid-pc">
+
+        <!-- 호흡곤란 -->
+        <div class="emg-section general" id="emg-breath">
+          <div class="emg-title-row">
+            <span class="emg-badge general">호흡곤란</span>
+            <span class="emg-name">숨쉬기 힘들어함</span>
+          </div>
+          <div class="step-list">
+            <div class="step-item general">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>반좌위·좌위</strong> 자세 (등 약간 기댄 자세) — 호흡 도움</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">2</div>
+              <div class="step-text">곁에 머물며 손 잡고 안정, 심호흡 같이 하기</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">3</div>
+              <div class="step-text">산소포화도 측정 — 낮으면 산소 공급</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">4</div>
+              <div class="step-text">호흡곤란 지속 시 <strong>119 신고 후 이송</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 고혈압 -->
+        <div class="emg-section general" id="emg-hyper">
+          <div class="emg-title-row">
+            <span class="emg-badge general">고혈압</span>
+            <span class="emg-name">두통·어지러움</span>
+          </div>
+          <div class="emg-signal general">
+            <div class="sig-label">기준</div>
+            <div class="sig-text">혈압이 최고혈압 160 / 최저혈압 90 이상, 또는 평상시보다 현저히 높음</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item general">
+              <div class="step-num">1</div>
+              <div class="step-text">혈압 측정 / <strong>머리 약간 올린 자세</strong>로 안정</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">2</div>
+              <div class="step-text">의식 없으면 음식·음료 드리지 않기</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">3</div>
+              <div class="step-text">안정 후에도 혈압 안 내려가면 119 연락</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 기립성저혈압 -->
+        <div class="emg-section general" id="emg-ortho">
+          <div class="emg-title-row">
+            <span class="emg-badge general">기립성 저혈압</span>
+            <span class="emg-name">자세 바꿀 때 어지러움</span>
+          </div>
+          <div class="emg-signal general">
+            <div class="sig-label">확인 신호</div>
+            <div class="sig-text">자리에서 일어나다 어지러움 / 얼굴 창백·식은땀·휘청거림</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item general">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>머리 낮추고 다리 올린 자세</strong>로 눕혀 안정</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">2</div>
+              <div class="step-text">저혈압 지속 시 즉시 119 연락</div>
+            </div>
+          </div>
+          <div class="warn-box" style="margin-top:10px;">예방: 평소 자리에서 일어날 때 천천히, 단계적으로 자세 바꾸도록 도와드리기</div>
+        </div>
+
+        <!-- 저혈당 -->
+        <div class="emg-section general" id="emg-hypo">
+          <div class="emg-title-row">
+            <span class="emg-badge general">저혈당</span>
+            <span class="emg-name">식은땀·어지러움 (당뇨 어르신)</span>
+          </div>
+          <div class="emg-signal general">
+            <div class="sig-label">기준</div>
+            <div class="sig-text">혈당 70mg/dL 미만 / 식은땀·허기·기력 없음·의식 흐림</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item general">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>의식 있고 삼킬 수 있으면</strong> — 설탕물·오렌지주스·초콜릿·사탕 등 당분 섭취</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">2</div>
+              <div class="step-text">보통 15분 이내 호전</div>
+            </div>
+          </div>
+          <div class="warn-box danger">의식 없거나 삼키지 못하면 음식 드리지 않기 — 질식 위험. 즉시 119 연락</div>
+        </div>
+
+        <!-- 염좌 -->
+        <div class="emg-section general" id="emg-sprain">
+          <div class="emg-title-row">
+            <span class="emg-badge general">염좌</span>
+            <span class="emg-name">발목·손목 삠</span>
+          </div>
+          <div class="step-list">
+            <div class="step-item general">
+              <div class="step-num">1</div>
+              <div class="step-text">출혈 있으면 <strong>압박 지혈</strong></div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">2</div>
+              <div class="step-text">다친 부위를 <strong>심장보다 높이</strong> 올리기</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">3</div>
+              <div class="step-text"><strong>냉찜질 20~30분</strong> — 붓기·통증 완화</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">4</div>
+              <div class="step-text">탄력붕대·부목으로 고정 후 안정</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 일사병 -->
+        <div class="emg-section general" id="emg-heat">
+          <div class="emg-title-row">
+            <span class="emg-badge general">일사병</span>
+            <span class="emg-name">여름철 더위 노출</span>
+          </div>
+          <div class="emg-signal general">
+            <div class="sig-label">확인 신호</div>
+            <div class="sig-text">더운 곳 노출 후 구역질·어지러움·두통</div>
+          </div>
+          <div class="step-list">
+            <div class="step-item general">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>즉시 시원한 곳으로 이동</strong> / 편안한 자세</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">2</div>
+              <div class="step-text">젖은 수건으로 감싸고 부채질 / 얼음주머니를 겨드랑이·목·사타구니에 대어 체온 내리기</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">3</div>
+              <div class="step-text"><strong>의식 있으면</strong> 이온음료·물 마시게 하기</div>
+            </div>
+            <div class="step-item general">
+              <div class="step-num">4</div>
+              <div class="step-text">의식 없으면 음식 드리지 않고 즉시 119 연락</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /emg-grid-pc -->
+    </div>
+    <!-- /챕터 5 -->
+
+    <!-- 마무리 -->
+    <div class="wrap-up">
+      <div class="wu-title">응급상황, 이 세 가지를 기억하세요</div>
+      <div class="wu-item">
+        <div class="wu-num">1</div>
+        <div class="wu-body">
+          <div class="wu-head">침착하게</div>
+          <div class="wu-desc">당황하지 말고 어르신 상태를 먼저 파악</div>
+        </div>
+      </div>
+      <div class="wu-item">
+        <div class="wu-num">2</div>
+        <div class="wu-body">
+          <div class="wu-head">즉시 보고</div>
+          <div class="wu-desc">혼자 해결하지 말고 관리자에게 바로 보고</div>
+        </div>
+      </div>
+      <div class="wu-item">
+        <div class="wu-num">3</div>
+        <div class="wu-body">
+          <div class="wu-head">전문가에게 인계</div>
+          <div class="wu-desc">응급처치는 119·의료진 도착 전까지만 내가 담당</div>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="badge">침착</span>
+        <span class="badge">즉시 보고</span>
+        <span class="badge">119 신고</span>
+        <span class="badge">기록 필수</span>
+        <span class="badge">인계</span>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="footer">© 실로암방문요양지원센터</div>
+
+</div><!-- /pc-wrapper -->
+
+<a class="fab-top" id="fabTop" href="#" aria-label="맨 위로">↑</a>
+
+<script>
+  // 스크롤 프로그레스 바
+  const bar = document.getElementById('progress');
+  const fab = document.getElementById('fabTop');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (total > 0 ? (scrolled / total * 100) : 0) + '%';
+    fab.classList.toggle('show', scrolled > 300);
+  });
+  fab.addEventListener('click', e => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
