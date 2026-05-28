@@ -296,21 +296,22 @@
 
     .emg-title-row {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
       margin-bottom: 10px;
     }
     .emg-badge {
-      font-size: 12px; font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
+      font-size: 22px; font-weight: 900;
+      padding: 5px 14px;
+      border-radius: 10px;
+      letter-spacing: 0;
       flex-shrink: 0;
     }
     .emg-badge.urgent { background: #C0392B; color: #fff; }
     .emg-badge.moderate { background: #E8852A; color: #fff; }
     .emg-badge.general { background: #1A5A8A; color: #fff; }
-    .emg-name { font-size: 21px; font-weight: 800; color: #1a1a2e; }
+    .emg-name { font-size: 15px; font-weight: 500; color: #777; }
 
     .emg-signal {
       background: #FEF5F5;
