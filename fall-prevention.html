@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>낙상예방 및 관리지침 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f0f7f4;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #1A6B4A, #E8852A);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #d0e8dc;
+    }
+    .top-bar a {
+      color: #1A6B4A;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+    }
+    .top-bar .title {
+      font-size: 17px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    [id] { scroll-margin-top: 52px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, #0F4A31 0%, #1A6B4A 55%, #258B60 100%);
+      color: #fff;
+      padding: 32px 20px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #E8852A, #F5A953, #E8852A);
+    }
+    .hero .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #7EECC4;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      word-break: keep-all;
+      line-height: 1.3;
+    }
+    .hero h1 .accent { color: #7EECC4; }
+    .hero .sub {
+      font-size: 17px;
+      opacity: 0.9;
+    }
+
+    /* 목차 */
+    .toc {
+      margin: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid #d8eee4;
+      transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #1A6B4A; background: #eaf5ef; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .toc-icon.c1 { background: #FFF3E8; }
+    .toc-icon.c2 { background: #E8F5EE; }
+    .toc-icon.c3 { background: #E0F4EC; }
+    .toc-icon.c4 { background: #D8F0E7; }
+    .toc-icon.c5 { background: #EFF8FF; }
+    .toc-icon.c6 { background: #FFF0E8; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #B5601A; }
+    .toc-label.c2 { color: #1A6B4A; }
+    .toc-label.c3 { color: #147A45; }
+    .toc-label.c4 { color: #0D5E38; }
+    .toc-label.c5 { color: #1A5A8A; }
+    .toc-label.c6 { color: #B5391A; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 헤더 */
+    .chapter { margin-top: 28px; }
+    .chapter-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .chapter-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .chapter-icon.c1 { background: #FFF3E8; }
+    .chapter-icon.c2 { background: #E8F5EE; }
+    .chapter-icon.c3 { background: #E0F4EC; }
+    .chapter-icon.c4 { background: #D8F0E7; }
+    .chapter-icon.c5 { background: #EFF8FF; }
+    .chapter-icon.c6 { background: #FFF0E8; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag {
+      display: inline-block;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .chapter-meta .tag.c1 { color: #B5601A; }
+    .chapter-meta .tag.c2 { color: #1A6B4A; }
+    .chapter-meta .tag.c3 { color: #147A45; }
+    .chapter-meta .tag.c4 { color: #0D5E38; }
+    .chapter-meta .tag.c5 { color: #1A5A8A; }
+    .chapter-meta .tag.c6 { color: #B5391A; }
+    .chapter-meta h2 {
+      font-size: 22px; font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.3;
+    }
+
+    /* 핵심 강조 배너 */
+    .highlight-line {
+      background: #E8F5EE;
+      border: 1px solid #1A6B4A;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 19px; font-weight: 600;
+      color: #0D4A30;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+    .highlight-line.warning {
+      background: #FFF3E8;
+      border-color: #E8852A;
+      color: #7A3C10;
+    }
+    .highlight-line.danger {
+      background: #FDEDEC;
+      border-color: #E74C3C;
+      color: #922B21;
+    }
+    .highlight-line.info {
+      background: #EFF6FF;
+      border-color: #1A5A8A;
+      color: #0D3D6A;
+    }
+
+    /* 인트로 카드 (낙상이란) */
+    .intro-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 5px solid #1A6B4A;
+    }
+    .intro-card .ic-title {
+      font-size: 20px; font-weight: 800;
+      color: #1A6B4A;
+      margin-bottom: 8px;
+    }
+    .intro-card .ic-desc {
+      font-size: 19px; color: #222;
+      line-height: 1.7;
+    }
+    .intro-card.warn { border-left-color: #E8852A; }
+    .intro-card.warn .ic-title { color: #B5601A; }
+
+    /* 요인 카드 */
+    .factor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .factor-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-top: 4px solid #1A6B4A;
+    }
+    .factor-card.f2 { border-top-color: #258B60; }
+    .factor-card.f3 { border-top-color: #E8852A; }
+    .factor-card .fc-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .factor-card .fc-num {
+      font-size: 12px; font-weight: 800;
+      color: #fff; background: #1A6B4A;
+      padding: 4px 10px; border-radius: 8px;
+      letter-spacing: 1px; flex-shrink: 0;
+    }
+    .factor-card.f2 .fc-num { background: #258B60; }
+    .factor-card.f3 .fc-num { background: #E8852A; }
+    .factor-card .fc-title { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+    .factor-card .fc-desc { font-size: 18px; color: #333; line-height: 1.65; }
+    .factor-card .fc-items {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .factor-card .fc-item {
+      background: #F5FBF8;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 18px; color: #222;
+      line-height: 1.6;
+      border-left: 3px solid #1A6B4A;
+    }
+    .factor-card.f2 .fc-item { background: #F0FAF4; border-left-color: #258B60; }
+    .factor-card.f3 .fc-item { background: #FFF8F3; border-left-color: #E8852A; }
+    .factor-card .fc-item strong { color: #0D4A30; }
+    .factor-card.f3 .fc-item strong { color: #7A3C10; }
+
+    /* 예방 방법 — 숫자 카드 */
+    .prevent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .prevent-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .prevent-card .pc-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #1A6B4A;
+      color: #fff;
+      font-size: 18px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .prevent-card .pc-body { flex: 1; }
+    .prevent-card .pc-title {
+      font-size: 19px; font-weight: 700;
+      color: #1A6B4A;
+      margin-bottom: 4px;
+    }
+    .prevent-card .pc-desc {
+      font-size: 18px; color: #333;
+      line-height: 1.6;
+    }
+    .prevent-card .pc-point {
+      display: inline-block;
+      margin-top: 6px;
+      background: #E8F5EE;
+      color: #0D4A30;
+      font-size: 17px; font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* 직원 대응 카드 */
+    .staff-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .staff-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 5px solid #0D5E38;
+    }
+    .staff-card .sc-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .staff-card .sc-icon { font-size: 26px; flex-shrink: 0; }
+    .staff-card .sc-title {
+      font-size: 20px; font-weight: 800;
+      color: #0D5E38;
+    }
+    .staff-card .sc-desc {
+      font-size: 18px; color: #333;
+      line-height: 1.65;
+    }
+    .staff-card .sc-steps {
+      margin-top: 10px;
+      background: #EAF5EF;
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .staff-card .sc-step-label {
+      font-size: 14px; font-weight: 700;
+      color: #1A6B4A; letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .staff-card .sc-step-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .staff-card .sc-step-item {
+      background: #fff;
+      border: 1px solid #1A6B4A;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 17px; font-weight: 600;
+      color: #1A6B4A;
+    }
+
+    /* 체조 카드 */
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .exercise-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .exercise-card .ex-num {
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      background: #EAF5EF;
+      color: #1A6B4A;
+      font-size: 15px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .exercise-card .ex-body { flex: 1; }
+    .exercise-card .ex-name {
+      font-size: 19px; font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 3px;
+    }
+    .exercise-card .ex-desc {
+      font-size: 18px; color: #444;
+      line-height: 1.6;
+    }
+
+    /* 긴급 대응 배너 */
+    .emergency-banner {
+      background: linear-gradient(135deg, #922B21 0%, #C0392B 100%);
+      color: #fff; border-radius: 14px;
+      padding: 18px 16px; margin: 14px 0;
+      text-align: center;
+    }
+    .emergency-banner .eb-label {
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 2px; opacity: 0.9; margin-bottom: 4px;
+    }
+    .emergency-banner .eb-title {
+      font-size: 21px; font-weight: 800; margin-bottom: 10px;
+      line-height: 1.35; word-break: keep-all;
+    }
+    .emergency-banner .eb-sub {
+      font-size: 17px; font-weight: 600; opacity: 0.95;
+    }
+    .emergency-banner .eb-call {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 24px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid #fff;
+      border-radius: 30px;
+      font-size: 22px; font-weight: 800; color: #fff;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    /* 대응 단계 플로우 */
+    .step-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .step-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .step-item .si-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #E8852A;
+      color: #fff;
+      font-size: 16px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-item .si-body { flex: 1; }
+    .step-item .si-title {
+      font-size: 19px; font-weight: 700;
+      color: #7A3C10;
+      margin-bottom: 3px;
+    }
+    .step-item .si-desc {
+      font-size: 18px; color: #333;
+      line-height: 1.6;
+    }
+
+    /* 공통원칙 리스트 */
+    .principle-list {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .principle-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 19px; color: #222;
+      line-height: 1.65;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .principle-item:last-child { border-bottom: none; }
+    .principle-item .pi-bullet {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #1A6B4A;
+      flex-shrink: 0;
+      margin-top: 10px;
+    }
+
+    /* 마무리 */
+    .closing {
+      text-align: center;
+      margin-top: 36px;
+      padding: 28px 20px;
+      background: linear-gradient(135deg, #0F4A31 0%, #1A6B4A 100%);
+      color: #fff;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .closing::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #E8852A, #F5A953, #E8852A);
+    }
+    .closing-title { font-size: 15px; letter-spacing: 3px; color: #7EECC4; font-weight: 700; margin-bottom: 10px; }
+    .closing-msg { font-size: 20px; font-weight: 700; line-height: 1.75; margin-bottom: 14px; word-break: keep-all; }
+    .closing-msg .accent { color: #7EECC4; }
+    .closing-summary {
+      text-align: left;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .closing-summary-item {
+      font-size: 18px; line-height: 1.8;
+      color: rgba(255,255,255,0.95);
+    }
+    .closing-summary-item strong { color: #7EECC4; }
+    .closing-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+    .closing-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 15px; font-weight: 700;
+      background: rgba(126, 236, 196, 0.18);
+      color: #7EECC4;
+      border: 1px solid rgba(126, 236, 196, 0.45);
+    }
+
+    /* 푸터 */
+    .footer-note {
+      text-align: center;
+      padding: 20px 16px 28px;
+      font-size: 16px; font-weight: 500; color: #555;
+    }
+
+    /* 플로팅 버튼 */
+    .fab-top {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #1A6B4A;
+      color: #fff;
+      border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(26,107,74,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90;
+      text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .factor-grid-pc { }
+    .prevent-grid-pc { }
+    .exercise-grid-pc { }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #d8ede4; }
+
+      .pc-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #f0f7f4;
+        min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      .top-bar { padding: 12px 40px; }
+      .top-bar a { font-size: 16px; }
+      .top-bar .title { font-size: 16px; }
+
+      .hero { padding: 68px 48px 52px; }
+      .hero h1 { font-size: 38px; letter-spacing: -0.5px; }
+      .hero .sub { font-size: 19px; margin-top: 10px; }
+      .hero .hero-badge { font-size: 14px; margin-bottom: 16px; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 16px 40px;
+        background: #fff;
+        border-bottom: 1px solid #d8eee4;
+      }
+      .toc-item {
+        flex: 1 1 calc(33.333% - 8px);
+        min-width: 140px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid #d8eee4;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #1A6B4A;
+        background: #eaf5ef;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(26,107,74,0.1);
+      }
+      .toc-arrow { display: none; }
+      .toc-left { justify-content: center; }
+
+      .content { padding: 10px 40px 60px; }
+
+      .chapter { margin-top: 52px; }
+      .chapter-header {
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #d8eee4;
+      }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-meta .tag { font-size: 13px; letter-spacing: 1.5px; }
+      .chapter-meta h2 { font-size: 28px; }
+
+      .highlight-line {
+        font-size: 20px;
+        padding: 16px 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      /* 요인 카드 — PC 3열 */
+      .factor-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .factor-list { display: contents; }
+      .factor-card {
+        padding: 22px 24px;
+        border-radius: 16px;
+        border-top-width: 5px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .factor-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .factor-card .fc-title { font-size: 21px; }
+
+      /* 예방 방법 — PC 2열 */
+      .prevent-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .prevent-list { display: contents; }
+      .prevent-card {
+        padding: 18px 22px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .prevent-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+      }
+
+      /* 직원 대응 — PC 3열 */
+      .staff-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .staff-card {
+        padding: 20px 22px;
+        border-radius: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .staff-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+      }
+
+      /* 체조 — PC 2열 */
+      .exercise-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .exercise-list { display: contents; }
+      .exercise-card {
+        padding: 16px 20px;
+        border-radius: 14px;
+        border: 1px solid #d8eee4;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .exercise-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+
+      /* 대응 단계 — PC 5열 (스텝 흐름) */
+      .step-flow {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+      .step-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 18px 14px;
+        border-radius: 14px;
+        border: 1px solid #ffe0cc;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .step-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+      .step-item .si-title { font-size: 17px; margin-top: 8px; }
+      .step-item .si-desc { font-size: 15px; }
+
+      /* 공통원칙 리스트 */
+      .principle-list { padding: 18px 24px; border-radius: 16px; }
+      .principle-item { font-size: 19px; }
+
+      /* 긴급 배너 */
+      .emergency-banner { padding: 28px; border-radius: 16px; }
+      .emergency-banner .eb-title { font-size: 24px; }
+
+      /* 마무리 */
+      .closing { margin-top: 60px; padding: 48px 40px; border-radius: 20px; }
+      .closing-title { font-size: 16px; letter-spacing: 4px; }
+      .closing-msg { font-size: 22px; }
+      .closing-summary { padding: 18px 24px; }
+      .closing-summary-item { font-size: 19px; }
+      .closing-badges { gap: 10px; margin-top: 18px; }
+      .closing-badge { font-size: 16px; padding: 8px 18px; }
+
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+
+      .fab-top {
+        width: 50px; height: 50px;
+        font-size: 24px;
+        bottom: 32px; right: 32px;
+        border-radius: 14px;
+      }
+
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { padding: 18px 56px; }
+      .top-bar { padding: 12px 56px; }
+      .hero { padding: 72px 56px 56px; }
+      .hero h1 { font-size: 44px; }
+      .footer-note { padding: 28px 56px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 스크롤 프로그레스 바 -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">낙상예방 및 관리지침</span>
+    </div>
+
+    <!-- 히어로 -->
+    <div class="hero" id="heroArea">
+      <span class="hero-badge">🌿 SAFETY GUIDE</span>
+      <h1><span class="accent">낙상</span>을 막는 것도<br>돌봄의 시작입니다</h1>
+      <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <!-- 목차 -->
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left"><span class="toc-icon c1">❓</span><span class="toc-label c1">낙상이란?</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left"><span class="toc-icon c2">⚠️</span><span class="toc-label c2">낙상의 세 가지 요인</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left"><span class="toc-icon c3">🛡️</span><span class="toc-label c3">낙상 예방 방법</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left"><span class="toc-icon c4">👩‍⚕️</span><span class="toc-label c4">직원의 현장 대응</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left"><span class="toc-icon c5">🤸</span><span class="toc-label c5">낙상예방 체조</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch6">
+        <span class="toc-left"><span class="toc-icon c6">🚨</span><span class="toc-label c6">낙상 발생 시 조치</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 — 낙상이란? ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <div class="chapter-icon c1">❓</div>
+          <div class="chapter-meta">
+            <span class="tag c1">CHAPTER 1</span>
+            <h2>낙상이란?</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line warning">
+          본인 의사와 상관없이 넘어져 몸을 다치는 사고입니다. 서 있다가, 앉아 있다가, 누워 있다가도 일어납니다.
+        </div>
+
+        <div class="intro-card">
+          <div class="ic-title">🦴 왜 위험한가요?</div>
+          <div class="ic-desc">
+            뼈가 약한 어르신은 곧장 <strong>골절</strong>로 이어집니다.<br>
+            척추, 고관절, 손목 — 회복이 더디고 합병증이 따라옵니다.
+          </div>
+        </div>
+
+        <div class="intro-card warn">
+          <div class="ic-title">😟 그 이후가 더 문제</div>
+          <div class="ic-desc">
+            한 번 넘어진 어르신은 <strong>다시 넘어질까 두려워</strong> 활동을 줄이십니다.<br>
+            운동량이 떨어지고, 점점 고립됩니다.<br><br>
+            <strong>낙상 한 번이 어르신의 일상을 무너뜨립니다.</strong>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          하지만 막을 수 있습니다. 그 자리에 여러분이 계십니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 — 낙상의 세 가지 요인 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <div class="chapter-icon c2">⚠️</div>
+          <div class="chapter-meta">
+            <span class="tag c2">CHAPTER 2</span>
+            <h2>낙상의 세 가지 요인</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          낙상은 우연이 아닙니다. 세 가지 요인이 함께 작용합니다.
+        </div>
+
+        <div class="factor-grid-pc">
+        <div class="factor-list">
+          <div class="factor-card">
+            <div class="fc-head">
+              <span class="fc-num">FACTOR 01</span>
+              <span class="fc-title">인지심리적 요인</span>
+            </div>
+            <div class="fc-desc">마음과 정신이 원인입니다.</div>
+            <div class="fc-items">
+              <div class="fc-item"><strong>치매</strong> — 보행이 변하고 위험을 알아차리지 못합니다</div>
+              <div class="fc-item"><strong>우울증</strong> — 집중력이 떨어지고 주변에 무관심해집니다</div>
+              <div class="fc-item"><strong>불안·공포</strong> — 활동이 위축되고 몸이 약해집니다</div>
+            </div>
+          </div>
+
+          <div class="factor-card f2">
+            <div class="fc-head">
+              <span class="fc-num">FACTOR 02</span>
+              <span class="fc-title">신체적 요인</span>
+            </div>
+            <div class="fc-desc">몸의 상태가 원인입니다.</div>
+            <div class="fc-items">
+              <div class="fc-item"><strong>시력 저하</strong> — 발을 헛디딥니다</div>
+              <div class="fc-item"><strong>어지러움·기립성 저혈압</strong> — 일어설 때 휘청거립니다</div>
+              <div class="fc-item"><strong>파킨슨·근골격 약화</strong> — 균형을 잡기 어렵습니다</div>
+              <div class="fc-item"><strong>약물</strong> — 수면제·안정제·고혈압약·항우울제 등 어지러움을 부릅니다</div>
+            </div>
+          </div>
+
+          <div class="factor-card f3">
+            <div class="fc-head">
+              <span class="fc-num">FACTOR 03</span>
+              <span class="fc-title">환경적 요인</span>
+            </div>
+            <div class="fc-desc">생활 공간이 원인입니다.</div>
+            <div class="fc-items">
+              <div class="fc-item"><strong>미끄러운 바닥</strong>, 어지럽혀진 물건</div>
+              <div class="fc-item"><strong>손잡이 없는</strong> 계단과 화장실</div>
+              <div class="fc-item"><strong>슬리퍼·헐거운 신발</strong>, 높은 문턱</div>
+              <div class="fc-item"><strong>어두운 조명</strong> — 익숙한 공간의 방심이 가장 큰 함정</div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /factor-grid-pc -->
+      </div>
+
+      <!-- ===== 챕터 3 — 낙상 예방 방법 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <div class="chapter-icon c3">🛡️</div>
+          <div class="chapter-meta">
+            <span class="tag c3">CHAPTER 3</span>
+            <h2>낙상 예방 방법</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line info">
+          가이드북이 권하는 일곱 가지입니다
+        </div>
+
+        <div class="prevent-grid-pc">
+        <div class="prevent-list">
+          <div class="prevent-card">
+            <div class="pc-num">1</div>
+            <div class="pc-body">
+              <div class="pc-title">어지럼증 예방</div>
+              <div class="pc-desc">침대에서 바로 일어나지 않도록 합니다.</div>
+              <span class="pc-point">잠시 앉으셨다가 → 천천히 일어나기</span>
+            </div>
+          </div>
+
+          <div class="prevent-card">
+            <div class="pc-num">2</div>
+            <div class="pc-body">
+              <div class="pc-title">안전 손잡이 설치</div>
+              <div class="pc-desc">침실, 거실, 욕실 — 잡을 수 있는 곳에 반드시 손잡이를 설치합니다. 편측 마비나 시야 장애가 있으시면 잘 보이는 쪽 벽에.</div>
+            </div>
+          </div>
+
+          <div class="prevent-card">
+            <div class="pc-num">3</div>
+            <div class="pc-body">
+              <div class="pc-title">미끄럼 방지</div>
+              <div class="pc-desc">싱크대 주변, 욕실 바닥에 미끄럼방지재를 깝니다.</div>
+              <span class="pc-point">물기가 떨어지면 즉시 닦기</span>
+            </div>
+          </div>
+
+          <div class="prevent-card">
+            <div class="pc-num">4</div>
+            <div class="pc-body">
+              <div class="pc-title">계단 안전</div>
+              <div class="pc-desc">양쪽 손잡이, 미끄럼방지 바닥, 모서리 표시. 건강한 팔로 손잡이를 잡고 한 칸씩 천천히.</div>
+            </div>
+          </div>
+
+          <div class="prevent-card">
+            <div class="pc-num">5</div>
+            <div class="pc-body">
+              <div class="pc-title">물건 위치</div>
+              <div class="pc-desc">자주 쓰는 물건은 손이 닿는 곳에 둡니다.</div>
+              <span class="pc-point">멀리 있는 물건은 집게 사용</span>
+            </div>
+          </div>
+
+          <div class="prevent-card">
+            <div class="pc-num">6</div>
+            <div class="pc-body">
+              <div class="pc-title">신발 관리</div>
+              <div class="pc-desc">발에 잘 맞는 신발, 발목 높이가 좋습니다.</div>
+              <span class="pc-point">슬리퍼는 신지 않습니다</span>
+            </div>
+          </div>
+
+          <div class="prevent-card">
+            <div class="pc-num">7</div>
+            <div class="pc-body">
+              <div class="pc-title">동선마다 손잡이</div>
+              <div class="pc-desc">일상 동선 — 침실·거실·욕실 모두 손잡이. 쉽게 잡을 수 있는 위치에 단단히 고정합니다.</div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /prevent-grid-pc -->
+      </div>
+
+      <!-- ===== 챕터 4 — 직원의 현장 대응 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <div class="chapter-icon c4">👩‍⚕️</div>
+          <div class="chapter-meta">
+            <span class="tag c4">CHAPTER 4</span>
+            <h2>직원의 현장 대응</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          요양보호사가 현장에서 꼭 지켜야 할 세 가지입니다
+        </div>
+
+        <div class="staff-list">
+          <div class="staff-card">
+            <div class="sc-head">
+              <span class="sc-icon">♿</span>
+              <span class="sc-title">휠체어</span>
+            </div>
+            <div class="sc-desc">
+              멈춰 둘 때 <strong>반드시 브레이크</strong>. 타이어 공기압과 발 받침대를 수시로 점검합니다.
+            </div>
+          </div>
+
+          <div class="staff-card">
+            <div class="sc-head">
+              <span class="sc-icon">🤝</span>
+              <span class="sc-title">마비가 있는 어르신</span>
+            </div>
+            <div class="sc-desc">
+              <strong>마비된 쪽 뒤에서</strong> 보조합니다. 휘청이실 때 바로 잡아드릴 수 있도록.
+            </div>
+          </div>
+
+          <div class="staff-card">
+            <div class="sc-head">
+              <span class="sc-icon">🛏️</span>
+              <span class="sc-title">침대에서 내려올 때</span>
+            </div>
+            <div class="sc-desc">
+              다섯 단계로 도와드립니다.
+            </div>
+            <div class="sc-steps">
+              <div class="sc-step-label">5단계 절차</div>
+              <div class="sc-step-list">
+                <span class="sc-step-item">① 앉기</span>
+                <span class="sc-step-item">② 매트리스 짚기</span>
+                <span class="sc-step-item">③ 발 바닥 확인</span>
+                <span class="sc-step-item">④ 천천히 기립</span>
+                <span class="sc-step-item">⑤ 안정</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5 — 낙상예방 체조 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <div class="chapter-icon c5">🤸</div>
+          <div class="chapter-meta">
+            <span class="tag c5">CHAPTER 5</span>
+            <h2>낙상예방 체조</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line info">
+          낙상은 근력으로도 막습니다. 하루 한 번씩 함께 해보세요.
+        </div>
+
+        <div class="exercise-grid-pc">
+        <div class="exercise-list">
+          <div class="exercise-card">
+            <div class="ex-num">1</div>
+            <div class="ex-body">
+              <div class="ex-name">숨쉬기 운동</div>
+              <div class="ex-desc">천천히 들이마시고 내쉬기. 다섯 번.</div>
+            </div>
+          </div>
+
+          <div class="exercise-card">
+            <div class="ex-num">2</div>
+            <div class="ex-body">
+              <div class="ex-name">목 운동</div>
+              <div class="ex-desc">고개를 상·하·좌·우로. 한 번에 3초씩.</div>
+            </div>
+          </div>
+
+          <div class="exercise-card">
+            <div class="ex-num">3</div>
+            <div class="ex-body">
+              <div class="ex-name">어깨 움직이기</div>
+              <div class="ex-desc">어깨를 상·하·좌·우로. 약하시면 건강한 팔로 지지.</div>
+            </div>
+          </div>
+
+          <div class="exercise-card">
+            <div class="ex-num">4</div>
+            <div class="ex-body">
+              <div class="ex-name">어깨 뒤로 좁히기</div>
+              <div class="ex-desc">양 어깨를 뒤로 모아 3~5초 유지.</div>
+            </div>
+          </div>
+
+          <div class="exercise-card">
+            <div class="ex-num">5</div>
+            <div class="ex-body">
+              <div class="ex-name">팔꿈치 구부렸다 펴기</div>
+              <div class="ex-desc">의자 난간을 잡고 10번씩 세 차례.</div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /exercise-grid-pc -->
+      </div>
+
+      <!-- ===== 챕터 6 — 낙상 발생 시 조치 ===== -->
+      <div class="chapter" id="ch6">
+        <div class="chapter-header">
+          <div class="chapter-icon c6">🚨</div>
+          <div class="chapter-meta">
+            <span class="tag c6">CHAPTER 6</span>
+            <h2>낙상 발생 시 조치</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line warning">
+          아무리 조심해도 낙상은 일어날 수 있습니다. 직원의 첫 1분이 결과를 바꿉니다.
+        </div>
+
+        <!-- 공통 원칙 -->
+        <div class="highlight-line info" style="margin-bottom: 8px;">공통 원칙 — 모든 낙상에 적용됩니다</div>
+        <div class="principle-list">
+          <div class="principle-item">
+            <span class="pi-bullet"></span>
+            당황하지 말고, 어르신을 안정시킵니다
+          </div>
+          <div class="principle-item">
+            <span class="pi-bullet"></span>
+            추가 위험이 없다면 <strong>그 자리에서 움직이지 않습니다</strong>
+          </div>
+          <div class="principle-item">
+            <span class="pi-bullet"></span>
+            통증이 심한 경우 억지로 펴거나 구부리지 않습니다
+          </div>
+          <div class="principle-item">
+            <span class="pi-bullet"></span>
+            상태를 파악하고 <strong>간호사·관리자·시설장에게 보고</strong>. 가족에게도 알립니다
+          </div>
+          <div class="principle-item">
+            <span class="pi-bullet"></span>
+            발생 경위와 조치는 <strong>기록으로 남깁니다</strong>
+          </div>
+        </div>
+
+        <!-- 일어나실 수 없는 경우 -->
+        <div class="emergency-banner">
+          <div class="eb-label">🚨 일어나실 수 없는 경우</div>
+          <div class="eb-title">즉시 119에 신고하세요</div>
+          <div class="eb-sub">절대 뼈를 맞추거나, 옮기거나, 움직이지 않습니다<br>의료진이 올 때까지 곁을 지킵니다</div>
+          <a href="tel:119" class="eb-call">☎ 119</a>
+        </div>
+
+        <!-- 일어나실 수 있는 경우 -->
+        <div class="highlight-line" style="margin-top: 16px; margin-bottom: 10px;">
+          일어나실 수 있는 경우 — 다섯 단계로 천천히
+        </div>
+        <div class="step-flow">
+          <div class="step-item">
+            <div class="si-num">1</div>
+            <div class="si-body">
+              <div class="si-title">옆으로 눕기</div>
+              <div class="si-desc">위쪽 다리를 구부립니다</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="si-num">2</div>
+            <div class="si-body">
+              <div class="si-title">무릎 꿇기</div>
+              <div class="si-desc">의자·가구에 양손 올려 무릎 꿇기</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="si-num">3</div>
+            <div class="si-body">
+              <div class="si-title">다리 앞으로</div>
+              <div class="si-desc">힘 있는 쪽 다리를 앞으로</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="si-num">4</div>
+            <div class="si-body">
+              <div class="si-title">천천히 일어나기</div>
+              <div class="si-desc">서두르지 않습니다</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="si-num">5</div>
+            <div class="si-body">
+              <div class="si-title">돌려 앉기</div>
+              <div class="si-desc">조심스럽게 의자에 앉힙니다</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-line danger" style="margin-top: 14px;">
+          스스로 일어나시게 두면 안 됩니다. 한 단계도 빠뜨리지 마세요.
+        </div>
+      </div>
+
+      <!-- ===== 마무리 ===== -->
+      <div class="closing">
+        <div class="closing-title">CLOSING MESSAGE</div>
+        <p class="closing-msg">
+          어르신을 안전하게 모시는 일은,<br>
+          <span class="accent">작은 습관</span>에서 시작합니다.
+        </p>
+        <div class="closing-summary">
+          <div class="closing-summary-item"><strong>낙상의 요인</strong> — 인지심리 · 신체 · 환경</div>
+          <div class="closing-summary-item"><strong>낙상의 예방</strong> — 환경 점검 · 직원 동작 · 체조</div>
+          <div class="closing-summary-item"><strong>낙상 발생 시</strong> — 공통 원칙 · 119 · 다섯 단계</div>
+        </div>
+        <div class="closing-badges">
+          <span class="closing-badge">요인 파악</span>
+          <span class="closing-badge">환경 점검</span>
+          <span class="closing-badge">5단계 보조</span>
+          <span class="closing-badge">즉시 보고</span>
+          <span class="closing-badge">체조 실천</span>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <!-- 플로팅 ↑ 버튼 -->
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      }
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
