@@ -180,6 +180,7 @@
       padding: 4px 12px;
       border-radius: 20px;
       margin-bottom: 12px;
+      word-break: keep-all;
     }
 
     /* 비교표 — 두 문서 */
@@ -287,7 +288,7 @@
       font-size: 20px; flex-shrink: 0;
     }
     .agency-name { font-size: 19px; font-weight: 800; color: #1a1a2e; }
-    .agency-sub { font-size: 16px; color: #555; margin-top: 2px; }
+    .agency-sub { font-size: 17px; color: #555; margin-top: 2px; }
     .agency-contact {
       display: flex; flex-direction: column; gap: 6px;
     }
@@ -302,7 +303,7 @@
     .contact-row:last-child { border-bottom: none; }
     .contact-row:active { background: #f0edf8; }
     .contact-ico { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
-    .contact-label { font-size: 16px; font-weight: 700; color: #555; min-width: 58px; flex-shrink: 0; }
+    .contact-label { font-size: 17px; font-weight: 700; color: #555; min-width: 58px; flex-shrink: 0; }
     .contact-value { font-size: 18px; font-weight: 600; color: #5B4F8C; flex: 1; }
 
     /* 마무리 */
@@ -574,10 +575,6 @@
           말기·임종과정 환자가 <strong>담당 의사와 함께</strong> 의료기관에서 작성하는 서류입니다
         </div>
 
-        <div class="caution-box" style="margin-bottom: 14px;">
-          ⚠️ <strong>의료기관윤리위원회가 설치·등록된 의료기관</strong>에서만 작성할 수 있습니다. 작성 후 변경·철회는 언제든지 담당 의사에게 요청할 수 있습니다.
-        </div>
-
         <div class="compare-grid-pc">
           <!-- 사전의향서 -->
           <div class="compare-card blue">
@@ -600,6 +597,10 @@
             <div class="cc-row"><span class="cc-key">작성 장소</span><span class="cc-val">의료기관</span></div>
             <div class="cc-row"><span class="cc-key">효력 발생</span><span class="cc-val">작성 즉시</span></div>
           </div>
+        </div>
+
+        <div class="caution-box" style="margin-bottom: 14px;">
+          ⚠️ <strong>의료기관윤리위원회가 설치·등록된 의료기관</strong>에서만 작성할 수 있습니다. 작성 후 변경·철회는 언제든지 담당 의사에게 요청할 수 있습니다.
         </div>
 
         <div class="caution-box">
@@ -736,7 +737,7 @@
     <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
   </div><!-- /pc-wrapper -->
 
-  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+  <a href="#heroArea" class="fab-top" id="fabTop" aria-label="맨 위로 이동">&uarr;</a>
 
   <script>
     var progressBar = document.getElementById('progressBar');
