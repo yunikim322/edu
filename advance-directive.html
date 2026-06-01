@@ -312,22 +312,17 @@
     .contact-value { font-size: 18px; font-weight: 600; color: #5B4F8C; flex: 1; }
 
     /* 마무리 */
-    /* 안내문 인쇄 링크 */
+    /* 안내문 인쇄 링크 (작은 버튼) */
     .print-link {
-      display: flex; align-items: center; gap: 14px;
-      margin-top: 22px;
-      padding: 18px 18px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: fit-content; margin: 20px auto 4px;
+      padding: 9px 18px;
       background: #F5F3FF;
-      border: 2px solid #5B4F8C;
-      border-radius: 16px;
+      border: 1.5px solid #B7AEDA;
+      border-radius: 10px;
       text-decoration: none;
-      color: #2D2157;
+      color: #4A2C6E; font-size: 16px; font-weight: 700;
     }
-    .print-ico { font-size: 30px; flex-shrink: 0; }
-    .print-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-    .print-title { font-size: 19px; font-weight: 700; color: #4A2C6E; word-break: keep-all; }
-    .print-sub { font-size: 15px; color: #555; word-break: keep-all; line-height: 1.55; }
-    .print-arrow { color: #5B4F8C; font-size: 26px; font-weight: 700; flex-shrink: 0; }
 
     .closing {
       text-align: center;
@@ -781,14 +776,7 @@
       </div>
 
       <!-- 안내문 인쇄 링크 -->
-      <a class="print-link" href="advance-directive-notice.html" target="_blank" rel="noopener">
-        <span class="print-ico">🖨️</span>
-        <span class="print-text">
-          <span class="print-title">수급자·보호자용 안내문 인쇄</span>
-          <span class="print-sub">어르신·보호자께 드리는 안내 및 확인서입니다. 새 창에서 열어 인쇄하세요.</span>
-        </span>
-        <span class="print-arrow">&rsaquo;</span>
-      </a>
+      <a class="print-link" href="advance-directive-notice.html" target="_blank" rel="noopener">🖨️ 안내문 인쇄</a>
 
       <!-- 마무리 -->
       <div class="closing">
