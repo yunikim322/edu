@@ -312,6 +312,23 @@
     .contact-value { font-size: 18px; font-weight: 600; color: #5B4F8C; flex: 1; }
 
     /* 마무리 */
+    /* 안내문 인쇄 링크 */
+    .print-link {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 22px;
+      padding: 18px 18px;
+      background: #F5F3FF;
+      border: 2px solid #5B4F8C;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #2D2157;
+    }
+    .print-ico { font-size: 30px; flex-shrink: 0; }
+    .print-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .print-title { font-size: 19px; font-weight: 700; color: #4A2C6E; word-break: keep-all; }
+    .print-sub { font-size: 15px; color: #555; word-break: keep-all; line-height: 1.55; }
+    .print-arrow { color: #5B4F8C; font-size: 26px; font-weight: 700; flex-shrink: 0; }
+
     .closing {
       text-align: center;
       margin-top: 24px;
@@ -762,6 +779,16 @@
           <p>국립연명의료관리기관 홈페이지(www.lst.go.kr) → <strong>등록기관 찾기</strong> 메뉴에서 주소 검색 후 가까운 기관 방문</p>
         </div>
       </div>
+
+      <!-- 안내문 인쇄 링크 -->
+      <a class="print-link" href="advance-directive-notice.html" target="_blank" rel="noopener">
+        <span class="print-ico">🖨️</span>
+        <span class="print-text">
+          <span class="print-title">수급자·보호자용 안내문 인쇄</span>
+          <span class="print-sub">어르신·보호자께 드리는 안내 및 확인서입니다. 새 창에서 열어 인쇄하세요.</span>
+        </span>
+        <span class="print-arrow">&rsaquo;</span>
+      </a>
 
       <!-- 마무리 -->
       <div class="closing">

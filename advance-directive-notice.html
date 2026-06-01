@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>연명의료결정제도 안내문 – 실로암방문요양지원센터</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #e9e7ef;
+    color: #1f1f1f;
+    line-height: 1.8;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* 인쇄 시트 */
+  .sheet {
+    width: 210mm;
+    background: #fff;
+    margin: 10mm auto;
+    padding: 16mm 18mm;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.15);
+  }
+
+  /* ── 문서 헤더 ── */
+  .doc-header {
+    border-bottom: 4px solid #4A2C6E;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+  }
+  .doc-org { font-size: 13pt; font-weight: 700; color: #5B4F8C; }
+  .doc-title {
+    font-size: 25pt; font-weight: 800; color: #2D2157;
+    letter-spacing: -0.5px; margin-top: 2px;
+  }
+  .doc-sub { font-size: 11.5pt; color: #666; margin-top: 4px; }
+
+  /* ── 리드 문장 ── */
+  .lead {
+    background: #F5F3FF;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 13pt;
+    color: #2D2157;
+    line-height: 1.85;
+    margin-bottom: 20px;
+    word-break: keep-all;
+  }
+  .lead strong { font-weight: 800; color: #4A2C6E; }
+
+  /* ── 섹션 ── */
+  .section { margin-bottom: 16px; }
+  .section-title {
+    font-size: 15pt; font-weight: 800; color: #fff;
+    background: #5B4F8C;
+    padding: 9px 18px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 9px;
+  }
+
+  /* ── 항목(설명) 블록 ── */
+  .item { margin-bottom: 14px; padding-left: 2px; }
+  .item:last-child { margin-bottom: 0; }
+  .item-label {
+    font-size: 13pt; font-weight: 800; color: #4A2C6E;
+    margin-bottom: 3px;
+  }
+  .item-body {
+    font-size: 12pt; color: #1f1f1f; line-height: 1.8;
+    word-break: keep-all;
+  }
+  .item-body .small { font-size: 11pt; color: #555; }
+
+  /* ── 서류 카드(2종) ── */
+  .doc-card {
+    border: 1.5px solid #D8D0F0;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .doc-card.amber { border-color: #FBD9A8; background: #FFFCF5; }
+  .doc-card.purple { background: #FBFAFF; }
+  .doc-card .dc-name {
+    font-size: 13.5pt; font-weight: 800; margin-bottom: 8px;
+    color: #4A2C6E;
+  }
+  .doc-card.amber .dc-name { color: #B45309; }
+  .dc-row { font-size: 12pt; line-height: 1.75; margin-bottom: 4px; word-break: keep-all; }
+  .dc-row:last-child { margin-bottom: 0; }
+  .dc-row b { color: #4A2C6E; font-weight: 700; }
+  .doc-card.amber .dc-row b { color: #B45309; }
+
+  /* ── 가족 결정 절차(번호) ── */
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #F0FDFA;
+    border: 1.5px solid #BFEDE6;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: #0F766E; color: #fff;
+    font-size: 15pt; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text { flex: 1; }
+  .step-text .st-head { font-size: 12.5pt; font-weight: 800; color: #115E59; margin-bottom: 2px; }
+  .step-text .st-body { font-size: 12pt; color: #1f1f1f; line-height: 1.75; word-break: keep-all; }
+
+  /* ── 안심 박스 ── */
+  .reassure {
+    background: #FFFBEB;
+    border: 1.5px solid #FCD34D;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 12.5pt; color: #78350F;
+    line-height: 1.8; word-break: keep-all;
+    margin-bottom: 18px;
+  }
+  .reassure strong { font-weight: 800; color: #92400E; }
+
+  /* ── 역할 리스트 ── */
+  .roles { display: flex; flex-direction: column; gap: 10px; }
+  .role {
+    border-left: 4px solid #5B4F8C;
+    background: #FBFAFF;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 12pt; line-height: 1.75; word-break: keep-all;
+  }
+  .role b { color: #4A2C6E; }
+  .role.no { border-left-color: #DC2626; background: #FFF7F7; }
+  .role.no b { color: #DC2626; }
+
+  /* ── 기관 ── */
+  .agency {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .agency-item {
+    border: 1.5px solid #D8D0F0;
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+  .agency-name { font-size: 13pt; font-weight: 800; color: #2D2157; }
+  .agency-sub { font-size: 11pt; color: #666; margin: 2px 0 8px; }
+  .agency-line { font-size: 12.5pt; color: #1f1f1f; margin-bottom: 3px; }
+  .agency-line b { color: #4A2C6E; font-weight: 700; }
+
+  /* ── 서명 ── */
+  .sign {
+    border: 2px solid #4A2C6E;
+    border-radius: 14px;
+    padding: 20px 22px;
+    background: #FAFAFF;
+    page-break-inside: avoid;
+  }
+  .sign-title { font-size: 14pt; font-weight: 800; color: #2D2157; margin-bottom: 10px; }
+  .sign-desc { font-size: 12pt; color: #333; line-height: 1.8; margin-bottom: 18px; word-break: keep-all; }
+  .sign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; }
+  .sign-field label { display: block; font-size: 11.5pt; font-weight: 700; color: #555; margin-bottom: 8px; }
+  .sign-line { border-bottom: 1.8px solid #333; height: 34px; }
+  .sign-input {
+    width: 100%; height: 34px;
+    border: none; border-bottom: 1.8px solid #333;
+    font-family: inherit; font-size: 12.5pt; font-weight: 700; color: #1f1f1f;
+    background: transparent; padding: 0 2px;
+  }
+  .sign-input::placeholder { color: #bbb; font-weight: 400; }
+  .sign-input:focus { outline: none; border-bottom-color: #4A2C6E; }
+  .sign-note { font-size: 10.5pt; color: #777; margin-top: 14px; line-height: 1.7; }
+
+  .footer {
+    text-align: center; font-size: 10pt; color: #aaa;
+    margin-top: 10px; padding-top: 8px; border-top: 1px solid #eee;
+    page-break-before: avoid;
+  }
+
+  /* 카드/단계는 통째로 유지, 섹션은 페이지 경계를 자연스럽게 넘김 */
+  .doc-card, .step, .reassure, .role, .agency-item, .sign { page-break-inside: avoid; }
+  .section-title { break-after: avoid; page-break-after: avoid; }
+
+  /* 모든 인쇄 페이지에 상·하·좌·우 동일 여백 적용 */
+  @page { size: A4; margin: 15mm 16mm; }
+  @media print {
+    body { background: none; }
+    .sheet { margin: 0; box-shadow: none; width: auto; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- 헤더 -->
+  <div class="doc-header">
+    <div class="doc-org">실로암방문요양지원센터</div>
+    <div class="doc-title">연명의료결정제도 안내</div>
+    <div class="doc-sub">수급자·보호자 안내 및 확인서</div>
+  </div>
+
+  <!-- 리드 -->
+  <div class="lead">
+    모든 환자는 자신에게 시행될 의료행위를 <strong>스스로 결정할 권리</strong>가 있습니다.<br>
+    이 안내문은 연명의료결정제도를 쉽게 이해하고, 필요할 때 <strong>미리 준비하실 수 있도록</strong> 도와드리기 위한 자료입니다.
+  </div>
+
+  <!-- 1. 제도란 -->
+  <div class="section">
+    <div class="section-title">📋 연명의료결정제도란?</div>
+
+    <div class="item">
+      <div class="item-label">제도 개요</div>
+      <div class="item-body">
+        임종을 앞둔 환자가 <b>스스로 결정하고 존엄하게 삶을 마무리</b>할 수 있도록 돕는 제도입니다.<br>
+        <span class="small">「호스피스·완화의료 및 임종과정에 있는 환자의 연명의료결정에 관한 법률」 (2018년 시행)</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label">연명의료란?</div>
+      <div class="item-body">
+        치료 효과 없이 임종과정의 기간만 늘리는 의학적 시술입니다.<br>
+        심폐소생술(CPR)·혈액투석·항암제 투여·인공호흡기 착용·수혈·체외생명유지술·혈압상승제 투여 등이 해당합니다.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label">누구에게 적용되나요?</div>
+      <div class="item-body">
+        담당의사와 전문의 1인(총 2인)이 <b>임종과정에 있다고 판단</b>한 환자에게 적용됩니다.<br>
+        회생 가능성이 없고, 치료를 해도 회복되지 않으며, 임박한 사망이 예상되는 상태입니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 두 가지 서류 -->
+  <div class="section">
+    <div class="section-title">📝 미리 준비하는 두 가지 서류</div>
+
+    <div class="doc-card purple">
+      <div class="dc-name">① 사전연명의료의향서</div>
+      <div class="dc-row"><b>누가</b> — 건강한 19세 이상 성인이라면 누구나 본인이 직접</div>
+      <div class="dc-row"><b>어디서</b> — 보건복지부가 지정한 등록기관에 방문 (www.lst.go.kr 에서 검색)</div>
+      <div class="dc-row"><b>효력</b> — 임종과정에 이르면 담당의사가 확인 후 이행. 등록 후 언제든 변경·철회 가능</div>
+    </div>
+
+    <div class="doc-card amber">
+      <div class="dc-name">② 연명의료계획서</div>
+      <div class="dc-row"><b>누가</b> — 담당의사가 환자의 동의를 받아 작성</div>
+      <div class="dc-row"><b>언제</b> — 말기·임종과정에 있다고 판단된 후</div>
+      <div class="dc-row"><b>어디서</b> — 의료기관윤리위원회가 설치된 의료기관. 작성 즉시 효력, 언제든 변경·철회 가능</div>
+    </div>
+  </div>
+
+  <!-- 3. 가족 결정 절차 -->
+  <div class="section">
+    <div class="section-title">👪 어르신이 직접 결정하기 어려울 때</div>
+    <div class="item-body" style="margin-bottom:14px;">
+      어르신이 스스로 뜻을 밝히기 어려운 상태가 되면, <b>다음 순서로 어르신의 뜻을 확인</b>합니다.
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <div class="st-head">미리 작성한 서류가 있으면</div>
+          <div class="st-body">사전연명의료의향서나 연명의료계획서가 있으면, 그 뜻을 그대로 따릅니다.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <div class="st-head">서류는 없지만 평소 뜻이 분명하면</div>
+          <div class="st-body">가족 2명 이상이 어르신의 평소 뜻을 똑같이 진술하면, 의사 2인이 확인한 뒤 그 뜻을 따릅니다.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <div class="st-head">평소 뜻도 알 수 없으면</div>
+          <div class="st-body">어르신이 의사표현을 할 수 없고 뜻을 확인할 방법이 없으면, 가족 전원이 합의하여 결정합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 안심 박스 -->
+  <div class="reassure">
+    ⚠️ 연명의료를 시행하지 않거나 중단하더라도 <strong>통증 완화, 영양분·수분 공급, 산소 공급 등 기본 돌봄은 끝까지 계속 제공</strong>됩니다.
+  </div>
+
+  <!-- 4. 요양보호사 역할 -->
+  <div class="section">
+    <div class="section-title">🤲 요양보호사는 이렇게 돕습니다</div>
+    <div class="roles">
+      <div class="role"><b>제도 안내</b> — 제도에 대해 물으시면 개요와 상담 기관을 알려드립니다.</div>
+      <div class="role"><b>경청과 공감</b> — 임종에 관한 말씀에 편견 없이 귀 기울이고 함께합니다.</div>
+      <div class="role"><b>가족·관리자 연결</b> — 서류 작성 의향을 밝히시면 가족 또는 관리자에게 연결해 드립니다.</div>
+      <div class="role no"><b>하지 않는 일</b> — 연명의료 거부를 권유·설득하거나, 의료적 판단·법적 절차에 개입하지 않습니다.</div>
+    </div>
+  </div>
+
+  <!-- 5. 도움받을 곳 -->
+  <div class="section">
+    <div class="section-title">📞 도움받을 수 있는 곳</div>
+    <div class="agency">
+      <div class="agency-item">
+        <div class="agency-name">국립연명의료관리기관</div>
+        <div class="agency-sub">사전의향서 등록·조회·철회 / 가까운 등록기관 찾기</div>
+        <div class="agency-line">전화 <b>1855-0075</b></div>
+        <div class="agency-line">홈페이지 <b>www.lst.go.kr</b> → [등록기관 찾기]에서 주소 검색</div>
+      </div>
+      <div class="agency-item">
+        <div class="agency-name">호스피스·완화의료 기관</div>
+        <div class="agency-sub">말기환자 돌봄·통증 관리</div>
+        <div class="agency-line">전화 <b>1577-1127</b> (암 전문)</div>
+        <div class="agency-line">홈페이지 <b>www.hospice.go.kr</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 서명 -->
+  <div class="sign">
+    <div class="sign-title">✅ 안내 확인 서명</div>
+    <div class="sign-desc">
+      본인은 실로암방문요양지원센터로부터 연명의료결정제도에 관한 안내를 받았으며, 그 내용을 충분히 이해하였음을 확인합니다.
+    </div>
+    <div class="sign-grid">
+      <div class="sign-field"><label>수급자 성명</label><input type="text" class="sign-input" placeholder="성명을 입력하세요"></div>
+      <div class="sign-field"><label>날짜</label><div class="sign-line"></div></div>
+      <div class="sign-field"><label>수급자(또는 보호자) 서명</label><div class="sign-line"></div></div>
+      <div class="sign-field"><label>안내자(요양보호사) 서명</label><div class="sign-line"></div></div>
+    </div>
+    <div class="sign-note">
+      * 보호자가 서명하는 경우: 보호자 성명과 수급자와의 관계를 함께 적어 주세요.<br>
+      * 이 확인서는 센터에서 보관합니다.
+    </div>
+  </div>
+
+  <div class="footer">실로암방문요양지원센터 · 연명의료결정제도 안내</div>
+
+</div>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
