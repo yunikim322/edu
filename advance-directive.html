@@ -749,4 +749,9 @@
       if (docHeight > 0) {
         progressBar.style.width = (scrollTop / docHeight * 100) + '%';
       }
-      fabTop.classList.toggle
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
