@@ -312,17 +312,9 @@
     .contact-value { font-size: 18px; font-weight: 600; color: #5B4F8C; flex: 1; }
 
     /* 마무리 */
-    /* 안내문 인쇄 링크 (작은 버튼) */
-    .print-link {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      width: fit-content; margin: 20px auto 4px;
-      padding: 9px 18px;
-      background: #F5F3FF;
-      border: 1.5px solid #B7AEDA;
-      border-radius: 10px;
-      text-decoration: none;
-      color: #4A2C6E; font-size: 16px; font-weight: 700;
-    }
+    /* 마무리 배지 중 인쇄 링크 */
+    a.closing-badge { text-decoration: none; }
+    .closing-badge.print { background: #EDE9F8; color: #4A3880; }
 
     .closing {
       text-align: center;
@@ -775,9 +767,6 @@
         </div>
       </div>
 
-      <!-- 안내문 인쇄 링크 -->
-      <a class="print-link" href="advance-directive-notice.html" target="_blank" rel="noopener">🖨️ 안내문 인쇄</a>
-
       <!-- 마무리 -->
       <div class="closing">
         <p class="closing-label">어르신의 마지막 선택을 존중하고<br>곁에서 따뜻하게 지지해 주세요.</p>
@@ -786,7 +775,7 @@
           <span class="closing-badge b2">사전의향서</span>
           <span class="closing-badge b3">연명의료</span>
           <span class="closing-badge b4">기본돌봄</span>
-          <span class="closing-badge b5">안내자</span>
+          <a class="closing-badge print" href="advance-directive-notice.html" target="_blank" rel="noopener">🖨️ 안내문 인쇄</a>
         </div>
       </div>
 
