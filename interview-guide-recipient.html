@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어르신·보호자 면담 안내</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+    :root {
+      --main: #6B5B8A;
+      --main-dark: #50436B;
+      --main-light: #EEEAF4;
+      --q: #5a4d7a;
+      --bg: #f5f5f5;
+      --text: #222;
+      --sub: #555;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 19px;
+    }
+
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+      background: linear-gradient(90deg, var(--main), #A88CC4);
+      z-index: 100;
+    }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--main-dark);
+      color: #fff;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .topbar .bar-title { font-size: 17px; font-weight: 600; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--main-dark), var(--main));
+      color: #fff;
+      padding: 44px 22px 38px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 28px; font-weight: 700; word-break: keep-all; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .hero .org { font-size: 17px; opacity: 0.92; }
+
+    .intro {
+      background: #fff; padding: 22px 18px; border-bottom: 1px solid #e3e3e3;
+      font-size: 18px; color: #333;
+    }
+    .intro p { margin-bottom: 10px; }
+    .intro .tip {
+      background: var(--main-light); color: var(--main-dark);
+      border-radius: 10px; padding: 13px 16px; font-weight: 600; font-size: 17px;
+    }
+
+    .content { padding: 10px 18px 40px; }
+    .chapter { margin-top: 28px; scroll-margin-top: 70px; }
+    .chapter-head {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+      border-bottom: 2px solid var(--main);
+      padding-bottom: 12px; margin-bottom: 16px;
+    }
+    .chapter-head .badge {
+      background: var(--main); color: #fff; font-size: 15px; font-weight: 700;
+      padding: 4px 12px; border-radius: 8px; white-space: nowrap;
+    }
+    .chapter-head .ch-title { font-size: 22px; font-weight: 700; color: var(--main-dark); word-break: keep-all; }
+
+    .subhead {
+      font-size: 17px; font-weight: 600; color: var(--main-dark);
+      margin: 16px 0 8px; padding-left: 10px; border-left: 4px solid var(--main);
+    }
+
+    .qa { margin-bottom: 16px; }
+    .qa .q {
+      background: #fff; border: 1px solid #e3dfee; border-left: 5px solid var(--q);
+      border-radius: 10px; padding: 14px 16px; font-weight: 600; color: #1a1a1a;
+    }
+    .qa .q .mark {
+      display: block; width: fit-content; margin-bottom: 8px;
+      font-size: 14px; font-weight: 700; color: #fff; background: var(--q);
+      padding: 3px 12px; border-radius: 999px; white-space: nowrap;
+    }
+    .qa .a {
+      background: var(--main-light); border-radius: 10px;
+      padding: 14px 16px; margin-top: 8px; color: #2a2440;
+    }
+    .qa .a .mark {
+      display: block; width: fit-content; margin-bottom: 8px;
+      font-size: 14px; font-weight: 700; color: #fff; background: var(--main);
+      padding: 3px 12px; border-radius: 999px; white-space: nowrap;
+    }
+
+    .outro {
+      margin-top: 34px; background: var(--main-dark); color: #fff;
+      border-radius: 16px; padding: 26px 22px; text-align: center;
+    }
+    .outro p { font-size: 18px; opacity: 0.95; }
+
+    .footer { text-align: center; padding: 26px; font-size: 14px; color: #999; }
+
+    .fab-top {
+      position: fixed; right: 18px; bottom: 22px;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--main); color: #fff; border: none;
+      font-size: 22px; cursor: pointer; display: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 60;
+    }
+    .fab-top.show { display: block; }
+
+    .pc-wrapper {}
+    @media (min-width: 768px) {
+      body { background: #e9e6f0; }
+      .pc-wrapper {
+        max-width: 860px; margin: 0 auto; background: var(--bg);
+        min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      }
+      .progress-bar { max-width: 860px; left: 50%; transform: translateX(-50%); }
+      .hero { padding: 56px 40px 46px; }
+      .hero h1 { font-size: 36px; }
+      .intro { padding: 28px 40px; }
+      .content { padding: 10px 40px 50px; }
+      .chapter-head .ch-title { font-size: 25px; }
+      .fab-top { right: calc(50% - 430px + 18px); }
+    }
+    @media (min-width: 940px) {
+      .fab-top { right: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="pc-wrapper">
+    <div class="topbar">
+      <span class="bar-title">어르신·보호자 면담 안내</span>
+    </div>
+
+    <div class="hero">
+      <h1>공단 평가 면담 안내</h1>
+      <p class="org">실로암방문요양지원센터</p>
+    </div>
+
+    <div class="intro">
+      <p>국민건강보험공단 정기평가 중, 평가위원이 어르신 또는 보호자님께 <b>전화나 방문</b>으로 서비스 이용에 대해 여쭤볼 수 있습니다.</p>
+      <p class="tip">그동안 이용하시며 느끼신 대로 편하게 답해 주시면 됩니다. 아래는 어떤 질문이 나올 수 있는지와 답변 예시입니다.</p>
+    </div>
+
+    <main class="content">
+
+      <!-- 지표10 -->
+      <section class="chapter" id="ind10">
+        <div class="chapter-head">
+          <span class="badge">하나</span>
+          <span class="ch-title">서비스 안내</span>
+        </div>
+
+        <div class="subhead">서비스 범위를 안내받았는지</div>
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>센터장이 직접 방문해서 요양보호사가 할 수 있는 서비스 범위를 설명해 주었나요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>센터장님이 직접 방문해서 안내해 줬어요. 무리한 요구는 하지 않아요.</span></div>
+        </div>
+
+        <div class="subhead">요양보호사 호칭 안내</div>
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>관리자가 방문해서 요양보호사를 어떻게 불러달라고 안내했나요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>'요양보호사(선생님)'라고 불러달라고 안내받았어요.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표12 -->
+      <section class="chapter" id="ind12">
+        <div class="chapter-head">
+          <span class="badge">둘</span>
+          <span class="ch-title">서비스 시간</span>
+        </div>
+
+        <div class="subhead">시간을 잘 지키는지</div>
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>요양보호사가 약속된 서비스 시간을 어기거나 바뀐 경우가 있나요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>시간은 잘 지켜요. 바뀌는 경우는 없어요.</span></div>
+        </div>
+
+        <div class="subhead">시간 변경 시 미리 연락하는지</div>
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>시간을 변경할 때 미리 동의를 구하거나 사전에 연락하나요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>사정이 있어 시간을 바꾸거나 못 올 때는 미리 연락해 줘서 불편함이 없어요.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표14 -->
+      <section class="chapter" id="ind14">
+        <div class="chapter-head">
+          <span class="badge">셋</span>
+          <span class="ch-title">어르신 존중</span>
+        </div>
+
+        <div class="subhead">존중받고 계신지</div>
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>요양보호사로부터 학대, 폭언, 폭행, 거친 행동을 당한 적이 있으신가요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>그런 일은 없었어요.</span></div>
+        </div>
+
+        <div class="subhead">존엄성을 배려하는지</div>
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>요양보호사가 어르신을 어떻게 부르나요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>'어르신'이라고 불러요.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">예상 질문</span><span>도와드릴 때 서비스 전에 미리 설명하고 도와주나요?</span></div>
+          <div class="a"><span class="mark">답변 예시</span><span>미리 설명하고 도와줘요.</span></div>
+        </div>
+      </section>
+
+      <div class="outro">
+        <p>편하게, 느끼신 그대로 말씀해 주세요.<br>늘 어르신 곁에서 정성을 다하겠습니다.</p>
+      </div>
+
+    </main>
+
+    <p class="footer">&copy; 실로암방문요양지원센터 · 어르신·보호자 면담 안내</p>
+  </div><!-- /pc-wrapper -->
+
+  <button class="fab-top" id="fabTop" aria-label="맨 위로">↑</button>
+
+  <script>
+    const progress = document.getElementById('progress');
+    const fab = document.getElementById('fabTop');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (window.scrollY / h * 100) + '%';
+      fab.classList.toggle('show', window.scrollY > 400);
+    });
+    fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
