@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>종사자·수급자 면담지표</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+    :root {
+      --main: #2F6F73;
+      --main-dark: #245459;
+      --main-light: #E6F0F0;
+      --q: #1f5f63;
+      --bg: #f5f5f5;
+      --text: #222;
+      --sub: #555;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 19px;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+      background: linear-gradient(90deg, var(--main), #5BA88C);
+      z-index: 100;
+    }
+
+    /* 상단 바 */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--main-dark);
+      color: #fff;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .topbar a { color: #fff; text-decoration: none; font-size: 16px; font-weight: 500; opacity: 0.9; white-space: nowrap; }
+    .topbar a:hover { opacity: 1; }
+    .topbar .bar-title { font-size: 17px; font-weight: 600; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 12px; }
+
+    /* 히어로 */
+    .hero {
+      background: linear-gradient(135deg, var(--main-dark), var(--main));
+      color: #fff;
+      padding: 44px 22px 38px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 30px; font-weight: 700; word-break: keep-all; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .hero .org { font-size: 17px; opacity: 0.92; margin-bottom: 18px; }
+    .hero .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 7px 18px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    }
+
+    /* 목차 */
+    .toc {
+      background: #fff; margin: 0; padding: 22px 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+    .toc h2 { font-size: 15px; color: var(--main); letter-spacing: 1px; margin-bottom: 14px; font-weight: 700; }
+    .toc a {
+      display: flex; align-items: center; justify-content: space-between;
+      text-decoration: none; color: var(--text);
+      padding: 13px 16px; border-radius: 10px; background: #f7f9f9;
+      margin-bottom: 8px; font-size: 18px; font-weight: 500;
+      border: 1px solid #eaeaea;
+    }
+    .toc a:hover { background: var(--main-light); border-color: var(--main); }
+    .toc a .num { color: var(--main); font-weight: 700; margin-right: 10px; }
+    .toc-arrow { color: var(--main); font-weight: 700; }
+
+    /* 콘텐츠 */
+    .content { padding: 10px 18px 40px; }
+    .chapter { margin-top: 30px; scroll-margin-top: 70px; }
+    .chapter-head {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+      border-bottom: 2px solid var(--main);
+      padding-bottom: 12px; margin-bottom: 18px;
+    }
+    .chapter-head .badge {
+      background: var(--main); color: #fff; font-size: 15px; font-weight: 700;
+      padding: 4px 12px; border-radius: 8px; white-space: nowrap;
+    }
+    .chapter-head .ch-title { font-size: 22px; font-weight: 700; color: var(--main-dark); word-break: keep-all; }
+    .chapter-head .score { font-size: 16px; font-weight: 600; color: var(--main); }
+
+    .subtag {
+      display: inline-block; background: var(--main-light); color: var(--main-dark);
+      font-size: 16px; font-weight: 600; padding: 6px 14px; border-radius: 8px;
+      margin: 6px 0 14px;
+    }
+
+    /* Q&A */
+    .qa { margin-bottom: 18px; }
+    .qa .q {
+      display: flex; gap: 10px;
+      background: #fff; border: 1px solid #dfe6e6; border-left: 5px solid var(--q);
+      border-radius: 10px; padding: 14px 16px; font-weight: 600; color: #1a1a1a;
+    }
+    .qa .q .mark { color: var(--q); font-weight: 700; flex-shrink: 0; white-space: nowrap; }
+    .qa .a {
+      display: flex; gap: 10px;
+      background: var(--main-light); border-radius: 10px;
+      padding: 14px 16px; margin-top: 8px; color: #1b2e2e;
+    }
+    .qa .a .mark { color: var(--main); font-weight: 700; flex-shrink: 0; white-space: nowrap; }
+    .qa .a ol, .qa .a ul { margin: 4px 0 0 20px; }
+    .qa .a li { margin-bottom: 3px; }
+    .arr { color: var(--main); font-weight: 700; margin: 0 3px; }
+    .subhead {
+      font-size: 17px; font-weight: 600; color: var(--main-dark);
+      margin: 18px 0 8px; padding-left: 10px; border-left: 4px solid var(--main);
+    }
+    .subhead .pt { color: var(--main); font-weight: 700; font-size: 15px; margin-left: 6px; }
+
+    .hint {
+      font-size: 17px; color: var(--sub); background: #fffbe9;
+      border: 1px dashed #e0c97a; border-radius: 8px;
+      padding: 9px 14px; margin-top: 8px;
+    }
+    .hint b { color: #9a7b1f; }
+    .note {
+      font-size: 17px; color: var(--sub);
+      padding: 8px 14px 8px 16px; margin-top: 8px;
+      border-left: 3px solid #c9c9c9;
+    }
+    .note.warn { color: #b3402e; border-left-color: #e07a5f; background: #fdf1ee; border-radius: 0 8px 8px 0; }
+
+    /* 마무리 */
+    .outro {
+      margin-top: 38px; background: var(--main-dark); color: #fff;
+      border-radius: 16px; padding: 28px 22px; text-align: center;
+    }
+    .outro p { font-size: 18px; margin-bottom: 16px; opacity: 0.95; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .badges span {
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3);
+      padding: 6px 14px; border-radius: 999px; font-size: 15px; font-weight: 500;
+    }
+
+    .footer { text-align: center; padding: 26px; font-size: 14px; color: #999; }
+
+    /* 플로팅 ↑ */
+    .fab-top {
+      position: fixed; right: 18px; bottom: 22px;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--main); color: #fff; border: none;
+      font-size: 22px; cursor: pointer; display: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 60;
+    }
+    .fab-top.show { display: block; }
+
+    /* PC 반응형 */
+    .pc-wrapper {}
+    @media (min-width: 768px) {
+      body { background: #e4ebeb; }
+      .pc-wrapper {
+        max-width: 920px; margin: 0 auto; background: var(--bg);
+        min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      }
+      .progress-bar { max-width: 920px; left: 50%; transform: translateX(-50%); }
+      .hero { padding: 60px 40px 50px; }
+      .hero h1 { font-size: 40px; }
+      .toc { padding: 30px 40px; }
+      .toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .toc a { margin-bottom: 0; }
+      .content { padding: 10px 40px 50px; }
+      .chapter-head .ch-title { font-size: 25px; }
+      .fab-top { right: calc(50% - 460px + 18px); }
+    }
+    @media (min-width: 1000px) {
+      .fab-top { right: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="pc-wrapper">
+    <div class="topbar">
+      <a href="index.html">← 목록</a>
+      <span class="bar-title">종사자·수급자 면담지표</span>
+    </div>
+
+    <div class="hero">
+      <h1>종사자·수급자 면담지표</h1>
+      <p class="org">실로암방문요양지원센터</p>
+      <span class="hero-badge">평가대비 실전교육</span>
+    </div>
+
+    <nav class="toc">
+      <h2>면담 지표</h2>
+      <div class="toc-list">
+        <a href="#ind5"><span><span class="num">지표5</span>급여제공지침 교육</span><span class="toc-arrow">›</span></a>
+        <a href="#ind6"><span><span class="num">지표6</span>직원인권침해 대응</span><span class="toc-arrow">›</span></a>
+        <a href="#ind7"><span><span class="num">지표7</span>고충처리 절차</span><span class="toc-arrow">›</span></a>
+        <a href="#ind10"><span><span class="num">지표10</span>급여제공안내</span><span class="toc-arrow">›</span></a>
+        <a href="#ind12"><span><span class="num">지표12</span>급여제공시간 준수</span><span class="toc-arrow">›</span></a>
+        <a href="#ind14a"><span><span class="num">지표14</span>노인인권보호</span><span class="toc-arrow">›</span></a>
+        <a href="#ind14b"><span><span class="num">지표14</span>수급자 존중</span><span class="toc-arrow">›</span></a>
+        <a href="#ind17a"><span><span class="num">지표17</span>급여제공계획서</span><span class="toc-arrow">›</span></a>
+        <a href="#ind17b"><span><span class="num">지표17</span>기능회복훈련</span><span class="toc-arrow">›</span></a>
+        <a href="#ind18"><span><span class="num">지표18</span>급여제공계획 변경</span><span class="toc-arrow">›</span></a>
+        <a href="#ind19"><span><span class="num">지표19</span>인수인계</span><span class="toc-arrow">›</span></a>
+        <a href="#ind20"><span><span class="num">지표20</span>응급상황 대응</span><span class="toc-arrow">›</span></a>
+        <a href="#ind21"><span><span class="num">지표21</span>낙상예방</span><span class="toc-arrow">›</span></a>
+        <a href="#ind22"><span><span class="num">지표22</span>인지돌봄</span><span class="toc-arrow">›</span></a>
+        <a href="#ind26"><span><span class="num">지표26</span>연명의료결정제도 안내</span><span class="toc-arrow">›</span></a>
+      </div>
+    </nav>
+
+    <main class="content">
+
+      <!-- 지표5 -->
+      <section class="chapter" id="ind5">
+        <div class="chapter-head">
+          <span class="badge">지표5</span>
+          <span class="ch-title">급여제공지침 교육</span>
+          <span class="score">1.5점</span>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>언제 급여제공지침 교육을 받으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>입사할 때 받았고, 매달 직원교육 때 받고 있습니다.</span></div>
+          <div class="note">※ 기관의 급여제공지침 내용을 숙지하여 아래 내용을 답변해야 합니다.</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>욕창예방 및 관리지침의 내용을 말씀해 주시겠습니까?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>욕창 발생요인, 욕창 증상, 욕창 예방법, 욕창의 관리 및 치료 등이 있습니다.</span></div>
+          <div class="hint"><b>추가 질문</b> · 지침에 욕창 예방법 외에 또 무엇이 있나요?</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>감염예방 및 관리지침의 내용을 설명해 주시겠어요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>감염의 종류, 예방 및 관리, 소독 종류 및 실시 방법 등이 있습니다.</span></div>
+          <div class="hint"><b>추가 질문</b> · 지침에 감염 종류 외에 또 무엇이 있나요?</div>
+        </div>
+      </section>
+
+      <!-- 지표6 -->
+      <section class="chapter" id="ind6">
+        <div class="chapter-head">
+          <span class="badge">지표6</span>
+          <span class="ch-title">직원인권침해 대응</span>
+          <span class="score">1.5점</span>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>인권침해에 대한 교육을 받으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>네, 직원 교육시간에 교육을 받았습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>인권침해 유형은 어떤 것이 있나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>폭언·폭행·상해, 성희롱·성추행, 급여 외 행위 제공 요구 등이 있습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>인권침해 시 어떻게 대응해야 하나요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span>
+            <span>
+              <ol>
+                <li>자제 요청, 즉시 경고</li>
+                <li>녹취 고지 및 법규 위반 고지</li>
+                <li>서비스 종료</li>
+                <li>센터장 보고 후 경찰 신고</li>
+              </ol>
+            </span>
+          </div>
+          <div class="note">* 폭행의 경우 피한다 / 다친 경우 경찰에 신고한다</div>
+          <div class="note warn">* 마찰을 피하기 위해 요청을 들어 준다고 하면 0점 처리함</div>
+        </div>
+      </section>
+
+      <!-- 지표7 -->
+      <section class="chapter" id="ind7">
+        <div class="chapter-head">
+          <span class="badge">지표7</span>
+          <span class="ch-title">고충처리 절차</span>
+          <span class="score">1점</span>
+        </div>
+        <span class="subtag">고충처리 및 기관의 조치사항 · 추가 질문 없음</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>고충이 있는 경우 어떻게 해결하나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>사무실 고충처리함, 온라인 고충처리함(카카오 채널)을 통해 접수하여 해결합니다.</span></div>
+          <div class="note">* 고충 내용 : 애로사항, 업무 불만족, 성희롱, 수급자의 부당한 요구 등</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>선생님은 고충을 신청하신 적 있나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>아직 없습니다.</span></div>
+          <div class="note">* 처리절차에 맞게 조치해 줬는지 확인함.</div>
+          <div class="note">* 고충을 제기한 적이 있다고 하면, 고충 내용이 무엇이었는지 / 기관에서 어떻게 처리해 주었는지 질문함.</div>
+        </div>
+      </section>
+
+      <!-- 지표10 -->
+      <section class="chapter" id="ind10">
+        <div class="chapter-head">
+          <span class="badge">지표10</span>
+          <span class="ch-title">급여제공안내</span>
+          <span class="score">수급자 면담 · 3점</span>
+        </div>
+
+        <div class="subhead">급여제공 범위 및 급여 외 행위에 대해 안내받음<span class="pt">1.5점</span></div>
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>시설장이 직접 방문해서 요양보호사가 할 수 있는 서비스 범위를 설명해 주었나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>센터장이 직접 방문하여 안내해 줬어. 무리한 요구는 안 해.</span></div>
+        </div>
+
+        <div class="subhead">직원의 인권보호에 대해 안내를 받음<span class="pt">1.5점</span></div>
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>관리자가 방문해서 요양보호사를 어떻게 불러달라고 부탁(설명)하였나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>요양보호사(선생님)라고 불러달라고 안내받았어.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표12 -->
+      <section class="chapter" id="ind12">
+        <div class="chapter-head">
+          <span class="badge">지표12</span>
+          <span class="ch-title">급여제공시간 준수</span>
+          <span class="score">수급자 면담 · 2점</span>
+        </div>
+
+        <div class="subhead">급여제공 직원이 급여제공 시간을 준수함<span class="pt">1점</span></div>
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>요양보호사가 약속된 서비스 시간을 어기거나 바뀐 경우가 있나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>시간은 잘 지키고, 시간을 바꾸는 경우는 없어. (출근 시간은 정확해)</span></div>
+          <div class="note warn">* 평가받는 날은 근무시간 10분 전 도착</div>
+        </div>
+
+        <div class="subhead">시간을 변경하는 경우 사전에 안내함<span class="pt">1점</span></div>
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>시간을 변경하는 경우 미리 동의를 구하거나 사전에 연락하나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>사정이 있어서 시간을 바꾸거나 못 나오는 경우, 미리 연락해 줘서 불편함이 없어.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표14 노인인권보호 -->
+      <section class="chapter" id="ind14a">
+        <div class="chapter-head">
+          <span class="badge">지표14</span>
+          <span class="ch-title">노인인권보호</span>
+          <span class="score">1.5점</span>
+        </div>
+        <span class="subtag">★ 기관평가 시 노인인권보호 교육과 연동 · 직원은 노인권리보호 내용을 숙지하고 있음</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>노인권리보호 교육을 받았나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>예, 받았습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>어떤 내용을 교육받으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>노인권리보호, 노인학대 유형, 노인학대 예방, 노인학대 대응방법 등이 있습니다.</span></div>
+          <div class="note">- 4가지를 정확히 답변하면 질문 종결함 / 답변이 미흡할 시 세부 질문함</div>
+          <div class="note">* 노인의 권리 : 서비스 선택권, 자기재산 관리권, 입퇴소 결정권 등</div>
+          <div class="note">* 노인학대 유형 : 신체적 학대, 정서적 학대, 성적 학대, 경제적 학대 등</div>
+          <div class="note">* 노인학대 예방 : 어르신 의견 존중, 상태 관찰 및 조치, 정기적 교육 등</div>
+          <div class="note">* 노인학대 대응 : 노인보호전문기관 신고(1577-1389 / 129 전화)</div>
+        </div>
+      </section>
+
+      <!-- 지표14 수급자 존중 -->
+      <section class="chapter" id="ind14b">
+        <div class="chapter-head">
+          <span class="badge">지표14</span>
+          <span class="ch-title">수급자 존중</span>
+          <span class="score">수급자 면담 · 1점</span>
+        </div>
+
+        <div class="subhead">수급자는 급여를 이용하는 모든 과정에서 존중받음</div>
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>요양보호사로부터 학대, 폭언, 폭행, 거친 행동을 당한 적이 있으신가요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>학대, 부당한 대우를 받은 사실 없어.</span></div>
+        </div>
+
+        <div class="subhead">수급자의 존엄성을 배려하여 급여를 제공함</div>
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>요양보호사가 어르신을 어떻게 부르나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>'어르신'이라고 불러.</span></div>
+          <div class="note warn">* '아버님·어머님·직책' 등으로 부르는 것은 금지</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>어르신을 도와드릴 때 서비스 전에 미리 설명하고 도와주나요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>미리 설명하고 도와주고 있어.</span></div>
+          <div class="note">* 예) "부축해 드리겠습니다", "기저귀 갈아드리겠습니다" 등</div>
+        </div>
+      </section>
+
+      <!-- 지표17 급여제공계획서 -->
+      <section class="chapter" id="ind17a">
+        <div class="chapter-head">
+          <span class="badge">지표17</span>
+          <span class="ch-title">급여제공계획서</span>
+          <span class="score">1점</span>
+        </div>
+        <span class="subtag">급여제공계획서에 대해 설명을 듣고 숙지함</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>급여제공 전 급여제공계획서에 대해 설명을 들으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>예, 사회복지사로부터 설명을 들었습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>어떤 내용을 들으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>어르신의 기능 상태, 서비스 제공 시 유의사항, 급여제공계획서 내용 등입니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>어르신의 기능 상태와 유의사항에 대해 설명해 주시겠습니까?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>급여제공계획서의 "종합의견"에 기재된 내용을 설명하면 됩니다.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표17 기능회복훈련 -->
+      <section class="chapter" id="ind17b">
+        <div class="chapter-head">
+          <span class="badge">지표17</span>
+          <span class="ch-title">기능회복훈련</span>
+          <span class="score">1점</span>
+        </div>
+        <span class="subtag">기능회복훈련에 대해 설명함</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>어르신에게 기능회복훈련을 제공하고 있으신가요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>예, 기능회복훈련을 하고 있습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>기능회복훈련에 대해 설명해 주시겠습니까?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>기본동작훈련, 일상생활동작훈련이 있습니다.</span></div>
+          <div class="note">※ 수급자의 제공계획서와 제공기록지를 보고 담당 요양보호사에게 질문함</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>어르신에게 제공하는 기본동작훈련에 대해 설명해 주시겠어요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span>
+            <span>
+              <ul>
+                <li>워커(지팡이)를 사용하거나 부축하여 실내에서 보행운동을 합니다.</li>
+                <li>안전바를 잡고 서 있기 훈련을 합니다.</li>
+                <li>워커를 이용해 화장실까지 이동하도록 하며 지켜봅니다.</li>
+                <li>밴드를 이용해 일어나 앉기 훈련을 합니다.</li>
+                <li>안전봉을 잡고 앉았다 일어서기 훈련을 합니다.</li>
+              </ul>
+            </span>
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 4</span><span>어르신에게 제공하는 일상생활동작훈련에 대해 설명해 주시겠어요?</span></div>
+          <div class="a"><span class="mark">우수답변 4</span>
+            <span>
+              <ul>
+                <li>앉은 자세에서 양말 벗고 신기 동작 훈련을 합니다.</li>
+                <li>식사·간식 후 스스로 양치질을 하시도록 하고 옆에서 지켜봅니다.</li>
+                <li>화장실에서 배뇨·배변 후 물 내리고 손 씻기 동작 훈련을 지원합니다.</li>
+              </ul>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 지표18 -->
+      <section class="chapter" id="ind18">
+        <div class="chapter-head">
+          <span class="badge">지표18</span>
+          <span class="ch-title">급여제공계획 변경</span>
+          <span class="score">1.5점</span>
+        </div>
+        <span class="subtag">급여제공계획서 변경 사유 및 조치 사항</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>어르신의 급여제공계획서에 대해 설명을 들으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>예, 사회복지사가 설명해 주었습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>어떤 경우에 급여제공계획서를 변경해야 하나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>기능 상태 변화, 욕구의 변화, 보호자의 요구가 있을 때입니다.</span></div>
+          <div class="note warn">* 3가지 모두 답변해야 함 (추가 질문 없음)</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>급여제공계획서 변경 사유가 있었나요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>변경 사유가 없었으면 그대로 종결됩니다.</span></div>
+          <div class="note">* 변경 사유가 있었으면 → 센터에 급여제공계획서 변경을 요청해야 함</div>
+        </div>
+      </section>
+
+      <!-- 지표19 -->
+      <section class="chapter" id="ind19">
+        <div class="chapter-head">
+          <span class="badge">지표19</span>
+          <span class="ch-title">인수인계</span>
+          <span class="score">직원 면담 · 3점</span>
+        </div>
+        <span class="subtag">급여제공 직원은 급여제공 전 인수인계를 받음</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>전임자(관리책임자)에게서 인수인계를 서비스 전에 받으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>서비스 제공 전에 인수인계를 받았습니다.</span></div>
+          <div class="note">* 지표 적용기간 내 입사자는 신규직원으로 봄</div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>어떤 내용을 인수인계 받으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>어르신의 건강 상태, 가정 및 생활환경, 특이사항입니다.</span></div>
+          <div class="hint"><b>추가 질문</b> · 인수인계를 할 때 어르신의 '특이사항' 외에 또 어떤 것을 인수인계 받으셨나요?</div>
+        </div>
+      </section>
+
+      <!-- 지표20 -->
+      <section class="chapter" id="ind20">
+        <div class="chapter-head">
+          <span class="badge">지표20</span>
+          <span class="ch-title">응급상황 대응</span>
+          <span class="score">5점</span>
+        </div>
+        <span class="subtag">직원은 응급상황 대응방법을 숙지함 · 모두 숙지</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>수급자에게 발생할 수 있는 응급상황 유형을 말씀해 주시겠어요? <em style="color:var(--main);font-style:normal">(2.5점)</em></span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>낙상, 질식, 경련, 화상, 심장마비 등이 있습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>어르신께서 낙상을 당한 경우 어떻게 대처하시나요? <em style="color:var(--main);font-style:normal">(2.5점)</em></span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>상태 확인 <b class="arr">→</b> 심리적 안정 <b class="arr">→</b> 편안한 자세 유지 <b class="arr">→</b> 필요시 지혈 <b class="arr">→</b> 병원 이송</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>어르신께서 질식(기도폐쇄)한 경우 어떻게 대처하시나요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>상태 확인 <b class="arr">→</b> 이물질 제거 <b class="arr">→</b> 등 두드려 기침·구토 유도 <b class="arr">→</b> 하임리히법 <b class="arr">→</b> 병원 이송</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 4</span><span>어르신께서 경련할 경우 어떻게 대처하시나요?</span></div>
+          <div class="a"><span class="mark">우수답변 4</span><span>상태 확인 <b class="arr">→</b> 위험한 물건 정리 <b class="arr">→</b> 왼쪽으로 눕혀 기도 유지 <b class="arr">→</b> 병원 이송</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 5</span><span>어르신께서 화상을 입은 경우 어떻게 대처하시나요?</span></div>
+          <div class="a"><span class="mark">우수답변 5</span><span>상태 확인 <b class="arr">→</b> 찬물로 화상 부위 식히기 <b class="arr">→</b> 몸에 붙은 옷 잘라 제거 <b class="arr">→</b> 병원 이송</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 6</span><span>어르신께서 심장마비 증상이 있는 경우 어떻게 하시나요?</span></div>
+          <div class="a"><span class="mark">우수답변 6</span><span>의식·호흡 확인 <b class="arr">→</b> 119 신고 <b class="arr">→</b> 심폐소생술 <b class="arr">→</b> 주변에 도움 요청</span></div>
+        </div>
+      </section>
+
+      <!-- 지표21 -->
+      <section class="chapter" id="ind21">
+        <div class="chapter-head">
+          <span class="badge">지표21</span>
+          <span class="ch-title">낙상예방</span>
+          <span class="score">5점</span>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>낙상의 요인에 대해 설명해 주시겠어요? <em style="color:var(--main);font-style:normal">(2.5점)</em></span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>인지·심리적 요인, 신체적 요인, 환경적 요인이 있습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>낙상예방을 위해 어르신이 어떻게 행동해야 하나요? <em style="color:var(--main);font-style:normal">(2.5점)</em></span></div>
+          <div class="a"><span class="mark">우수답변 2</span>
+            <span>
+              <ul>
+                <li>천천히 움직이고 무거운 물건은 들지 않기</li>
+                <li>발에 맞는 신발 신고, 계단은 안전손잡이 잡기</li>
+                <li>자주 사용하는 물건은 가까이 두기</li>
+              </ul>
+            </span>
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>낙상예방을 위해 주변 환경은 어떻게 정리해야 하나요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>미끄럼 방지 조치, 안전손잡이 설치, 실내 방치물 정리, 조명은 밝게 합니다.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표22 -->
+      <section class="chapter" id="ind22">
+        <div class="chapter-head">
+          <span class="badge">지표22</span>
+          <span class="ch-title">인지돌봄</span>
+          <span class="score">2점</span>
+        </div>
+        <span class="subtag">직원은 치매로 인한 증상(문제행동)을 알고 있음</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>치매예방 및 관리지침 교육을 받으셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>예, 교육을 받았습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>치매로 인한 주요 증상에 대해 설명해 주시겠어요?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>망상, 배회, 폭언, 길 잃음, 환각, 기억력 저하 등이 나타납니다.</span></div>
+        </div>
+      </section>
+
+      <!-- 지표26 -->
+      <section class="chapter" id="ind26">
+        <div class="chapter-head">
+          <span class="badge">지표26</span>
+          <span class="ch-title">연명의료결정제도 안내</span>
+          <span class="score">2점</span>
+        </div>
+        <span class="subtag">안내 주체 : 시설장 단독 (부재 시 수임직원)</span>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 1</span><span>연명의료결정제도에 대해 보호자 등에게 안내하셨나요?</span></div>
+          <div class="a"><span class="mark">우수답변 1</span><span>수급자 ○○명에게 안내했습니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 2</span><span>안내한 연명의료결정제도 관련 자료를 보여주시겠습니까?</span></div>
+          <div class="a"><span class="mark">우수답변 2</span><span>(준비된 안내 자료를 제시합니다.)</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 3</span><span>연명의료결정제도의 목적에 대해 설명해 주시겠어요?</span></div>
+          <div class="a"><span class="mark">우수답변 3</span><span>무의미한 연명의료 중단에 관한 자신의 의사를 미리 밝혀, 삶을 존엄하게 마무리하는 것입니다.</span></div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="mark">평가질문 4</span><span>사전연명의료의향서는 어디에 신청하나요? (보건복지부 지정기관)</span></div>
+          <div class="a"><span class="mark">우수답변 4</span><span>사전연명의료의향서 등록기관(건보공단 지사, 대형병원, 보건소, 복지관 등)에서 신청합니다.</span></div>
+        </div>
+      </section>
+
+      <div class="outro">
+        <p>면담은 "정확한 한 문장"이 핵심입니다.<br>지표별 우수답변을 또박또박 말씀해 주세요.</p>
+        <div class="badges">
+          <span>급여제공지침</span>
+          <span>직원·노인 인권</span>
+          <span>고충처리</span>
+          <span>계획서·기능회복</span>
+          <span>응급·낙상</span>
+          <span>인지돌봄</span>
+          <span>연명의료</span>
+        </div>
+      </div>
+
+    </main>
+
+    <p class="footer">&copy; 실로암방문요양지원센터 · 면담지표 (평가대비용)</p>
+  </div><!-- /pc-wrapper -->
+
+  <button class="fab-top" id="fabTop" aria-label="맨 위로">↑</button>
+
+  <script>
+    const progress = document.getElementById('progress');
+    const fab = document.getElementById('fabTop');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (window.scrollY / h * 100) + '%';
+      fab.classList.toggle('show', window.scrollY > 400);
+    });
+    fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
