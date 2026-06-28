@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>욕창예방 및 관리지침 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f0f7f4;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .progress-bar {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #1A6B4A, #C0533E);
+      z-index: 200; transition: width 0.1s linear;
+    }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+      padding: 8px 14px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #d0e8dc;
+    }
+    .top-bar a { color: #1A6B4A; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; }
+
+    [id] { scroll-margin-top: 52px; }
+
+    .hero {
+      background: linear-gradient(135deg, #0F4A31 0%, #1A6B4A 55%, #258B60 100%);
+      color: #fff; padding: 32px 20px 28px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #C0533E, #E08260, #C0533E);
+    }
+    .hero .hero-badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: #7EECC4; margin-bottom: 10px; }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; word-break: keep-all; line-height: 1.3; }
+    .hero h1 .accent { color: #7EECC4; }
+    .hero .sub { font-size: 17px; opacity: 0.9; }
+
+    .toc { margin: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px; background: #fff; border-radius: 12px; text-decoration: none;
+      color: #333; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border: 1px solid #d8eee4; transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #1A6B4A; background: #eaf5ef; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .toc-icon.c1 { background: #E8F5EE; }
+    .toc-icon.c2 { background: #FBEDE8; }
+    .toc-icon.c3 { background: #FDEDEC; }
+    .toc-icon.c4 { background: #E0F4EC; }
+    .toc-icon.c5 { background: #FFF3E8; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #147A45; }
+    .toc-label.c2 { color: #B0492F; }
+    .toc-label.c3 { color: #B5391A; }
+    .toc-label.c4 { color: #0D5E38; }
+    .toc-label.c5 { color: #B5601A; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    .content { padding: 0 14px 40px; }
+
+    .chapter { margin-top: 28px; }
+    .chapter-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .chapter-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .chapter-icon.c1 { background: #E8F5EE; }
+    .chapter-icon.c2 { background: #FBEDE8; }
+    .chapter-icon.c3 { background: #FDEDEC; }
+    .chapter-icon.c4 { background: #E0F4EC; }
+    .chapter-icon.c5 { background: #FFF3E8; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .chapter-meta .tag.c1 { color: #147A45; }
+    .chapter-meta .tag.c2 { color: #B0492F; }
+    .chapter-meta .tag.c3 { color: #B5391A; }
+    .chapter-meta .tag.c4 { color: #0D5E38; }
+    .chapter-meta .tag.c5 { color: #B5601A; }
+    .chapter-meta h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; line-height: 1.3; }
+
+    .highlight-line {
+      background: #E8F5EE; border: 1px solid #1A6B4A; border-radius: 10px;
+      padding: 10px 14px; margin-bottom: 14px; font-size: 19px; font-weight: 600;
+      color: #0D4A30; line-height: 1.6; word-break: keep-all;
+    }
+    .highlight-line.warning { background: #FFF3E8; border-color: #E8852A; color: #7A3C10; }
+    .highlight-line.danger { background: #FDEDEC; border-color: #C0533E; color: #922B21; }
+    .highlight-line.info { background: #EFF6FF; border-color: #1A5A8A; color: #0D3D6A; }
+
+    .intro-card {
+      background: #fff; border-radius: 14px; padding: 18px 16px; margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid #1A6B4A;
+    }
+    .intro-card .ic-title { font-size: 20px; font-weight: 800; color: #1A6B4A; margin-bottom: 8px; }
+    .intro-card .ic-desc { font-size: 19px; color: #222; line-height: 1.7; }
+    .intro-card.warn { border-left-color: #E8852A; }
+    .intro-card.warn .ic-title { color: #B5601A; }
+    .intro-card.danger { border-left-color: #C0533E; }
+    .intro-card.danger .ic-title { color: #B0492F; }
+
+    /* 호발부위 칩 */
+    .spot-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .spot-chip { background: #1A6B4A; color: #fff; font-size: 18px; font-weight: 700; padding: 7px 16px; border-radius: 30px; }
+
+    /* 요인 카드 */
+    .factor-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+    .factor-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-top: 4px solid #C0533E; }
+    .factor-card.f2 { border-top-color: #D98A5B; }
+    .factor-card.f3 { border-top-color: #B5601A; }
+    .factor-card .fc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .factor-card .fc-num { font-size: 12px; font-weight: 800; color: #fff; background: #C0533E; padding: 4px 10px; border-radius: 8px; letter-spacing: 1px; flex-shrink: 0; }
+    .factor-card.f2 .fc-num { background: #D98A5B; }
+    .factor-card.f3 .fc-num { background: #B5601A; }
+    .factor-card .fc-title { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+    .factor-card .fc-items { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .factor-card .fc-item { background: #FBEDE8; border-radius: 8px; padding: 8px 12px; font-size: 19px; color: #222; line-height: 1.6; border-left: 3px solid #C0533E; }
+    .factor-card.f2 .fc-item { background: #FCF0E8; border-left-color: #D98A5B; }
+    .factor-card.f3 .fc-item { background: #FFF8F3; border-left-color: #B5601A; }
+    .factor-card .fc-item strong { color: #B0492F; }
+
+    /* 의심 신호 */
+    .signal-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .signal-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 12px; border-left: 4px solid #C0533E; }
+    .signal-item .sg-ic { font-size: 24px; flex-shrink: 0; }
+    .signal-item .sg-text { flex: 1; font-size: 19px; color: #222; line-height: 1.6; }
+    .signal-item .sg-text strong { color: #B0492F; }
+
+    /* 4단계 */
+    .stage-flow { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .stage-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 12px; }
+    .stage-item .st-num { width: 38px; height: 38px; border-radius: 50%; color: #fff; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .stage-item.s1 .st-num { background: #E8A38C; } .stage-item.s2 .st-num { background: #D98A5B; }
+    .stage-item.s3 .st-num { background: #C0533E; } .stage-item.s4 .st-num { background: #8E2D1A; }
+    .stage-item .st-body { flex: 1; }
+    .stage-item .st-title { font-size: 19px; font-weight: 800; color: #1a1a2e; margin-bottom: 2px; }
+    .stage-item .st-desc { font-size: 19px; color: #333; line-height: 1.6; }
+
+    /* 예방 카드 */
+    .prevent-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .prevent-card { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-start; gap: 14px; }
+    .prevent-card .pc-num { width: 40px; height: 40px; border-radius: 50%; background: #1A6B4A; color: #fff; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .prevent-card .pc-body { flex: 1; }
+    .prevent-card .pc-title { font-size: 19px; font-weight: 700; color: #1A6B4A; margin-bottom: 4px; }
+    .prevent-card .pc-desc { font-size: 19px; color: #333; line-height: 1.6; }
+    .prevent-card .pc-point { display: inline-block; margin-top: 6px; background: #E8F5EE; color: #0D4A30; font-size: 17px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+
+    /* 보고 배너 */
+    .report-banner { background: linear-gradient(135deg, #0F4A31 0%, #1A6B4A 100%); color: #fff; border-radius: 14px; padding: 18px 16px; margin: 14px 0; text-align: center; }
+    .report-banner .rb-label { font-size: 14px; font-weight: 700; letter-spacing: 2px; opacity: 0.9; margin-bottom: 4px; }
+    .report-banner .rb-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; word-break: keep-all; }
+    .report-banner .rb-title .accent { color: #7EECC4; }
+    .report-banner .rb-sub { font-size: 17px; font-weight: 600; opacity: 0.95; line-height: 1.6; }
+
+    /* 하지 말 것 */
+    .dont-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .dont-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid #C0533E; }
+    .dont-card .dc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .dont-card .dc-x { font-size: 24px; color: #C0533E; font-weight: 900; flex-shrink: 0; }
+    .dont-card .dc-title { font-size: 20px; font-weight: 800; color: #B0492F; }
+    .dont-card .dc-desc { font-size: 19px; color: #333; line-height: 1.65; }
+
+    /* 마무리 */
+    .closing { text-align: center; margin-top: 36px; padding: 28px 20px; background: linear-gradient(135deg, #0F4A31 0%, #1A6B4A 100%); color: #fff; border-radius: 16px; position: relative; overflow: hidden; }
+    .closing::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #C0533E, #E08260, #C0533E); }
+    .closing-title { font-size: 15px; letter-spacing: 3px; color: #7EECC4; font-weight: 700; margin-bottom: 10px; }
+    .closing-msg { font-size: 20px; font-weight: 700; line-height: 1.75; margin-bottom: 14px; word-break: keep-all; }
+    .closing-msg .accent { color: #7EECC4; }
+    .closing-summary { text-align: left; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+    .closing-summary-item { font-size: 18px; line-height: 1.8; color: rgba(255,255,255,0.95); }
+    .closing-summary-item strong { color: #7EECC4; }
+    .closing-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+    .closing-badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 15px; font-weight: 700; background: rgba(126, 236, 196, 0.18); color: #7EECC4; border: 1px solid rgba(126, 236, 196, 0.45); }
+
+    .footer-note { text-align: center; padding: 20px 16px 28px; font-size: 16px; font-weight: 500; color: #555; }
+
+    .fab-top { position: fixed; bottom: 24px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #1A6B4A; color: #fff; border: none; font-size: 22px; font-weight: 700; box-shadow: 0 3px 12px rgba(26,107,74,0.35); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 90; text-decoration: none; }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .factor-grid-pc { }
+    .prevent-grid-pc { }
+    .signal-grid-pc { }
+    .stage-grid-pc { }
+
+    /* ===== PC 반응형 ===== */
+    @media (min-width: 768px) {
+      body { background: #d8ede4; }
+      .pc-wrapper { max-width: 1100px; margin: 0 auto; background: #f0f7f4; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+      .top-bar { padding: 12px 40px; } .top-bar a { font-size: 16px; } .top-bar .title { font-size: 16px; }
+      .hero { padding: 68px 48px 52px; } .hero h1 { font-size: 38px; letter-spacing: -0.5px; } .hero .sub { font-size: 19px; margin-top: 10px; } .hero .hero-badge { font-size: 14px; margin-bottom: 16px; }
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 8px; margin: 0; padding: 16px 40px; background: #fff; border-bottom: 1px solid #d8eee4; }
+      .toc-item { flex: 1 1 calc(20% - 8px); min-width: 140px; padding: 12px 10px; border-radius: 10px; justify-content: center; gap: 8px; border: 1px solid #d8eee4; transition: all 0.2s; }
+      .toc-item:hover { border-color: #1A6B4A; background: #eaf5ef; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(26,107,74,0.1); }
+      .toc-arrow { display: none; } .toc-left { justify-content: center; }
+      .content { padding: 10px 40px 60px; }
+      .chapter { margin-top: 52px; }
+      .chapter-header { gap: 16px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 2px solid #d8eee4; }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-meta .tag { font-size: 13px; letter-spacing: 1.5px; } .chapter-meta h2 { font-size: 28px; }
+      .highlight-line { font-size: 20px; padding: 16px 24px; border-radius: 12px; margin-bottom: 20px; }
+      .factor-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .factor-list { display: contents; }
+      .factor-card { padding: 22px 24px; border-radius: 16px; border-top-width: 5px; transition: transform 0.2s, box-shadow 0.2s; }
+      .factor-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+      .factor-card .fc-title { font-size: 21px; }
+      .signal-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .signal-list { display: contents; }
+      .signal-item { padding: 18px 20px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .signal-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+      .stage-grid-pc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+      .stage-flow { display: contents; }
+      .stage-item { flex-direction: column; align-items: center; text-align: center; padding: 18px 14px; border-radius: 14px; border: 1px solid #f0d8d0; transition: transform 0.2s, box-shadow 0.2s; }
+      .stage-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+      .stage-item .st-title { margin-top: 8px; }
+      .prevent-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .prevent-list { display: contents; }
+      .prevent-card { padding: 18px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .prevent-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+      .dont-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .dont-card { padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .dont-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+      .report-banner { padding: 28px; border-radius: 16px; } .report-banner .rb-title { font-size: 26px; }
+      .closing { margin-top: 60px; padding: 48px 40px; border-radius: 20px; }
+      .closing-title { font-size: 16px; letter-spacing: 4px; } .closing-msg { font-size: 22px; }
+      .closing-summary { padding: 18px 24px; } .closing-summary-item { font-size: 19px; }
+      .closing-badges { gap: 10px; margin-top: 18px; } .closing-badge { font-size: 16px; padding: 8px 18px; }
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+      .fab-top { width: 50px; height: 50px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 14px; }
+      .progress-bar { height: 4px; }
+      .spot-chip { font-size: 19px; }
+    }
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; } .toc { padding: 18px 56px; } .top-bar { padding: 12px 56px; }
+      .hero { padding: 72px 56px 56px; } .hero h1 { font-size: 44px; } .footer-note { padding: 28px 56px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">욕창예방 및 관리지침</span>
+    </div>
+
+    <div class="hero" id="heroArea">
+      <span class="hero-badge">🌿 CARE GUIDE</span>
+      <h1><span class="accent">욕창</span>은 막을 수 있습니다<br>매일 살피는 손에서 시작됩니다</h1>
+      <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left"><span class="toc-icon c1">❓</span><span class="toc-label c1">욕창이란?</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left"><span class="toc-icon c2">⚠️</span><span class="toc-label c2">발생요인 일곱 가지</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left"><span class="toc-icon c3">🔴</span><span class="toc-label c3">의심 신호와 단계</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left"><span class="toc-icon c4">🛡️</span><span class="toc-label c4">예방 방법 여섯 묶음</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left"><span class="toc-icon c5">📣</span><span class="toc-label c5">발견했다면</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <div class="chapter-icon c1">❓</div>
+          <div class="chapter-meta">
+            <span class="tag c1">CHAPTER 1</span>
+            <h2>욕창이란?</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          한 자세로 오래 눌린 피부에 피가 통하지 않아, 피부 조직이 상하고 죽어가는 것입니다.
+        </div>
+
+        <div class="intro-card danger">
+          <div class="ic-title">🔻 그대로 두면</div>
+          <div class="ic-desc">
+            눌린 피부가 <strong>빨갛게</strong> 변하고 → 껍질이 <strong>벗겨지고</strong> → 계속 진행되면 <strong>살이 썩는</strong> 상태까지 갑니다.
+          </div>
+        </div>
+
+        <div class="intro-card">
+          <div class="ic-title">📍 잘 생기는 부위</div>
+          <div class="ic-desc">
+            뼈가 튀어나와 바닥에 눌리는 곳입니다.
+          </div>
+          <div class="spot-row" style="margin-top: 10px;">
+            <span class="spot-chip">머리 뒷부분</span>
+            <span class="spot-chip">어깨 뒤</span>
+            <span class="spot-chip">팔꿈치</span>
+            <span class="spot-chip">엉덩이</span>
+            <span class="spot-chip">무릎</span>
+            <span class="spot-chip">발뒤꿈치</span>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          한번 생기면 치료가 어렵습니다. <strong>예방이 최선</strong>입니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <div class="chapter-icon c2">⚠️</div>
+          <div class="chapter-meta">
+            <span class="tag c2">CHAPTER 2</span>
+            <h2>발생요인 일곱 가지</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line warning">
+          욕창은 우연히 생기지 않습니다. 일곱 가지 요인을 기억하세요.
+        </div>
+
+        <div class="factor-grid-pc">
+        <div class="factor-list">
+          <div class="factor-card">
+            <div class="fc-head">
+              <span class="fc-num">요인 ①②⑤</span>
+              <span class="fc-title">자세 · 움직임</span>
+            </div>
+            <div class="fc-items">
+              <div class="fc-item"><strong>누워만 지내는 경우</strong> — 스스로 자세를 못 바꿔 같은 부위가 계속 눌립니다</div>
+              <div class="fc-item"><strong>움직임이 적은 경우</strong> — 의욕이 없어 잘 안 움직이면 위험이 커집니다</div>
+              <div class="fc-item"><strong>잘못된 이동 도움</strong> — 잡아끌면 피부가 쓸려 상합니다</div>
+            </div>
+          </div>
+
+          <div class="factor-card f2">
+            <div class="fc-head">
+              <span class="fc-num">요인 ③④</span>
+              <span class="fc-title">몸 상태</span>
+            </div>
+            <div class="fc-items">
+              <div class="fc-item"><strong>영양 부족</strong> — 살이 빠지면 피부와 뼈 사이 완충지대가 얇아집니다</div>
+              <div class="fc-item"><strong>소변·대변 실수</strong> — 젖은 피부는 짓무르고 약해져 감염까지 이어집니다</div>
+            </div>
+          </div>
+
+          <div class="factor-card f3">
+            <div class="fc-head">
+              <span class="fc-num">요인 ⑥⑦</span>
+              <span class="fc-title">피부 자극</span>
+            </div>
+            <div class="fc-items">
+              <div class="fc-item"><strong>꽉 끼는 옷</strong> — 피부를 조이고 혈액순환을 방해합니다</div>
+              <div class="fc-item"><strong>옷·이불과의 마찰</strong> — 반복해 쓸리면 피부가 약해집니다</div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /factor-grid-pc -->
+      </div>
+
+      <!-- ===== 챕터 3 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <div class="chapter-icon c3">🔴</div>
+          <div class="chapter-meta">
+            <span class="tag c3">CHAPTER 3</span>
+            <h2>의심 신호와 단계</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line danger">
+          이런 모습이 보이면 욕창을 의심하세요.
+        </div>
+
+        <div class="signal-grid-pc">
+        <div class="signal-list">
+          <div class="signal-item"><span class="sg-ic">🔴</span><span class="sg-text"><strong>빨갛게 부어오른 피부</strong> — 눌린 부위가 붉게 변합니다</span></div>
+          <div class="signal-item"><span class="sg-ic">💧</span><span class="sg-text"><strong>물집·벗겨진 피부</strong> — 갈라지거나 터지기도 합니다</span></div>
+          <div class="signal-item"><span class="sg-ic">🩹</span><span class="sg-text"><strong>피·고름, 악취</strong> — 옷이나 이불에 묻어 있습니다</span></div>
+          <div class="signal-item"><span class="sg-ic">😣</span><span class="sg-text"><strong>눌린 부위의 통증</strong> — 어르신이 아픔을 호소하십니다</span></div>
+        </div>
+        </div><!-- /signal-grid-pc -->
+
+        <div class="highlight-line" style="margin-top: 4px;">
+          욕창은 네 단계로 깊어집니다. <strong>1단계에서 잡는 것</strong>이 가장 중요합니다.
+        </div>
+
+        <div class="stage-grid-pc">
+        <div class="stage-flow">
+          <div class="stage-item s1"><div class="st-num">1</div><div class="st-body"><div class="st-title">1단계</div><div class="st-desc">붉게 변한 피부, 눌러도 색이 안 돌아옴, 열감</div></div></div>
+          <div class="stage-item s2"><div class="st-num">2</div><div class="st-body"><div class="st-title">2단계</div><div class="st-desc">피부가 벗겨지고 물집이 생김</div></div></div>
+          <div class="stage-item s3"><div class="st-num">3</div><div class="st-body"><div class="st-title">3단계</div><div class="st-desc">깊은 상처, 조직이 죽기 시작</div></div></div>
+          <div class="stage-item s4"><div class="st-num">4</div><div class="st-body"><div class="st-title">4단계</div><div class="st-desc">뼈·근육까지 손상, 패혈증 위험</div></div></div>
+        </div>
+        </div><!-- /stage-grid-pc -->
+
+        <div class="highlight-line danger" style="margin-top: 4px;">
+          빨갛게 변한 피부, 그때 잡아야 합니다. 방치하면 패혈증으로 목숨까지 위험합니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 4 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <div class="chapter-icon c4">🛡️</div>
+          <div class="chapter-meta">
+            <span class="tag c4">CHAPTER 4</span>
+            <h2>예방 방법 여섯 묶음</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          가장 중요한 내용입니다. 욕창을 막는 여섯 묶음입니다.
+        </div>
+
+        <div class="prevent-grid-pc">
+        <div class="prevent-list">
+          <div class="prevent-card">
+            <div class="pc-num">1</div>
+            <div class="pc-body">
+              <div class="pc-title">자세 바꾸기</div>
+              <div class="pc-desc">예방의 기본입니다.</div>
+              <span class="pc-point">누워서 2시간 · 앉아서 1시간마다</span>
+            </div>
+          </div>
+          <div class="prevent-card">
+            <div class="pc-num">2</div>
+            <div class="pc-body">
+              <div class="pc-title">피부 살피기</div>
+              <div class="pc-desc">자세변경·목욕·기저귀 교환 때마다 피부를 확인합니다. 깨끗하고 건조하게, 필요하면 로션.</div>
+            </div>
+          </div>
+          <div class="prevent-card">
+            <div class="pc-num">3</div>
+            <div class="pc-body">
+              <div class="pc-title">압력 줄이는 도구</div>
+              <div class="pc-desc">욕창예방 매트리스·방석을 쓰고, 눌리는 부위에 베개·패드를 대어 압박을 나눕니다.</div>
+            </div>
+          </div>
+          <div class="prevent-card">
+            <div class="pc-num">4</div>
+            <div class="pc-body">
+              <div class="pc-title">옷·이불 관리</div>
+              <div class="pc-desc">주름 없이 반듯하게, 젖으면 바로 교체. 잠옷·이불은 수시로 햇볕에 소독.</div>
+            </div>
+          </div>
+          <div class="prevent-card">
+            <div class="pc-num">5</div>
+            <div class="pc-body">
+              <div class="pc-title">잘 먹고 잘 마시기</div>
+              <div class="pc-desc">단백질·비타민 충분히, 물도 충분히. 피부 탄력을 지킵니다.</div>
+            </div>
+          </div>
+          <div class="prevent-card">
+            <div class="pc-num">6</div>
+            <div class="pc-body">
+              <div class="pc-title">이것만은 조심</div>
+              <div class="pc-desc">뜨거운 물주머니 화상 주의, 피부 주무르기 금지, 손톱은 짧게.</div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /prevent-grid-pc -->
+      </div>
+
+      <!-- ===== 챕터 5 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <div class="chapter-icon c5">📣</div>
+          <div class="chapter-meta">
+            <span class="tag c5">CHAPTER 5</span>
+            <h2>발견했다면</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line warning">
+          피부가 빨갛게 변해 있거나 물집이 보이면, 해야 할 행동은 단 하나입니다.
+        </div>
+
+        <div class="report-banner">
+          <div class="rb-label">📣 발견 즉시</div>
+          <div class="rb-title"><span class="accent">관리자</span>에게 보고하세요</div>
+          <div class="rb-sub">보고를 받은 센터가 보호자·의료진에게 연계해<br>어르신이 빠르게 치료받으시도록 합니다</div>
+        </div>
+
+        <div class="highlight-line danger" style="margin-bottom: 10px;">두 가지는 하지 마세요</div>
+        <div class="dont-list">
+          <div class="dont-card">
+            <div class="dc-head"><span class="dc-x">✕</span><span class="dc-title">발적 부위 마사지</span></div>
+            <div class="dc-desc">빨갛게 변한 부위를 문지르면 더 상하게 됩니다.</div>
+          </div>
+          <div class="dont-card">
+            <div class="dc-head"><span class="dc-x">✕</span><span class="dc-title">연고·소독 등 임의 처치</span></div>
+            <div class="dc-desc">욕창 치료는 드레싱·소독·수술까지 의료진의 영역입니다.</div>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          우리의 역할은 분명합니다. <strong>매일 살피고, 발견하면 바로 알리는 것.</strong>
+        </div>
+      </div>
+
+      <!-- ===== 마무리 ===== -->
+      <div class="closing">
+        <div class="closing-title">CLOSING MESSAGE</div>
+        <p class="closing-msg">
+          어르신의 피부는,<br>
+          <span class="accent">매일 곁에 있는 여러분</span>이 가장 먼저 지킵니다.
+        </p>
+        <div class="closing-summary">
+          <div class="closing-summary-item"><strong>발생요인</strong> — 자세·움직임 · 몸 상태 · 피부 자극 (일곱 가지)</div>
+          <div class="closing-summary-item"><strong>예방의 기본</strong> — 두 시간마다 자세변경 · 매일 피부 살피기</div>
+          <div class="closing-summary-item"><strong>발견하면</strong> — 즉시 관리자 보고 · 임의 처치 금지</div>
+        </div>
+        <div class="closing-badges">
+          <span class="closing-badge">자세변경</span>
+          <span class="closing-badge">피부 관찰</span>
+          <span class="closing-badge">압력 분산</span>
+          <span class="closing-badge">영양·수분</span>
+          <span class="closing-badge">즉시 보고</span>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) { progressBar.style.width = (scrollTop / docHeight * 100) + '%'; }
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>

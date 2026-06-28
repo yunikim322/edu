@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>감염예방 및 관리지침 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; background: #eef6f7; color: #222; line-height: 1.7; -webkit-text-size-adjust: 100%; }
+
+    .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #0E7C86, #16A0A8); z-index: 200; transition: width 0.1s linear; }
+
+    .top-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #cfe8ea; }
+    .top-bar a { color: #0E7C86; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; }
+
+    [id] { scroll-margin-top: 52px; }
+
+    .hero { background: linear-gradient(135deg, #084E54 0%, #0E7C86 55%, #16A0A8 100%); color: #fff; padding: 32px 20px 28px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #16A0A8, #7EE0E6, #16A0A8); }
+    .hero .hero-badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: #7EE0E6; margin-bottom: 10px; }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; word-break: keep-all; line-height: 1.3; }
+    .hero h1 .accent { color: #7EE0E6; }
+    .hero .sub { font-size: 17px; opacity: 0.9; }
+
+    .toc { margin: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+    .toc-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; background: #fff; border-radius: 12px; text-decoration: none; color: #333; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border: 1px solid #cfe8ea; transition: border-color 0.15s; }
+    .toc-item:active { border-color: #0E7C86; background: #e3f3f4; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; background: #E0F2F3; }
+    .toc-label { font-size: 17px; font-weight: 600; color: #0A6068; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    .content { padding: 0 14px 40px; }
+
+    .chapter { margin-top: 28px; }
+    .chapter-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .chapter-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: #E0F2F3; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 2px; color: #0E7C86; }
+    .chapter-meta h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; line-height: 1.3; }
+
+    .highlight-line { background: #E0F2F3; border: 1px solid #0E7C86; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; font-size: 19px; font-weight: 600; color: #0A4A50; line-height: 1.6; word-break: keep-all; }
+    .highlight-line.warning { background: #FFF3E8; border-color: #E8852A; color: #7A3C10; }
+    .highlight-line.danger { background: #FDEDEC; border-color: #C0533E; color: #922B21; }
+
+    .intro-card { background: #fff; border-radius: 14px; padding: 18px 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid #0E7C86; }
+    .intro-card .ic-title { font-size: 20px; font-weight: 800; color: #0E7C86; margin-bottom: 8px; }
+    .intro-card .ic-desc { font-size: 19px; color: #222; line-height: 1.7; }
+    .intro-card.warn { border-left-color: #E8852A; } .intro-card.warn .ic-title { color: #B5601A; }
+
+    /* 경로 카드 */
+    .route-grid-pc { }
+    .route-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+    .route-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-top: 4px solid #0E7C86; }
+    .route-card.r2 { border-top-color: #1A8FB0; } .route-card.r3 { border-top-color: #C0533E; }
+    .route-card .rc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .route-card .rc-ic { font-size: 26px; flex-shrink: 0; }
+    .route-card .rc-title { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+    .route-card .rc-desc { font-size: 19px; color: #333; line-height: 1.6; }
+    .route-card .rc-tag { display: inline-block; margin-top: 8px; background: #E0F2F3; color: #0A6068; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+    .route-card.r2 .rc-tag { background: #E4F1F8; color: #14607E; } .route-card.r3 .rc-tag { background: #FBEDE8; color: #B0492F; }
+
+    /* 증상/원칙 리스트 */
+    .signal-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .signal-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 12px; border-left: 4px solid #0E7C86; }
+    .signal-item.warn { border-left-color: #C0533E; }
+    .signal-item .sg-ic { font-size: 24px; flex-shrink: 0; }
+    .signal-item .sg-text { flex: 1; font-size: 19px; color: #222; line-height: 1.6; }
+    .signal-item .sg-text strong { color: #0A6068; }
+
+    /* 감염병 카드 */
+    .disease-grid-pc { }
+    .disease-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .disease-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid #0E7C86; }
+    .disease-card .dc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .disease-card .dc-name { font-size: 20px; font-weight: 800; color: #0E7C86; }
+    .disease-card .dc-route { font-size: 14px; font-weight: 700; color: #fff; background: #1A8FB0; padding: 3px 10px; border-radius: 20px; }
+    .disease-card .dc-route.air { background: #6B45A0; } .disease-card .dc-route.drop { background: #1A8FB0; } .disease-card .dc-route.touch { background: #C0533E; }
+    .disease-card .dc-desc { font-size: 19px; color: #333; line-height: 1.6; }
+    .disease-card .dc-desc strong { color: #0A6068; }
+
+    /* 손씻기 — 언제 */
+    .when-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .when-chip { background: #fff; border: 1px solid #0E7C86; color: #0A6068; font-size: 17px; font-weight: 600; padding: 7px 14px; border-radius: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+
+    /* 손씻기 6단계 / 예방 카드 */
+    .prevent-grid-pc { }
+    .prevent-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .prevent-card { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-start; gap: 14px; }
+    .prevent-card .pc-num { width: 40px; height: 40px; border-radius: 50%; background: #0E7C86; color: #fff; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .prevent-card .pc-body { flex: 1; }
+    .prevent-card .pc-title { font-size: 19px; font-weight: 700; color: #0E7C86; margin-bottom: 4px; }
+    .prevent-card .pc-desc { font-size: 19px; color: #333; line-height: 1.6; }
+
+    /* 보호장구/환경 카드 */
+    .staff-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .staff-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid #0A6068; }
+    .staff-card .sc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .staff-card .sc-icon { font-size: 26px; flex-shrink: 0; }
+    .staff-card .sc-title { font-size: 20px; font-weight: 800; color: #0A6068; }
+    .staff-card .sc-desc { font-size: 19px; color: #333; line-height: 1.65; }
+    .staff-card .sc-desc strong { color: #0E7C86; }
+
+    .principle-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .principle-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 12px; }
+    .principle-item .pi-bullet { width: 34px; height: 34px; border-radius: 10px; background: #E0F2F3; color: #0E7C86; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .principle-item .pi-text { flex: 1; font-size: 19px; color: #222; line-height: 1.7; word-break: keep-all; padding-top: 5px; }
+    .principle-item .pi-text strong { color: #0A6068; }
+
+    /* 보고 배너 */
+    .report-banner { background: linear-gradient(135deg, #084E54 0%, #0E7C86 100%); color: #fff; border-radius: 14px; padding: 18px 16px; margin: 14px 0; text-align: center; }
+    .report-banner .rb-label { font-size: 14px; font-weight: 700; letter-spacing: 2px; opacity: 0.9; margin-bottom: 4px; }
+    .report-banner .rb-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; word-break: keep-all; }
+    .report-banner .rb-title .accent { color: #7EE0E6; }
+    .report-banner .rb-sub { font-size: 17px; font-weight: 600; opacity: 0.95; line-height: 1.6; }
+
+    /* 마무리 */
+    .closing { text-align: center; margin-top: 36px; padding: 28px 20px; background: linear-gradient(135deg, #084E54 0%, #0E7C86 100%); color: #fff; border-radius: 16px; position: relative; overflow: hidden; }
+    .closing::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #16A0A8, #7EE0E6, #16A0A8); }
+    .closing-title { font-size: 15px; letter-spacing: 3px; color: #7EE0E6; font-weight: 700; margin-bottom: 10px; }
+    .closing-msg { font-size: 20px; font-weight: 700; line-height: 1.75; margin-bottom: 14px; word-break: keep-all; }
+    .closing-msg .accent { color: #7EE0E6; }
+    .closing-summary { text-align: left; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+    .closing-summary-item { font-size: 18px; line-height: 1.8; color: rgba(255,255,255,0.95); }
+    .closing-summary-item strong { color: #7EE0E6; }
+    .closing-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+    .closing-badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 15px; font-weight: 700; background: rgba(126, 224, 230, 0.18); color: #7EE0E6; border: 1px solid rgba(126, 224, 230, 0.45); }
+
+    .footer-note { text-align: center; padding: 20px 16px 28px; font-size: 16px; font-weight: 500; color: #555; }
+
+    .fab-top { position: fixed; bottom: 24px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #0E7C86; color: #fff; border: none; font-size: 22px; font-weight: 700; box-shadow: 0 3px 12px rgba(14,124,134,0.35); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 90; text-decoration: none; }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+
+    /* ===== PC 반응형 ===== */
+    @media (min-width: 768px) {
+      body { background: #d4e9eb; }
+      .pc-wrapper { max-width: 1100px; margin: 0 auto; background: #eef6f7; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+      .top-bar { padding: 12px 40px; } .top-bar a { font-size: 16px; } .top-bar .title { font-size: 16px; }
+      .hero { padding: 68px 48px 52px; } .hero h1 { font-size: 38px; letter-spacing: -0.5px; } .hero .sub { font-size: 19px; margin-top: 10px; } .hero .hero-badge { font-size: 14px; margin-bottom: 16px; }
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 8px; margin: 0; padding: 16px 40px; background: #fff; border-bottom: 1px solid #cfe8ea; }
+      .toc-item { flex: 1 1 calc(25% - 8px); min-width: 150px; padding: 12px 10px; border-radius: 10px; justify-content: center; gap: 8px; border: 1px solid #cfe8ea; transition: all 0.2s; }
+      .toc-item:hover { border-color: #0E7C86; background: #e3f3f4; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,124,134,0.1); }
+      .toc-arrow { display: none; } .toc-left { justify-content: center; }
+      .content { padding: 10px 40px 60px; }
+      .chapter { margin-top: 52px; }
+      .chapter-header { gap: 16px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 2px solid #cfe8ea; }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-meta .tag { font-size: 13px; letter-spacing: 1.5px; } .chapter-meta h2 { font-size: 28px; }
+      .highlight-line { font-size: 20px; padding: 16px 24px; border-radius: 12px; margin-bottom: 20px; }
+      .route-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .route-list { display: contents; }
+      .route-card { padding: 22px 24px; border-radius: 16px; border-top-width: 5px; transition: transform 0.2s, box-shadow 0.2s; }
+      .route-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+      .signal-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .signal-item { padding: 18px 20px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .signal-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+      .disease-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .disease-list { display: contents; }
+      .disease-card { padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .disease-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+      .prevent-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .prevent-list { display: contents; }
+      .prevent-card { padding: 18px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .prevent-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+      .staff-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .staff-card { padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .staff-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+      .principle-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .principle-item { padding: 16px 20px; border-radius: 14px; border: 1px solid #cfe8ea; transition: transform 0.2s, box-shadow 0.2s; }
+      .principle-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+      .report-banner { padding: 28px; border-radius: 16px; } .report-banner .rb-title { font-size: 26px; }
+      .closing { margin-top: 60px; padding: 48px 40px; border-radius: 20px; }
+      .closing-title { font-size: 16px; letter-spacing: 4px; } .closing-msg { font-size: 22px; }
+      .closing-summary { padding: 18px 24px; } .closing-summary-item { font-size: 19px; }
+      .closing-badges { gap: 10px; margin-top: 18px; } .closing-badge { font-size: 16px; padding: 8px 18px; }
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+      .fab-top { width: 50px; height: 50px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 14px; }
+      .progress-bar { height: 4px; }
+      .when-chip { font-size: 18px; }
+    }
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; } .toc { padding: 18px 56px; } .top-bar { padding: 12px 56px; }
+      .hero { padding: 72px 56px 56px; } .hero h1 { font-size: 44px; } .footer-note { padding: 28px 56px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">감염예방 및 관리지침</span>
+    </div>
+
+    <div class="hero" id="heroArea">
+      <span class="hero-badge">🧼 INFECTION CONTROL</span>
+      <h1>여러분의 <span class="accent">깨끗한 손</span>이<br>어르신의 건강을 지킵니다</h1>
+      <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1"><span class="toc-left"><span class="toc-icon">🦠</span><span class="toc-label">감염이란? · 감염경로</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch2"><span class="toc-left"><span class="toc-icon">🔍</span><span class="toc-label">감염의 증상 · 조기 발견</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch3"><span class="toc-left"><span class="toc-icon">🏥</span><span class="toc-label">주요 감염병</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch4"><span class="toc-left"><span class="toc-icon">🛡️</span><span class="toc-label">기본원칙 · 표준주의</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch5"><span class="toc-left"><span class="toc-icon">🧼</span><span class="toc-label">손 씻기 여섯 단계</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch6"><span class="toc-left"><span class="toc-icon">🧤</span><span class="toc-label">개인보호장구</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch7"><span class="toc-left"><span class="toc-icon">🧹</span><span class="toc-label">환경관리 · 폐기물</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch8"><span class="toc-left"><span class="toc-icon">📣</span><span class="toc-label">발생 시 대응 · 보고</span></span><span class="toc-arrow">&rsaquo;</span></a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header"><div class="chapter-icon">🦠</div><div class="chapter-meta"><span class="tag">CHAPTER 1</span><h2>감염이란? · 감염경로</h2></div></div>
+
+        <div class="highlight-line">
+          세균·바이러스 같은 병원체가 몸속에 침입해 우리 몸이 오염된 상태입니다. 그 결과 생기는 병이 감염증입니다.
+        </div>
+
+        <div class="intro-card warn">
+          <div class="ic-title">👵 어르신은 더 위험합니다</div>
+          <div class="ic-desc">면역력이 약해 가벼운 감기도 <strong>폐렴으로 번지거나</strong> 회복이 더디고, 심하면 생명을 위협합니다. 감염관리는 요양보호사의 <strong>기본 중의 기본</strong>입니다.</div>
+        </div>
+
+        <div class="highlight-line">병원체는 세 가지 길로 옮습니다.</div>
+
+        <div class="route-grid-pc">
+        <div class="route-list">
+          <div class="route-card">
+            <div class="rc-head"><span class="rc-ic">💨</span><span class="rc-title">공기 전파</span></div>
+            <div class="rc-desc">미세입자가 공기 중에 떠다니다 숨 쉴 때 들어옵니다.</div>
+            <span class="rc-tag">결핵 · 홍역 · 수두</span>
+          </div>
+          <div class="route-card r2">
+            <div class="rc-head"><span class="rc-ic">🗣️</span><span class="rc-title">비말(침방울) 전파</span></div>
+            <div class="rc-desc">기침·재채기의 큰 침방울이 가까운 사람의 코·입·눈에 닿습니다.</div>
+            <span class="rc-tag">인플루엔자 · 코로나</span>
+          </div>
+          <div class="route-card r3">
+            <div class="rc-head"><span class="rc-ic">✋</span><span class="rc-title">접촉 전파</span></div>
+            <div class="rc-desc">감염된 사람·오염된 물건을 만진 손으로 입·눈을 만져 옮습니다.</div>
+            <span class="rc-tag">노로 · 옴 · 장염</span>
+          </div>
+        </div>
+        </div><!-- /route-grid-pc -->
+
+        <div class="highlight-line">
+          이 세 가지를 알면 <strong>왜 마스크를 쓰고, 손을 씻고, 장갑을 끼는지</strong> 이해됩니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header"><div class="chapter-icon">🔍</div><div class="chapter-meta"><span class="tag">CHAPTER 2</span><h2>감염의 증상 · 조기 발견</h2></div></div>
+
+        <div class="highlight-line">
+          요양보호사는 어르신 곁에 가장 오래 머뭅니다. 작은 변화를 <strong>가장 먼저</strong> 발견할 수 있습니다.
+        </div>
+
+        <div class="signal-list">
+          <div class="signal-item"><span class="sg-ic">🩹</span><span class="sg-text"><strong>감염 부위</strong> — 붉어짐, 부음, 통증, 열감, 고름 진물</span></div>
+          <div class="signal-item"><span class="sg-ic">😷</span><span class="sg-text"><strong>호흡기</strong> — 기침, 목 아픔, 가래 양·색 변화, 숨참</span></div>
+          <div class="signal-item"><span class="sg-ic">🌡️</span><span class="sg-text"><strong>전신</strong> — 갑작스러운 열·오한, 피로, 입맛 없음, 소변 색 변화</span></div>
+        </div>
+
+        <div class="report-banner">
+          <div class="rb-label">🔍 변화가 보이면</div>
+          <div class="rb-title">혼자 판단 말고 <span class="accent">관리자에게 보고</span></div>
+          <div class="rb-sub">조기에 알리는 것만으로 어르신의 회복과 안전이 크게 달라집니다</div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 3 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header"><div class="chapter-icon">🏥</div><div class="chapter-meta"><span class="tag">CHAPTER 3</span><h2>주요 감염병</h2></div></div>
+
+        <div class="highlight-line">현장에서 자주 만나는 감염병입니다. 핵심만 기억하세요.</div>
+
+        <div class="disease-grid-pc">
+        <div class="disease-list">
+          <div class="disease-card">
+            <div class="dc-head"><span class="dc-name">폐렴</span><span class="dc-route drop">흡인·호흡기</span></div>
+            <div class="dc-desc">어르신에게 가장 위험. <strong>식사는 천천히 바른 자세로</strong>, 기침 예절 지키기.</div>
+          </div>
+          <div class="disease-card">
+            <div class="dc-head"><span class="dc-name">결핵</span><span class="dc-route air">공기</span></div>
+            <div class="dc-desc">기침·가래가 오래가면 <strong>병원 진료</strong>를 돕고, 손 위생과 환기를 철저히.</div>
+          </div>
+          <div class="disease-card">
+            <div class="dc-head"><span class="dc-name">인플루엔자 · 코로나</span><span class="dc-route drop">비말</span></div>
+            <div class="dc-desc">고열·두통·근육통·기침. <strong>마스크 착용</strong>, 대면 줄이기, 매일 건강 확인. 독감은 <strong>예방접종</strong>이 최선.</div>
+          </div>
+          <div class="disease-card">
+            <div class="dc-head"><span class="dc-name">노로바이러스</span><span class="dc-route touch">접촉·음식</span></div>
+            <div class="dc-desc">구토·설사·복통. 조리 음식 맨손 금지, 손잡이 소독, <strong>손 씻기 철저</strong>.</div>
+          </div>
+          <div class="disease-card">
+            <div class="dc-head"><span class="dc-name">옴</span><span class="dc-route touch">접촉·침구</span></div>
+            <div class="dc-desc">자주 긁으면 <strong>피부과 진료</strong>. 장갑·보호가운, 침구 소독·일광 건조.</div>
+          </div>
+          <div class="disease-card" style="border-left-color:#E8852A;">
+            <div class="dc-head"><span class="dc-name" style="color:#B5601A;">공통 핵심</span></div>
+            <div class="dc-desc"><strong>손 위생 · 보호장구 · 의심되면 보고</strong> — 이 세 가지는 모든 감염병에 똑같이 적용됩니다.</div>
+          </div>
+        </div>
+        </div><!-- /disease-grid-pc -->
+      </div>
+
+      <!-- ===== 챕터 4 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header"><div class="chapter-icon">🛡️</div><div class="chapter-meta"><span class="tag">CHAPTER 4</span><h2>기본원칙 · 표준주의</h2></div></div>
+
+        <div class="highlight-line">모든 감염을 막는 기본원칙은 딱 세 가지입니다.</div>
+
+        <div class="principle-list">
+          <div class="principle-item"><span class="pi-bullet">1</span><span class="pi-text"><strong>병원체 제거</strong> — 청결·소독으로 없앱니다</span></div>
+          <div class="principle-item"><span class="pi-bullet">2</span><span class="pi-text"><strong>침입경로 차단</strong> — 손 위생·보호장구로 막습니다</span></div>
+          <div class="principle-item"><span class="pi-bullet">3</span><span class="pi-text"><strong>저항력 키우기</strong> — 영양·휴식·운동으로 어르신을 튼튼하게</span></div>
+        </div>
+
+        <div class="intro-card">
+          <div class="ic-title">✅ 표준주의란?</div>
+          <div class="ic-desc">누가 감염됐는지 따지기 전에, <strong>모든 사람의 혈액·체액·분비물을 잠재적 감염원</strong>으로 여기고 항상 똑같이 조심하는 것입니다. 특별히 아픈 어르신에게만이 아니라, <strong>모든 돌봄에서 손 씻고 보호장구 갖추기</strong> — 이것이 핵심입니다.</div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header"><div class="chapter-icon">🧼</div><div class="chapter-meta"><span class="tag">CHAPTER 5</span><h2>손 씻기 여섯 단계</h2></div></div>
+
+        <div class="highlight-line">
+          가장 기본이면서 <strong>가장 강력한</strong> 예방법. 손만 제대로 씻어도 많은 감염을 막습니다.
+        </div>
+
+        <div class="intro-card">
+          <div class="ic-title">⏰ 언제 씻나요?</div>
+          <div class="ic-desc" style="margin-bottom:6px;">한마디로 — <strong>무언가를 만지기 전과 후에 늘.</strong></div>
+          <div class="when-list">
+            <span class="when-chip">근무 시작·종료</span>
+            <span class="when-chip">장갑 끼기 전·벗은 후</span>
+            <span class="when-chip">상처·혈액·분비물 만진 후</span>
+            <span class="when-chip">대소변기 만진 후</span>
+            <span class="when-chip">화장실 다녀온 후</span>
+            <span class="when-chip">음식 만지기 전</span>
+          </div>
+        </div>
+
+        <div class="highlight-line">흐르는 미온수와 비누로, 여섯 단계입니다.</div>
+
+        <div class="prevent-grid-pc">
+        <div class="prevent-list">
+          <div class="prevent-card"><div class="pc-num">1</div><div class="pc-body"><div class="pc-title">손바닥</div><div class="pc-desc">손바닥과 손바닥을 마주 대고 문지릅니다.</div></div></div>
+          <div class="prevent-card"><div class="pc-num">2</div><div class="pc-body"><div class="pc-title">손가락</div><div class="pc-desc">손가락을 마주 잡고 문지릅니다.</div></div></div>
+          <div class="prevent-card"><div class="pc-num">3</div><div class="pc-body"><div class="pc-title">손등</div><div class="pc-desc">손등과 손바닥을 마주 대고 문지릅니다.</div></div></div>
+          <div class="prevent-card"><div class="pc-num">4</div><div class="pc-body"><div class="pc-title">엄지손가락</div><div class="pc-desc">엄지를 다른 손바닥으로 돌려 가며 문지릅니다.</div></div></div>
+          <div class="prevent-card"><div class="pc-num">5</div><div class="pc-body"><div class="pc-title">깍지</div><div class="pc-desc">손바닥을 마주 대고 깍지 껴 문지릅니다.</div></div></div>
+          <div class="prevent-card"><div class="pc-num">6</div><div class="pc-body"><div class="pc-title">손톱 밑</div><div class="pc-desc">손가락을 반대쪽 손바닥에 놓고 손톱 밑까지 문지릅니다.</div></div></div>
+        </div>
+        </div><!-- /prevent-grid-pc -->
+
+        <div class="highlight-line">흐르는 물에 헹구고, 깨끗한 수건으로 물기를 닦으면 끝.</div>
+      </div>
+
+      <!-- ===== 챕터 6 ===== -->
+      <div class="chapter" id="ch6">
+        <div class="chapter-header"><div class="chapter-icon">🧤</div><div class="chapter-meta"><span class="tag">CHAPTER 6</span><h2>개인보호장구</h2></div></div>
+
+        <div class="highlight-line">손 씻기와 함께 우리를 지켜 주는 것입니다.</div>
+
+        <div class="staff-list">
+          <div class="staff-card">
+            <div class="sc-head"><span class="sc-icon">🧤</span><span class="sc-title">장갑</span></div>
+            <div class="sc-desc">혈액·체액·분비물·상처에 닿을 때 착용. <strong>어르신·처치 부위가 바뀔 때마다 새것으로</strong>. 벗은 뒤에도 반드시 손 씻기.</div>
+          </div>
+          <div class="staff-card">
+            <div class="sc-head"><span class="sc-icon">😷</span><span class="sc-title">마스크 · 보안경</span></div>
+            <div class="sc-desc">체액·분비물이 <strong>튈 가능성</strong>이 있을 때. 호흡기 증상이 있으면 어르신·종사자 모두 마스크 착용.</div>
+          </div>
+          <div class="staff-card">
+            <div class="sc-head"><span class="sc-icon">🗑️</span><span class="sc-title">벗는 순서도 중요</span></div>
+            <div class="sc-desc">사용한 일회용 보호구는 <strong>주변을 오염시키지 않게</strong> 벗어 지정 용기에 버리고, 그 후 손 씻기.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 7 ===== -->
+      <div class="chapter" id="ch7">
+        <div class="chapter-header"><div class="chapter-icon">🧹</div><div class="chapter-meta"><span class="tag">CHAPTER 7</span><h2>환경관리 · 폐기물</h2></div></div>
+
+        <div class="highlight-line">어르신의 생활 공간을 청결하게 — 이것도 요양보호사의 역할입니다.</div>
+
+        <div class="principle-list">
+          <div class="principle-item"><span class="pi-bullet">🧹</span><span class="pi-text"><strong>청소</strong> — 먼지 안 나게 규칙적으로. 침실·화장실·부엌은 세제+소독, 자주 쓰는 물건은 수시 소독</span></div>
+          <div class="principle-item"><span class="pi-bullet">🧺</span><span class="pi-text"><strong>오염물질</strong> — 배설물·혈액 묻은 것은 분리 세탁. 장갑·마스크 착용 후 처리, 끝나면 손 씻기. 쓰레기는 하루 1회 이상 비우기</span></div>
+          <div class="principle-item"><span class="pi-bullet">⚠️</span><span class="pi-text"><strong>감염성 폐기물</strong> — 일반 쓰레기와 절대 섞지 않기. 바늘·거즈·주사기는 전용 용기에. <strong>바늘은 구부리거나 자르지 말고</strong> 그대로</span></div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 8 ===== -->
+      <div class="chapter" id="ch8">
+        <div class="chapter-header"><div class="chapter-icon">📣</div><div class="chapter-meta"><span class="tag">CHAPTER 8</span><h2>발생 시 대응 · 보고</h2></div></div>
+
+        <div class="report-banner">
+          <div class="rb-label">📣 감염병 의심·발생 시</div>
+          <div class="rb-title">가장 먼저 <span class="accent">관리자에게 즉시 보고</span></div>
+          <div class="rb-sub">필요 시 보호자 연락 · 격리 필요하면 별도 공간 분리 · 전염성 질환은 기록 관리</div>
+        </div>
+
+        <div class="highlight-line">나를 지키는 일이 곧 어르신을 지키는 일입니다.</div>
+        <div class="principle-list">
+          <div class="principle-item"><span class="pi-bullet">✂️</span><span class="pi-text">손톱은 짧고 깨끗하게, 유니폼·신발 청결하게</span></div>
+          <div class="principle-item"><span class="pi-bullet">💉</span><span class="pi-text">인플루엔자 등 <strong>예방접종을 제때</strong></span></div>
+          <div class="principle-item"><span class="pi-bullet">📣</span><span class="pi-text">근무 중 감염에 노출됐다면 <strong>즉시 관리자에게 보고</strong></span></div>
+        </div>
+      </div>
+
+      <!-- ===== 마무리 ===== -->
+      <div class="closing">
+        <div class="closing-title">CLOSING MESSAGE</div>
+        <p class="closing-msg">
+          복잡해 보여도 핵심은 단순합니다.<br>
+          <span class="accent">손 씻고, 보호장구 갖추고, 의심되면 보고.</span>
+        </p>
+        <div class="closing-summary">
+          <div class="closing-summary-item"><strong>감염경로</strong> — 공기 · 비말 · 접촉</div>
+          <div class="closing-summary-item"><strong>가장 강력한 예방</strong> — 손 씻기 여섯 단계</div>
+          <div class="closing-summary-item"><strong>의심되면</strong> — 혼자 판단 말고 즉시 관리자 보고</div>
+        </div>
+        <div class="closing-badges">
+          <span class="closing-badge">손 위생</span>
+          <span class="closing-badge">표준주의</span>
+          <span class="closing-badge">보호장구</span>
+          <span class="closing-badge">환경 소독</span>
+          <span class="closing-badge">즉시 보고</span>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) { progressBar.style.width = (scrollTop / docHeight * 100) + '%'; }
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
