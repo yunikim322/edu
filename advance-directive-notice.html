@@ -12,7 +12,7 @@
     font-family: 'Noto Sans KR', sans-serif;
     background: #e9e7ef;
     color: #1f1f1f;
-    line-height: 1.8;
+    line-height: 1.55;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -29,12 +29,12 @@
   /* ── 문서 헤더 ── */
   .doc-header {
     border-bottom: 4px solid #4A2C6E;
-    padding-bottom: 12px;
-    margin-bottom: 18px;
+    padding-bottom: 9px;
+    margin-bottom: 13px;
   }
   .doc-org { font-size: 13pt; font-weight: 700; color: #5B4F8C; }
   .doc-title {
-    font-size: 25pt; font-weight: 800; color: #2D2157;
+    font-size: 22pt; font-weight: 800; color: #2D2157;
     letter-spacing: -0.5px; margin-top: 2px;
   }
   .doc-sub { font-size: 11.5pt; color: #666; margin-top: 4px; }
@@ -43,35 +43,35 @@
   .lead {
     background: #F5F3FF;
     border-radius: 12px;
-    padding: 16px 20px;
+    padding: 13px 18px;
     font-size: 13pt;
     color: #2D2157;
-    line-height: 1.85;
-    margin-bottom: 20px;
+    line-height: 1.65;
+    margin-bottom: 11px;
     word-break: keep-all;
   }
   .lead strong { font-weight: 800; color: #4A2C6E; }
 
   /* ── 섹션 ── */
-  .section { margin-bottom: 16px; }
+  .section { margin-bottom: 10px; }
   .section-title {
-    font-size: 15pt; font-weight: 800; color: #fff;
+    font-size: 14pt; font-weight: 800; color: #fff;
     background: #5B4F8C;
-    padding: 9px 18px;
+    padding: 6px 16px;
     border-radius: 8px;
-    margin-bottom: 14px;
+    margin-bottom: 9px;
     display: flex; align-items: center; gap: 9px;
   }
 
   /* ── 항목(설명) 블록 ── */
-  .item { margin-bottom: 14px; padding-left: 2px; }
+  .item { margin-bottom: 8px; padding-left: 2px; }
   .item:last-child { margin-bottom: 0; }
   .item-label {
     font-size: 13pt; font-weight: 800; color: #4A2C6E;
     margin-bottom: 3px;
   }
   .item-body {
-    font-size: 12pt; color: #1f1f1f; line-height: 1.8;
+    font-size: 12pt; color: #1f1f1f; line-height: 1.55;
     word-break: keep-all;
   }
   .item-body .small { font-size: 11pt; color: #555; }
@@ -80,8 +80,8 @@
   .doc-card {
     border: 1.5px solid #D8D0F0;
     border-radius: 12px;
-    padding: 16px 18px;
-    margin-bottom: 14px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
   }
   .doc-card.amber { border-color: #FBD9A8; background: #FFFCF5; }
   .doc-card.purple { background: #FBFAFF; }
@@ -90,19 +90,19 @@
     color: #4A2C6E;
   }
   .doc-card.amber .dc-name { color: #B45309; }
-  .dc-row { font-size: 12pt; line-height: 1.75; margin-bottom: 4px; word-break: keep-all; }
+  .dc-row { font-size: 12pt; line-height: 1.55; margin-bottom: 4px; word-break: keep-all; }
   .dc-row:last-child { margin-bottom: 0; }
   .dc-row b { color: #4A2C6E; font-weight: 700; }
   .doc-card.amber .dc-row b { color: #B45309; }
 
   /* ── 가족 결정 절차(번호) ── */
-  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .steps { display: flex; flex-direction: column; gap: 7px; }
   .step {
     display: flex; gap: 14px; align-items: flex-start;
     background: #F0FDFA;
     border: 1.5px solid #BFEDE6;
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 8px 13px;
   }
   .step-num {
     flex-shrink: 0;
@@ -114,28 +114,28 @@
   }
   .step-text { flex: 1; }
   .step-text .st-head { font-size: 12.5pt; font-weight: 800; color: #115E59; margin-bottom: 2px; }
-  .step-text .st-body { font-size: 12pt; color: #1f1f1f; line-height: 1.75; word-break: keep-all; }
+  .step-text .st-body { font-size: 12pt; color: #1f1f1f; line-height: 1.55; word-break: keep-all; }
 
   /* ── 안심 박스 ── */
   .reassure {
     background: #FFFBEB;
     border: 1.5px solid #FCD34D;
     border-radius: 12px;
-    padding: 16px 20px;
+    padding: 10px 15px;
     font-size: 12.5pt; color: #78350F;
-    line-height: 1.8; word-break: keep-all;
-    margin-bottom: 18px;
+    line-height: 1.62; word-break: keep-all;
+    margin-bottom: 13px;
   }
   .reassure strong { font-weight: 800; color: #92400E; }
 
   /* ── 역할 리스트 ── */
-  .roles { display: flex; flex-direction: column; gap: 10px; }
+  .roles { display: flex; flex-direction: column; gap: 6px; }
   .role {
     border-left: 4px solid #5B4F8C;
     background: #FBFAFF;
     border-radius: 8px;
-    padding: 11px 16px;
-    font-size: 12pt; line-height: 1.75; word-break: keep-all;
+    padding: 8px 14px;
+    font-size: 12pt; line-height: 1.55; word-break: keep-all;
   }
   .role b { color: #4A2C6E; }
   .role.no { border-left-color: #DC2626; background: #FFF7F7; }
@@ -143,53 +143,30 @@
 
   /* ── 기관 ── */
   .agency {
-    display: flex; flex-direction: column; gap: 10px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
   }
   .agency-item {
     border: 1.5px solid #D8D0F0;
     border-radius: 12px;
-    padding: 14px 18px;
+    padding: 9px 15px;
   }
   .agency-name { font-size: 13pt; font-weight: 800; color: #2D2157; }
-  .agency-sub { font-size: 11pt; color: #666; margin: 2px 0 8px; }
-  .agency-line { font-size: 12.5pt; color: #1f1f1f; margin-bottom: 3px; }
+  .agency-sub { font-size: 11pt; color: #666; margin: 1px 0 5px; }
+  .agency-line { font-size: 12pt; color: #1f1f1f; margin-bottom: 2px; }
   .agency-line b { color: #4A2C6E; font-weight: 700; }
-
-  /* ── 서명 ── */
-  .sign {
-    border: 2px solid #4A2C6E;
-    border-radius: 14px;
-    padding: 20px 22px;
-    background: #FAFAFF;
-    page-break-inside: avoid;
-  }
-  .sign-title { font-size: 14pt; font-weight: 800; color: #2D2157; margin-bottom: 10px; }
-  .sign-desc { font-size: 12pt; color: #333; line-height: 1.8; margin-bottom: 18px; word-break: keep-all; }
-  .sign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; }
-  .sign-field label { display: block; font-size: 11.5pt; font-weight: 700; color: #555; margin-bottom: 8px; }
-  .sign-line { border-bottom: 1.8px solid #333; height: 34px; }
-  .sign-input {
-    width: 100%; height: 34px;
-    border: none; border-bottom: 1.8px solid #333;
-    font-family: inherit; font-size: 12.5pt; font-weight: 700; color: #1f1f1f;
-    background: transparent; padding: 0 2px;
-  }
-  .sign-input::placeholder { color: #bbb; font-weight: 400; }
-  .sign-input:focus { outline: none; border-bottom-color: #4A2C6E; }
-  .sign-note { font-size: 10.5pt; color: #777; margin-top: 14px; line-height: 1.7; }
 
   .footer {
     text-align: center; font-size: 10pt; color: #aaa;
-    margin-top: 10px; padding-top: 8px; border-top: 1px solid #eee;
+    margin-top: 6px; padding-top: 6px; border-top: 1px solid #eee;
     page-break-before: avoid;
   }
 
   /* 카드/단계는 통째로 유지, 섹션은 페이지 경계를 자연스럽게 넘김 */
-  .doc-card, .step, .reassure, .role, .agency-item, .sign { page-break-inside: avoid; }
+  .doc-card, .step, .reassure, .role, .agency-item { page-break-inside: avoid; }
   .section-title { break-after: avoid; page-break-after: avoid; }
 
   /* 모든 인쇄 페이지에 상·하·좌·우 동일 여백 적용 */
-  @page { size: A4; margin: 15mm 16mm; }
+  @page { size: A4; margin: 11mm 16mm 12mm; }
   @media print {
     body { background: none; }
     .sheet { margin: 0; box-shadow: none; width: auto; padding: 0; }
@@ -204,7 +181,7 @@
   <div class="doc-header">
     <div class="doc-org">실로암방문요양지원센터</div>
     <div class="doc-title">연명의료결정제도 안내</div>
-    <div class="doc-sub">수급자·보호자 안내 및 확인서</div>
+    <div class="doc-sub">수급자·보호자 안내문</div>
   </div>
 
   <!-- 리드 -->
@@ -324,24 +301,6 @@
         <div class="agency-line">전화 <b>1577-1127</b> (암 전문)</div>
         <div class="agency-line">홈페이지 <b>www.hospice.go.kr</b></div>
       </div>
-    </div>
-  </div>
-
-  <!-- 서명 -->
-  <div class="sign">
-    <div class="sign-title">✅ 안내 확인 서명</div>
-    <div class="sign-desc">
-      본인은 실로암방문요양지원센터로부터 연명의료결정제도에 관한 안내를 받았으며, 그 내용을 충분히 이해하였음을 확인합니다.
-    </div>
-    <div class="sign-grid">
-      <div class="sign-field"><label>수급자 성명</label><input type="text" class="sign-input" placeholder="성명을 입력하세요"></div>
-      <div class="sign-field"><label>날짜</label><div class="sign-line"></div></div>
-      <div class="sign-field"><label>수급자(또는 보호자) 서명</label><div class="sign-line"></div></div>
-      <div class="sign-field"><label>안내자(요양보호사) 서명</label><div class="sign-line"></div></div>
-    </div>
-    <div class="sign-note">
-      * 보호자가 서명하는 경우: 보호자 성명과 수급자와의 관계를 함께 적어 주세요.<br>
-      * 이 확인서는 센터에서 보관합니다.
     </div>
   </div>
 
