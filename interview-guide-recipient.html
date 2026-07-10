@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어르신·보호자 면담 안내</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+    :root {
+      --navy: #2c3e78;
+      --navy-dark: #1d2b64;
+      --ans-bg: #eef4ff;
+      --ans-line: #3a5bc7;
+      --ans-text: #14337e;
+      --card-bg: #fffdf5;
+      --bg: #f2f4f9;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg); color: #1a1a2e;
+      line-height: 1.62; font-size: 20px; word-break: keep-all;
+    }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--navy-dark); color: #fff;
+      padding: 12px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .topbar .bar-title { font-size: 17px; font-weight: 700; }
+
+    .hero {
+      background: linear-gradient(180deg, #f2f5ff, #fff);
+      border-bottom: 3px solid var(--navy);
+      padding: 32px 22px 26px; text-align: center;
+    }
+    .hero .small { font-size: 16px; color: #44508a; letter-spacing: 2px; margin-bottom: 6px; }
+    .hero h1 { font-size: 29px; font-weight: 700; color: var(--navy-dark); margin-bottom: 10px; }
+    .hero .desc { font-size: 18px; color: #333; }
+    .hero .desc b { color: var(--navy-dark); }
+
+    .content { padding: 22px 16px 40px; }
+
+    .sec {
+      display: block;
+      border: 2px solid #b8c4e8; border-radius: 12px;
+      margin: 0 0 20px; overflow: hidden; background: var(--card-bg);
+    }
+    .sec-head {
+      background: var(--navy); color: #fff; padding: 10px 18px;
+      font-size: 21px; font-weight: 700;
+    }
+    .sec-head .pts { font-weight: 400; font-size: 16px; opacity: .9; }
+    .sec-body { padding: 14px 18px 16px; }
+
+    .q { font-weight: 700; margin: 16px 0 7px; }
+    .q:first-child { margin-top: 4px; }
+    .q .badge {
+      display: inline-block; background: #e8ecfa; color: var(--navy);
+      border-radius: 6px; padding: 1px 10px; font-size: 15px; margin-right: 7px; vertical-align: 2px;
+    }
+    .a {
+      background: var(--ans-bg); border-left: 5px solid var(--ans-line); border-radius: 0 10px 10px 0;
+      padding: 11px 15px; margin: 0 0 6px 14px; color: var(--ans-text); font-size: 21px; font-weight: 500;
+    }
+    .a::before { content: "💬 "; }
+    .note {
+      background: #fdeeee; border: 1.5px solid #e08585; border-radius: 10px;
+      padding: 10px 15px; margin: 12px 0 4px 14px; color: #a02020; font-size: 17px;
+    }
+    .note b { color: #8a1010; }
+
+    .rules {
+      border: 3px solid #b8860b; border-radius: 12px; background: #fffaf0;
+      padding: 16px 20px; margin-top: 6px;
+    }
+    .rules h2 { margin: 0 0 10px; font-size: 21px; color: #7a5800; }
+    .rules p { margin: 7px 0; font-size: 18.5px; }
+
+    .footer { text-align: center; padding: 26px; font-size: 14px; color: #999; }
+
+    @media (min-width: 768px) {
+      body { background: #e2e6f0; }
+      .pc-wrapper {
+        max-width: 860px; margin: 0 auto; background: var(--bg);
+        min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      }
+      .hero { padding: 42px 40px 34px; }
+      .hero h1 { font-size: 36px; }
+      .content { padding: 26px 40px 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pc-wrapper">
+    <div class="topbar">
+      <span class="bar-title">어르신·보호자 면담 안내</span>
+    </div>
+
+    <div class="hero">
+      <div class="small">2026년 평가대비</div>
+      <h1>어르신 면담 모범답변</h1>
+      <p class="desc">어르신과 보호자님께 드립니다.<br>
+      평가하는 분이 오셔서 여쭤보면 <b>파란 상자(💬)처럼 답해 주시면 됩니다.</b></p>
+    </div>
+
+    <main class="content">
+
+<div class="sec">
+  <div class="sec-head">[지표10] 급여제공안내 <span class="pts">(3점)</span></div>
+  <div class="sec-body">
+    <div class="q"><span class="badge">질문</span>시설장이 직접 방문해서 요양보호사가 할 수 있는 서비스 범위를 설명해 주었나요?</div>
+    <div class="a">"센터장이 우리 집에 직접 와서 설명해 줬어. 요양보호사가 할 수 있는 일이 정해져 있다고 해서, 무리한 요구는 안 해."</div>
+    <div class="note"><b>주의!</b> "전화로 들었어"라고 하면 인정이 안 됩니다. <b>"집에 직접 와서 설명해 줬어"</b>라고 답해 주세요.</div>
+    <div class="q"><span class="badge">질문</span>관리자가 방문해서 요양보호사를 어떻게 불러달라고 부탁하였나요?</div>
+    <div class="a">"요양보호사 선생님이라고 불러 달라고 안내받았어."</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">[지표12] 시간 준수 <span class="pts">(2점)</span></div>
+  <div class="sec-body">
+    <div class="q"><span class="badge">질문</span>요양보호사가 약속된 서비스 시간을 어기거나 바뀐 경우가 있나요?</div>
+    <div class="a">"시간은 잘 지켜. 마음대로 바꾸는 일은 없어. 오는 시간도 정확해."</div>
+    <div class="q"><span class="badge">질문</span>시간을 변경하는 경우 미리 동의를 구하거나 사전에 연락을 하나요?</div>
+    <div class="a">"사정이 있어서 시간을 바꾸거나 못 나오는 날은 미리 연락해 줘서 불편한 게 없어."</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">[지표14] 수급자 존중 <span class="pts">(1점)</span></div>
+  <div class="sec-body">
+    <div class="q"><span class="badge">질문</span>요양보호사로부터 학대, 폭언, 폭행, 거친 행동을 당한 적이 있으신가요?</div>
+    <div class="a">"그런 일 없어. 학대나 부당한 대우를 받은 적 없어."</div>
+    <div class="q"><span class="badge">질문</span>요양보호사가 어르신을 어떻게 부르나요?</div>
+    <div class="a">"'어르신'이라고 불러."</div>
+    <div class="note"><b>주의!</b> 아버님·어머님·직책(회장님 등)으로 부른다고 답하면 안 됩니다.</div>
+    <div class="q"><span class="badge">질문</span>어르신을 도와드릴 때 서비스 전에 미리 설명하고 도와주나요?</div>
+    <div class="a">"'부축해 드릴게요', '기저귀 갈아 드릴게요' 하고 항상 미리 말해 주고 도와줘."</div>
+  </div>
+</div>
+
+<div class="rules">
+  <h2>⭐ 보호자님께 함께 알려드립니다</h2>
+  <p>1. 면담은 <b>어르신 대신 보호자님이 답하셔도 됩니다.</b></p>
+  <p>2. 평가하는 분이 오시면 <b>수급자 파일을 건네주세요.</b> 급여제공계획서가 그 안에 들어 있어서 평가하는 분이 직접 찾아봅니다.</p>
+  <p>3. 답을 외우실 필요는 없습니다. 평소에 저희가 해 드리고 있는 그대로이니 <b>평소대로 편하게</b> 말씀해 주세요.</p>
+</div>
+
+    </main>
+
+    <p class="footer">&copy; 실로암방문요양지원센터 · 어르신·보호자 면담 안내</p>
+  </div><!-- /pc-wrapper -->
+
+</body>
+</html>
