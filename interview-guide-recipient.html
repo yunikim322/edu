@@ -28,9 +28,12 @@
     .topbar {
       position: sticky; top: 0; z-index: 50;
       background: var(--navy-dark); color: #fff;
+      display: flex; align-items: center; gap: 12px;
       padding: 12px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    .topbar .bar-title { font-size: 17px; font-weight: 700; }
+    .topbar a { color: #fff; text-decoration: none; font-size: 16px; opacity: 0.9; white-space: nowrap; }
+    .topbar a:hover { opacity: 1; }
+    .topbar .bar-title { font-size: 17px; font-weight: 700; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 12px; }
 
     .hero {
       background: linear-gradient(180deg, #f2f5ff, #fff);
@@ -98,6 +101,7 @@
 
   <div class="pc-wrapper">
     <div class="topbar">
+      <a href="index.html">← 목록</a>
       <span class="bar-title">어르신·보호자 면담 안내</span>
     </div>
 
