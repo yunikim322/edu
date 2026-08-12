@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>재해대비 안전교육 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #FBF4EC;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .progress-bar {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #B4491C, #E08A2E, #1F7A63);
+      z-index: 200; transition: width 0.1s linear;
+    }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,252,247,0.96); backdrop-filter: blur(8px);
+      padding: 8px 14px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #EAD9C4;
+    }
+    .top-bar a { color: #B4491C; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; }
+
+    [id] { scroll-margin-top: 52px; }
+
+    .hero {
+      background: linear-gradient(135deg, #3A1F10 0%, #7A3312 52%, #B4491C 100%);
+      color: #fff; padding: 32px 20px 28px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #E08A2E, #F6C989, #E08A2E);
+    }
+    .hero .hero-badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: #F6C989; margin-bottom: 10px; }
+    .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; word-break: keep-all; line-height: 1.35; letter-spacing: -0.5px; }
+    .hero h1 .accent { color: #F6C989; }
+    .hero .sub { font-size: 17px; opacity: 0.9; }
+
+    .toc { margin: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px; background: #fff; border-radius: 12px; text-decoration: none;
+      color: #333; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border: 1px solid #EAD9C4; transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #B4491C; background: #FBEDE0; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .toc-icon.c1 { background: #F6E7D5; }
+    .toc-icon.c2 { background: #FBE0D2; }
+    .toc-icon.c3 { background: #F6E3D8; }
+    .toc-icon.c4 { background: #DCE9F2; }
+    .toc-icon.c5 { background: #DDEDE6; }
+    .toc-icon.c6 { background: #F7EBD2; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #8A4A22; }
+    .toc-label.c2 { color: #B4491C; }
+    .toc-label.c3 { color: #9C4C24; }
+    .toc-label.c4 { color: #1F6FA8; }
+    .toc-label.c5 { color: #1F7A63; }
+    .toc-label.c6 { color: #96701C; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    .content { padding: 0 14px 40px; }
+
+    .chapter { margin-top: 28px; }
+    .chapter-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .chapter-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .chapter-icon.c1 { background: #F6E7D5; }
+    .chapter-icon.c2 { background: #FBE0D2; }
+    .chapter-icon.c3 { background: #F6E3D8; }
+    .chapter-icon.c4 { background: #DCE9F2; }
+    .chapter-icon.c5 { background: #DDEDE6; }
+    .chapter-icon.c6 { background: #F7EBD2; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .chapter-meta .tag.c1 { color: #8A4A22; }
+    .chapter-meta .tag.c2 { color: #B4491C; }
+    .chapter-meta .tag.c3 { color: #9C4C24; }
+    .chapter-meta .tag.c4 { color: #1F6FA8; }
+    .chapter-meta .tag.c5 { color: #1F7A63; }
+    .chapter-meta .tag.c6 { color: #96701C; }
+    .chapter-meta h2 { font-size: 22px; font-weight: 800; color: #2B1A0E; line-height: 1.3; }
+
+    /* 강조 한 줄 */
+    .highlight-line {
+      background: #F6E7D5; border: 1px solid #B4491C; border-radius: 10px;
+      padding: 10px 14px; margin-bottom: 14px; font-size: 19px; font-weight: 600;
+      color: #6E3011; line-height: 1.6; word-break: keep-all;
+    }
+    .highlight-line strong { color: #B4491C; }
+    .highlight-line.elec { background: #E4EFF7; border-color: #1F6FA8; color: #15516F; }
+    .highlight-line.elec strong { color: #1F6FA8; }
+    .highlight-line.gas { background: #E2F0EA; border-color: #1F7A63; color: #14584A; }
+    .highlight-line.gas strong { color: #1F7A63; }
+    .highlight-line.check { background: #F7EBD2; border-color: #B08417; color: #6E520C; }
+    .highlight-line.check strong { color: #8A6614; }
+
+    /* 도입 카드 */
+    .intro-card {
+      background: #fff; border-radius: 14px; padding: 18px 16px; margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(110,60,20,0.07); border-left: 5px solid #B4491C;
+    }
+    .intro-card .ic-title { font-size: 20px; font-weight: 800; color: #B4491C; margin-bottom: 8px; }
+    .intro-card .ic-desc { font-size: 19px; color: #222; line-height: 1.7; }
+    .intro-card .ic-desc strong { color: #B4491C; }
+
+    /* 위험 칩 */
+    .spot-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .spot-chip { background: #8A4A22; color: #fff; font-size: 18px; font-weight: 700; padding: 7px 16px; border-radius: 30px; }
+
+    /* 순서 카드 (번호형) */
+    .step-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .step-card { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(110,60,20,0.07); display: flex; align-items: flex-start; gap: 14px; }
+    .step-card .sp-num { width: 40px; height: 40px; border-radius: 50%; background: #B4491C; color: #fff; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-card.elec .sp-num { background: #1F6FA8; }
+    .step-card.gas .sp-num { background: #1F7A63; }
+    .step-card .sp-body { flex: 1; }
+    .step-card .sp-title { font-size: 19px; font-weight: 800; color: #2B1A0E; margin-bottom: 3px; }
+    .step-card .sp-desc { font-size: 19px; color: #333; line-height: 1.6; }
+    .step-card .sp-desc strong { color: #B4491C; }
+    .step-card.elec .sp-desc strong { color: #1F6FA8; }
+    .step-card.gas .sp-desc strong { color: #1F7A63; }
+
+    /* 금지 카드 */
+    .ban-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .ban-item { background: #FDF0EC; border-radius: 12px; padding: 13px 16px; display: flex; align-items: flex-start; gap: 12px; border-left: 5px solid #C0392B; }
+    .ban-item .bn-mark { font-size: 22px; font-weight: 900; color: #C0392B; flex-shrink: 0; line-height: 1.3; }
+    .ban-item .bn-body { flex: 1; }
+    .ban-item .bn-title { font-size: 19px; font-weight: 800; color: #97281B; margin-bottom: 2px; }
+    .ban-item .bn-desc { font-size: 19px; color: #333; line-height: 1.6; }
+
+    /* 위험 신호 카드 */
+    .signal-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .signal-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(110,60,20,0.06); display: flex; align-items: flex-start; gap: 12px; border-left: 4px solid #1F6FA8; }
+    .signal-item .sg-part { flex-shrink: 0; background: #DCE9F2; color: #15516F; font-size: 17px; font-weight: 800; padding: 4px 12px; border-radius: 20px; white-space: nowrap; margin-top: 1px; }
+    .signal-item .sg-text { flex: 1; font-size: 19px; color: #222; line-height: 1.6; }
+    .signal-item .sg-text strong { color: #1F6FA8; }
+
+    /* 사용 전중후 */
+    .phase-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .phase-card { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(20,88,74,0.07); border-top: 4px solid #1F7A63; }
+    .phase-card .ph-label { display: inline-block; font-size: 13px; font-weight: 800; color: #fff; background: #1F7A63; padding: 3px 12px; border-radius: 8px; letter-spacing: 1px; margin-bottom: 8px; }
+    .phase-card .ph-text { font-size: 19px; color: #222; line-height: 1.6; }
+    .phase-card .ph-text strong { color: #1F7A63; }
+
+    /* 점검 체크 */
+    .check-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .check-card { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(110,60,20,0.06); border-left: 5px solid #B08417; }
+    .check-card .ck-title { font-size: 19px; font-weight: 800; color: #8A6614; margin-bottom: 6px; }
+    .check-card .ck-item { font-size: 19px; color: #222; line-height: 1.7; }
+    .check-card .ck-item strong { color: #B4491C; }
+    .check-card.fire { border-left-color: #B4491C; } .check-card.fire .ck-title { color: #B4491C; }
+    .check-card.elec { border-left-color: #1F6FA8; } .check-card.elec .ck-title { color: #1F6FA8; }
+    .check-card.gas { border-left-color: #1F7A63; } .check-card.gas .ck-title { color: #1F7A63; }
+
+    /* 보고 배너 */
+    .report-banner { background: linear-gradient(135deg, #3A1F10 0%, #8A4A22 100%); color: #fff; border-radius: 14px; padding: 18px 16px; margin: 14px 0; text-align: center; }
+    .report-banner .rb-label { font-size: 14px; font-weight: 700; letter-spacing: 2px; opacity: 0.9; margin-bottom: 4px; }
+    .report-banner .rb-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; word-break: keep-all; }
+    .report-banner .rb-title .accent { color: #F6C989; }
+    .report-banner .rb-sub { font-size: 17px; font-weight: 600; opacity: 0.95; line-height: 1.6; }
+
+    /* 마무리 */
+    .closing { text-align: center; margin-top: 32px; padding: 24px 18px; background: linear-gradient(135deg, #3A1F10 0%, #8A4A22 100%); color: #fff; border-radius: 16px; position: relative; overflow: hidden; }
+    .closing::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #E08A2E, #F6C989, #E08A2E); }
+    .closing-title { font-size: 15px; letter-spacing: 3px; color: #F6C989; font-weight: 700; margin-bottom: 10px; }
+    .closing-msg { font-size: 20px; font-weight: 700; line-height: 1.7; margin-bottom: 12px; word-break: keep-all; }
+    .closing-msg .accent { color: #F6C989; }
+    .closing-summary { text-align: left; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; }
+    .closing-summary-item { font-size: 18px; line-height: 1.8; color: rgba(255,255,255,0.95); }
+    .closing-summary-item strong { color: #F6C989; }
+
+    .footer-note { text-align: center; padding: 20px 16px 28px; font-size: 16px; font-weight: 500; color: #555; }
+
+    .fab-top { position: fixed; bottom: 24px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #B4491C; color: #fff; border: none; font-size: 22px; font-weight: 700; box-shadow: 0 3px 12px rgba(180,73,28,0.35); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 90; text-decoration: none; }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .step-grid-pc { }
+    .ban-grid-pc { }
+    .signal-grid-pc { }
+    .phase-grid-pc { }
+    .check-grid-pc { }
+    .intro-grid-pc { }
+
+    /* ===== PC 반응형 ===== */
+    @media (min-width: 768px) {
+      body { background: #EFE2D2; }
+      .pc-wrapper { max-width: 1100px; margin: 0 auto; background: #FBF4EC; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+      .top-bar { padding: 12px 40px; } .top-bar a { font-size: 16px; } .top-bar .title { font-size: 16px; }
+      .hero { padding: 68px 48px 52px; } .hero h1 { font-size: 38px; } .hero .sub { font-size: 19px; margin-top: 10px; } .hero .hero-badge { font-size: 14px; margin-bottom: 16px; }
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 8px; margin: 0; padding: 16px 40px; background: #fff; border-bottom: 1px solid #EAD9C4; }
+      .toc-item { flex: 1 1 calc(33.333% - 8px); min-width: 160px; padding: 12px 10px; border-radius: 10px; justify-content: center; gap: 8px; border: 1px solid #EAD9C4; transition: all 0.2s; }
+      .toc-item:hover { border-color: #B4491C; background: #FBEDE0; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(180,73,28,0.1); }
+      .toc-arrow { display: none; } .toc-left { justify-content: center; }
+      .content { padding: 10px 40px 60px; }
+      .chapter { margin-top: 52px; }
+      .chapter-header { gap: 16px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 2px solid #EAD9C4; }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-meta .tag { font-size: 13px; letter-spacing: 1.5px; } .chapter-meta h2 { font-size: 28px; }
+      .highlight-line { font-size: 20px; padding: 16px 24px; border-radius: 12px; margin-bottom: 20px; }
+
+      .intro-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+      .intro-list { display: contents; }
+      .intro-card { padding: 22px 24px; border-radius: 16px; margin-bottom: 0; transition: transform 0.2s, box-shadow 0.2s; }
+      .intro-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(110,60,20,0.1); }
+
+      .step-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
+      .step-list { display: contents; }
+      .step-card { padding: 18px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .step-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(110,60,20,0.08); }
+
+      .ban-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+      .ban-list { display: contents; }
+      .ban-list.solo { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+      .ban-item { padding: 18px 20px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .ban-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192,57,43,0.1); }
+
+      .signal-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+      .signal-list { display: contents; }
+      .signal-item { padding: 18px 20px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .signal-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(31,111,168,0.1); }
+
+      .phase-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+      .phase-list { display: contents; }
+      .phase-card { padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .phase-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(31,122,99,0.1); }
+
+      .check-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+      .check-group { display: contents; }
+      .check-card { padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .check-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(110,60,20,0.08); }
+
+      .report-banner { padding: 28px; border-radius: 16px; } .report-banner .rb-title { font-size: 26px; }
+      .closing { margin-top: 48px; padding: 36px 40px; border-radius: 20px; }
+      .closing-title { font-size: 16px; letter-spacing: 4px; } .closing-msg { font-size: 22px; }
+      .closing-summary { padding: 18px 24px; } .closing-summary-item { font-size: 19px; }
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+      .fab-top { width: 50px; height: 50px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 14px; }
+      .progress-bar { height: 4px; }
+      .spot-chip { font-size: 19px; }
+    }
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; } .toc { padding: 18px 56px; } .top-bar { padding: 12px 56px; }
+      .hero { padding: 72px 56px 56px; } .hero h1 { font-size: 44px; } .footer-note { padding: 28px 56px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">재해대비 안전교육</span>
+    </div>
+
+    <div class="hero" id="heroArea">
+      <span class="hero-badge">DISASTER SAFETY</span>
+      <h1><span class="accent">어르신 댁</span>이 우리 일터입니다<br>소방 &middot; 전기 &middot; 가스</h1>
+      <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left"><span class="toc-icon c1">🏠</span><span class="toc-label c1">왜 우리가 알아야 하나</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left"><span class="toc-icon c2">🔥</span><span class="toc-label c2">불이 났을 때</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left"><span class="toc-icon c3">🚪</span><span class="toc-label c3">어르신을 모시고 나오기</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left"><span class="toc-icon c4">⚡</span><span class="toc-label c4">전기 — 감전과 화재</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left"><span class="toc-icon c5">🍳</span><span class="toc-label c5">가스 — 누출과 폭발</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch6">
+        <span class="toc-left"><span class="toc-icon c6">✅</span><span class="toc-label c6">3분 안전점검</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 1 -->
+      <section class="chapter" id="ch1">
+        <div class="chapter-header">
+          <div class="chapter-icon c1">🏠</div>
+          <div class="chapter-meta">
+            <span class="tag c1">CHAPTER 1</span>
+            <h2>왜 우리가 알아야 하나</h2>
+          </div>
+        </div>
+        <div class="highlight-line">
+          위험을 <strong>가장 먼저 알아차릴 수 있는 사람</strong>은 바로 옆에 있는 우리입니다
+        </div>
+        <div class="spot-row">
+          <span class="spot-chip">문어발 콘센트</span>
+          <span class="spot-chip">벗겨진 전선</span>
+          <span class="spot-chip">낡은 전기장판</span>
+          <span class="spot-chip">켜 놓고 잊은 불</span>
+        </div>
+        <div class="intro-grid-pc">
+          <div class="intro-list">
+            <div class="intro-card">
+              <div class="ic-title">어르신 댁 = 우리의 일터</div>
+              <div class="ic-desc">매일 출근하는 그 집에 위험이 <strong>조용히 쌓여</strong> 있습니다.</div>
+            </div>
+            <div class="intro-card">
+              <div class="ic-title">감각이 예전 같지 않으십니다</div>
+              <div class="ic-desc">냄새도 소리도 잘 느끼지 못하시고, <strong>빠르게 피하기 어렵</strong>습니다.</div>
+            </div>
+            <div class="intro-card">
+              <div class="ic-title">혼자 해결하지 않습니다</div>
+              <div class="ic-desc">이상한 점을 발견하면 <strong>관리자에게 알려</strong> 주십시오.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section class="chapter" id="ch2">
+        <div class="chapter-header">
+          <div class="chapter-icon c2">🔥</div>
+          <div class="chapter-meta">
+            <span class="tag c2">CHAPTER 2</span>
+            <h2>불이 났을 때</h2>
+          </div>
+        </div>
+        <div class="highlight-line">
+          화재 사망의 <strong>70%는 연기 질식</strong>입니다. 대피의 핵심은 불이 아니라 연기입니다
+        </div>
+
+        <div class="step-grid-pc">
+          <div class="step-list">
+            <div class="step-card">
+              <div class="sp-num">1</div>
+              <div class="sp-body">
+                <div class="sp-title">끄기 전에 알리기</div>
+                <div class="sp-desc">큰 소리로 "불이야!" 외치고, 복도 화재경보기 발신기를 누릅니다.</div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="sp-num">2</div>
+              <div class="sp-body">
+                <div class="sp-title">젖은 수건으로 코와 입</div>
+                <div class="sp-desc">수건이 있다면 물에 적셔 막습니다.</div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="sp-num">3</div>
+              <div class="sp-body">
+                <div class="sp-title">자세를 낮추고 벽을 짚고</div>
+                <div class="sp-desc"><strong>맑은 공기는 아래쪽</strong>에 있습니다. 한쪽 벽만 짚고 따라 나갑니다.</div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="sp-num">4</div>
+              <div class="sp-body">
+                <div class="sp-title">나온 뒤 문을 닫기</div>
+                <div class="sp-desc">닫힌 문 한 장이 불과 연기가 번지는 속도를 크게 늦춥니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ban-grid-pc">
+          <div class="ban-list">
+            <div class="ban-item">
+              <span class="bn-mark">&times;</span>
+              <div class="bn-body">
+                <div class="bn-title">장롱 안, 침대 밑에 숨기</div>
+                <div class="bn-desc">연기가 가장 먼저 차오르는 자리입니다.</div>
+              </div>
+            </div>
+            <div class="ban-item">
+              <span class="bn-mark">&times;</span>
+              <div class="bn-body">
+                <div class="bn-title">엘리베이터 타기</div>
+                <div class="bn-desc">정전되면 갇힙니다. 반드시 계단으로 내려갑니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-banner">
+          <div class="rb-label">119 신고</div>
+          <div class="rb-title">가장 중요한 것은 단 하나, <span class="accent">주소</span></div>
+          <div class="rb-sub">담당 어르신 댁 주소를 동·호수까지 휴대전화에 저장해 두십시오<br>상대가 끊으라고 할 때까지 전화를 끊지 않습니다</div>
+        </div>
+
+        <div class="highlight-line">
+          소화기가 뿜어내는 시간은 <strong>13초</strong> — 뽑고, 잡고, 쥐고, 쓸어내기
+        </div>
+        <div class="ban-list solo">
+          <div class="ban-item">
+            <span class="bn-mark">!</span>
+            <div class="bn-body">
+              <div class="bn-title">천장까지 불이 붙었다면</div>
+              <div class="bn-desc">소화기를 놓고 즉시 대피합니다. 소화기로 끌 수 있는 불이 아닙니다.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="chapter" id="ch3">
+        <div class="chapter-header">
+          <div class="chapter-icon c3">🚪</div>
+          <div class="chapter-meta">
+            <span class="tag c3">CHAPTER 3</span>
+            <h2>어르신을 모시고 나오기</h2>
+          </div>
+        </div>
+        <div class="highlight-line">
+          먼저 판단합니다 — <strong>어르신이 스스로 걸으실 수 있는가</strong>
+        </div>
+        <div class="step-grid-pc">
+          <div class="step-list">
+            <div class="step-card">
+              <div class="sp-num">A</div>
+              <div class="sp-body">
+                <div class="sp-title">걸으실 수 있다면 — 부축</div>
+                <div class="sp-desc">어르신의 팔을 내 어깨에 걸치고, 내 팔로 허리를 감싸 안습니다.</div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="sp-num">B</div>
+              <div class="sp-body">
+                <div class="sp-title">걷지 못하시면 — 이불</div>
+                <div class="sp-desc">이불 위에 눕히고 <strong>끝을 잡아 바닥으로 끌고</strong> 나갑니다. 힘이 덜 들고 연기도 덜 마십니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="report-banner">
+          <div class="rb-label">혼자 무리하지 않습니다</div>
+          <div class="rb-title">두 사람 모두 위험해지는 것이 <span class="accent">가장 나쁜 결과</span></div>
+          <div class="rb-sub">모시고 나올 수 없다면 방문을 닫아 연기를 막고 먼저 나와,<br>소방대원에게 어르신이 어느 방에 계신지 알립니다</div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="chapter" id="ch4">
+        <div class="chapter-header">
+          <div class="chapter-icon c4">⚡</div>
+          <div class="chapter-meta">
+            <span class="tag c4">CHAPTER 4</span>
+            <h2>전기 — 감전과 화재</h2>
+          </div>
+        </div>
+        <div class="highlight-line elec">
+          전기는 눈에 보이지 않아 <strong>이상해도 지나치기 쉽습니다</strong>
+        </div>
+        <div class="signal-grid-pc">
+          <div class="signal-list">
+            <div class="signal-item">
+              <span class="sg-part">문어발</span>
+              <span class="sg-text">한 곳에 전기가 몰리면 열이 나고 불이 됩니다. 전기장판·온풍기는 <strong>벽 콘센트에 단독</strong>으로.</span>
+            </div>
+            <div class="signal-item">
+              <span class="sg-part">벗겨진 전선</span>
+              <span class="sg-text">손이 닿으면 감전입니다. 테이프로 감지 말고 <strong>교체</strong>합니다.</span>
+            </div>
+            <div class="signal-item">
+              <span class="sg-part">전기장판</span>
+              <span class="sg-text">접어서 보관하면 접힌 자리에서 열선이 끊어집니다. <strong>온도는 낮게, 시간은 짧게</strong> — 저온화상 주의.</span>
+            </div>
+            <div class="signal-item">
+              <span class="sg-part">먼지 콘센트</span>
+              <span class="sg-text">먼지가 습기를 머금으면 <strong>스스로 불꽃</strong>을 냅니다.</span>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-line elec">
+          젖은 손으로 플러그를 만지지 않기 &middot; <strong>월 1회</strong> 누전차단기 시험 버튼 누르기
+        </div>
+        <div class="ban-list solo">
+          <div class="ban-item">
+            <span class="bn-mark">&times;</span>
+            <div class="bn-body">
+              <div class="bn-title">감전된 사람을 맨손으로 잡기</div>
+              <div class="bn-desc">그 전기가 나에게 그대로 옵니다. 젖은 물건으로 밀어내는 것도 안 됩니다.</div>
+            </div>
+          </div>
+        </div>
+        <div class="step-grid-pc">
+          <div class="step-list">
+            <div class="step-card elec">
+              <div class="sp-num">1</div>
+              <div class="sp-body">
+                <div class="sp-title">전원 끊기</div>
+                <div class="sp-desc">플러그를 뽑거나 차단기를 내립니다.</div>
+              </div>
+            </div>
+            <div class="step-card elec">
+              <div class="sp-num">2</div>
+              <div class="sp-body">
+                <div class="sp-title">마른 것으로 밀기</div>
+                <div class="sp-desc">마른 나무 막대나 플라스틱 자루처럼 <strong>전기가 통하지 않는 물건</strong>으로.</div>
+              </div>
+            </div>
+            <div class="step-card elec">
+              <div class="sp-num">3</div>
+              <div class="sp-body">
+                <div class="sp-title">119 신고와 가슴압박</div>
+                <div class="sp-desc">숨을 쉬지 않으면 곧바로. 스피커폰으로 안내받으며 따라 합니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="chapter" id="ch5">
+        <div class="chapter-header">
+          <div class="chapter-icon c5">🍳</div>
+          <div class="chapter-meta">
+            <span class="tag c5">CHAPTER 5</span>
+            <h2>가스 — 누출과 폭발</h2>
+          </div>
+        </div>
+        <div class="highlight-line gas">
+          가스 사고는 <strong>몰랐거나, 닫아 두었거나, 자리를 비웠을 때</strong> 일어납니다
+        </div>
+        <div class="phase-grid-pc">
+          <div class="phase-list">
+            <div class="phase-card">
+              <span class="ph-label">사용 전</span>
+              <div class="ph-text">냄새를 맡아 보고, <strong>창문을 열어</strong> 공기를 바꿉니다.</div>
+            </div>
+            <div class="phase-card">
+              <span class="ph-label">사용 중</span>
+              <div class="ph-text"><strong>파란 불꽃</strong>이 정상. 빨갛거나 노란 불꽃이면 관리자에게 알립니다.</div>
+            </div>
+            <div class="phase-card">
+              <span class="ph-label">사용 후</span>
+              <div class="ph-text">밸브를 잠그고 <strong>눈으로 한 번 더</strong> 확인합니다.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-banner">
+          <div class="rb-label">기억이 흐려지신 어르신</div>
+          <div class="rb-title">국을 올려놓고 <span class="accent">잊으십니다</span></div>
+          <div class="rb-sub">돌아가시기 전에 — 불은 꺼졌는가, 중간 밸브는 잠갔는가<br>같은 일이 반복되면 관리자에게 알려 주십시오 (자동 소화 안전장치)</div>
+        </div>
+
+        <div class="highlight-line gas">
+          가스 냄새가 나면 — <strong>하지 말아야 할 일부터</strong> 기억하십시오
+        </div>
+        <div class="ban-grid-pc">
+          <div class="ban-list">
+            <div class="ban-item">
+              <span class="bn-mark">&times;</span>
+              <div class="bn-body">
+                <div class="bn-title">전등·환풍기 스위치</div>
+                <div class="bn-desc">누르는 순간 작은 불꽃이 튀고, 가스가 찬 방에서는 폭발이 됩니다.</div>
+              </div>
+            </div>
+            <div class="ban-item">
+              <span class="bn-mark">&times;</span>
+              <div class="bn-body">
+                <div class="bn-title">플러그 뽑기 · 불 사용</div>
+                <div class="bn-desc">같은 이유입니다. 불은 절대 쓰지 않습니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-grid-pc">
+          <div class="step-list">
+            <div class="step-card gas">
+              <div class="sp-num">1</div>
+              <div class="sp-body"><div class="sp-title">창문과 문을 활짝</div><div class="sp-desc">먼저 엽니다.</div></div>
+            </div>
+            <div class="step-card gas">
+              <div class="sp-num">2</div>
+              <div class="sp-body"><div class="sp-title">손으로 쓸어내기</div><div class="sp-desc">가스를 밖으로 밀어냅니다.</div></div>
+            </div>
+            <div class="step-card gas">
+              <div class="sp-num">3</div>
+              <div class="sp-body"><div class="sp-title">밸브 잠그기</div><div class="sp-desc">중간 밸브와 용기 밸브를 잠급니다.</div></div>
+            </div>
+            <div class="step-card gas">
+              <div class="sp-num">4</div>
+              <div class="sp-body"><div class="sp-title">어르신을 모시고 밖으로</div><div class="sp-desc">함께 나옵니다.</div></div>
+            </div>
+            <div class="step-card gas">
+              <div class="sp-num">5</div>
+              <div class="sp-body"><div class="sp-title">밖에 나와서 전화</div><div class="sp-desc">지역 고객센터 또는 가스안전공사 <strong>1544-4500</strong>. 관리자에게도 알립니다.</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 -->
+      <section class="chapter" id="ch6">
+        <div class="chapter-header">
+          <div class="chapter-icon c6">✅</div>
+          <div class="chapter-meta">
+            <span class="tag c6">CHAPTER 6</span>
+            <h2>3분 안전점검</h2>
+          </div>
+        </div>
+        <div class="highlight-line check">
+          방문할 때마다 <strong>3분이면 충분합니다</strong>
+        </div>
+        <div class="check-grid-pc">
+          <div class="check-group">
+            <div class="check-card fire">
+              <div class="ck-title">불</div>
+              <div class="ck-item">소화기 압력계 바늘이 <strong>가운데 초록 칸</strong>에 있는지<br>제조일로부터 <strong>10년</strong>이 지나지 않았는지<br>천장 감지기 버튼을 눌러 소리가 나는지</div>
+            </div>
+            <div class="check-card elec">
+              <div class="ck-title">전기</div>
+              <div class="ck-item">문어발로 꽂혀 있지 않은지<br>벗겨진 전선은 없는지<br>전기장판 상태는 괜찮은지</div>
+            </div>
+            <div class="check-card gas">
+              <div class="ck-title">가스</div>
+              <div class="ck-item">냄새는 나지 않는지<br>호스 연결은 단단한지<br>나올 때 밸브는 잠갔는지</div>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-line check">
+          미리 준비할 두 가지 — <strong>어르신 댁 주소 저장</strong> &middot; <strong>밖으로 나가는 길 확인</strong>
+        </div>
+        <div class="intro-card">
+          <div class="ic-title">아파트·기숙사를 제외한 모든 주택</div>
+          <div class="ic-desc">법이 바뀌어 <strong>소화기와 단독경보형감지기</strong>를 두어야 합니다. 어르신 댁도 예외가 아닙니다.</div>
+        </div>
+      </section>
+
+      <div class="closing">
+        <p class="closing-title">오늘 기억할 세 문장</p>
+        <p class="closing-msg">
+          재해는 예고 없이 옵니다.<br>
+          하지만 우리는 <span class="accent">준비할 수 있습니다</span>.
+        </p>
+        <div class="closing-summary">
+          <div class="closing-summary-item"><strong>불이 나면</strong> — 끄기 전에 알리고, 낮춰서 벽을 짚고 나오고, 문을 닫습니다</div>
+          <div class="closing-summary-item"><strong>감전이 되면</strong> — 맨손으로 잡지 말고 전원부터 끊습니다</div>
+          <div class="closing-summary-item"><strong>가스 냄새가 나면</strong> — 스위치를 만지지 말고 창문부터 엽니다</div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) { progressBar.style.width = (scrollTop / docHeight * 100) + '%'; }
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
