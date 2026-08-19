@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>건강장해 예방 교육 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #F5F3E9;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .progress-bar {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #40513F, #6E8465, #B08D2E);
+      z-index: 200; transition: width 0.1s linear;
+    }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(253,252,246,0.96); backdrop-filter: blur(8px);
+      padding: 8px 14px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #DCE2D3;
+    }
+    .top-bar a { color: #40513F; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; }
+
+    [id] { scroll-margin-top: 52px; }
+
+    .hero {
+      background: linear-gradient(135deg, #2E3D2D 0%, #40513F 55%, #5E7357 100%);
+      color: #fff; padding: 32px 20px 28px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #B08D2E, #E7CE87, #B08D2E);
+    }
+    .hero .hero-badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: #E7CE87; margin-bottom: 10px; }
+    .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; word-break: keep-all; line-height: 1.35; letter-spacing: -0.5px; }
+    .hero h1 .accent { color: #E7CE87; }
+    .hero .sub { font-size: 17px; opacity: 0.9; }
+
+    .toc { margin: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px; background: #fff; border-radius: 12px; text-decoration: none;
+      color: #333; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border: 1px solid #DFE5D6; transition: border-color 0.15s;
+    }
+    .toc-item:active { border-color: #40513F; background: #EDF1E7; }
+    .toc-left { display: flex; align-items: center; gap: 10px; }
+    .toc-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .toc-icon.c1 { background: #E9EFE3; }
+    .toc-icon.c2 { background: #F6E7E3; }
+    .toc-icon.c3 { background: #F2ECDA; }
+    .toc-icon.c4 { background: #E4EDE9; }
+    .toc-icon.c5 { background: #EDEAF2; }
+    .toc-icon.c6 { background: #E9EFE3; }
+    .toc-label { font-size: 17px; font-weight: 600; }
+    .toc-label.c1 { color: #4E6247; }
+    .toc-label.c2 { color: #A8574E; }
+    .toc-label.c3 { color: #8A6A16; }
+    .toc-label.c4 { color: #3F6558; }
+    .toc-label.c5 { color: #5B5080; }
+    .toc-label.c6 { color: #4E6247; }
+    .toc-arrow { color: #999; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+
+    .content { padding: 0 14px 40px; }
+
+    .chapter { margin-top: 28px; }
+    .chapter-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .chapter-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .chapter-icon.c1 { background: #E9EFE3; }
+    .chapter-icon.c2 { background: #F6E7E3; }
+    .chapter-icon.c3 { background: #F2ECDA; }
+    .chapter-icon.c4 { background: #E4EDE9; }
+    .chapter-icon.c5 { background: #EDEAF2; }
+    .chapter-icon.c6 { background: #E9EFE3; }
+    .chapter-meta { flex: 1; }
+    .chapter-meta .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .chapter-meta .tag.c1 { color: #4E6247; }
+    .chapter-meta .tag.c2 { color: #A8574E; }
+    .chapter-meta .tag.c3 { color: #8A6A16; }
+    .chapter-meta .tag.c4 { color: #3F6558; }
+    .chapter-meta .tag.c5 { color: #5B5080; }
+    .chapter-meta .tag.c6 { color: #4E6247; }
+    .chapter-meta h2 { font-size: 22px; font-weight: 800; color: #232A1F; line-height: 1.3; }
+
+    .highlight-line {
+      background: #E9EFE3; border: 1px solid #6E8465; border-radius: 10px;
+      padding: 10px 14px; margin-bottom: 14px; font-size: 19px; font-weight: 600;
+      color: #3C4B37; line-height: 1.6; word-break: keep-all;
+    }
+    .highlight-line.warning { background: #F6E7E3; border-color: #C07A6E; color: #8E3E32; }
+    .highlight-line.gold { background: #F7F0DC; border-color: #B08D2E; color: #75590E; }
+    .highlight-line strong { color: #2E3D2D; }
+    .highlight-line.warning strong { color: #8E3E32; }
+    .highlight-line.gold strong { color: #75590E; }
+
+    .intro-card {
+      background: #fff; border-radius: 14px; padding: 18px 16px; margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(50,70,45,0.07); border-left: 5px solid #4E6247;
+    }
+    .intro-card .ic-title { font-size: 20px; font-weight: 800; color: #4E6247; margin-bottom: 8px; }
+    .intro-card .ic-desc { font-size: 19px; color: #222; line-height: 1.7; word-break: keep-all; }
+    .intro-card .ic-desc strong { color: #3F6558; }
+    .intro-card.warn { border-left-color: #C07A6E; }
+    .intro-card.warn .ic-title { color: #A8574E; }
+    .intro-card.warn .ic-desc strong { color: #A8574E; }
+    .intro-card.gold { border-left-color: #B08D2E; }
+    .intro-card.gold .ic-title { color: #8A6A16; }
+    .intro-card.gold .ic-desc strong { color: #8A6A16; }
+
+    /* 칩 */
+    .spot-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .spot-chip { background: #4E6247; color: #fff; font-size: 18px; font-weight: 700; padding: 7px 16px; border-radius: 30px; }
+    .spot-chip.alt { background: #B08D2E; }
+
+    /* 대비 리스트 (상황 → 나의 반응) */
+    .signal-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .signal-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(50,70,45,0.06); display: flex; align-items: flex-start; gap: 12px; border-left: 4px solid #6E8465; }
+    .signal-item .sg-part { flex-shrink: 0; background: #E9EFE3; color: #4E6247; font-size: 17px; font-weight: 800; padding: 4px 12px; border-radius: 20px; white-space: nowrap; margin-top: 1px; }
+    .signal-item .sg-text { flex: 1; font-size: 19px; color: #222; line-height: 1.6; word-break: keep-all; }
+    .signal-item .sg-text strong { color: #3F6558; }
+
+    /* 3분류 카드 */
+    .factor-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+    .factor-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(50,70,45,0.07); border-top: 4px solid #C07A6E; }
+    .factor-card.f2 { border-top-color: #B08D2E; }
+    .factor-card.f3 { border-top-color: #6E8465; }
+    .factor-card .fc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .factor-card .fc-num { font-size: 12px; font-weight: 800; color: #fff; background: #C07A6E; padding: 4px 10px; border-radius: 8px; letter-spacing: 1px; flex-shrink: 0; }
+    .factor-card.f2 .fc-num { background: #B08D2E; }
+    .factor-card.f3 .fc-num { background: #6E8465; }
+    .factor-card .fc-title { font-size: 20px; font-weight: 800; color: #232A1F; }
+    .factor-card .fc-items { margin-top: 4px; display: flex; flex-direction: column; gap: 6px; }
+    .factor-card .fc-item { background: #F8ECE8; border-radius: 8px; padding: 8px 12px; font-size: 19px; color: #222; line-height: 1.6; border-left: 3px solid #C07A6E; word-break: keep-all; }
+    .factor-card.f2 .fc-item { background: #F7F0DC; border-left-color: #B08D2E; }
+    .factor-card.f3 .fc-item { background: #EDF1E7; border-left-color: #6E8465; }
+    .factor-card .fc-item strong { color: #8E3E32; }
+    .factor-card.f2 .fc-item strong { color: #75590E; }
+    .factor-card.f3 .fc-item strong { color: #3C4B37; }
+
+    /* 강조 배너 */
+    .report-banner { background: linear-gradient(135deg, #2E3D2D 0%, #4E6247 100%); color: #fff; border-radius: 14px; padding: 18px 16px; margin: 14px 0; text-align: center; }
+    .report-banner .rb-label { font-size: 14px; font-weight: 700; letter-spacing: 2px; opacity: 0.9; margin-bottom: 4px; }
+    .report-banner .rb-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; word-break: keep-all; }
+    .report-banner .rb-title .accent { color: #E7CE87; }
+    .report-banner .rb-sub { font-size: 17px; font-weight: 600; opacity: 0.95; line-height: 1.6; word-break: keep-all; }
+
+    /* 법조문 인용 */
+    .law-quote { background: #fff; border-radius: 14px; padding: 18px 16px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(50,70,45,0.07); border-left: 5px solid #B08D2E; }
+    .law-quote .lq-label { font-size: 15px; font-weight: 800; color: #8A6A16; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .law-quote .lq-text { font-size: 19px; color: #222; line-height: 1.7; word-break: keep-all; }
+    .law-quote .lq-text strong { color: #75590E; }
+
+    /* 번호 카드 */
+    .action-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .action-card { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(50,70,45,0.07); display: flex; align-items: flex-start; gap: 14px; }
+    .action-card .ac-num { width: 40px; height: 40px; border-radius: 50%; background: #4E6247; color: #fff; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .action-card.gold .ac-num { background: #B08D2E; }
+    .action-card .ac-body { flex: 1; }
+    .action-card .ac-title { font-size: 19px; font-weight: 800; color: #4E6247; margin-bottom: 4px; }
+    .action-card.gold .ac-title { color: #8A6A16; }
+    .action-card .ac-desc { font-size: 19px; color: #333; line-height: 1.6; word-break: keep-all; }
+
+    /* 창구 카드 */
+    .channel-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .channel-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 4px rgba(50,70,45,0.07); border-top: 4px solid #3F6558; }
+    .channel-card .cn-title { font-size: 20px; font-weight: 800; color: #3F6558; margin-bottom: 6px; }
+    .channel-card .cn-desc { font-size: 19px; color: #333; line-height: 1.6; word-break: keep-all; }
+    .channel-card .cn-desc strong { color: #2F5347; }
+    .channel-link { display: inline-block; margin-top: 10px; font-size: 18px; font-weight: 700; color: #3F6558; text-decoration: none; border-bottom: 2px solid #A9C6BB; }
+
+    /* 단계 흐름 */
+    .step-flow { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .step-item { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(50,70,45,0.06); display: flex; align-items: flex-start; gap: 12px; }
+    .step-item .sp-num { width: 38px; height: 38px; border-radius: 50%; color: #fff; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-item.s1 .sp-num { background: #6E8465; }
+    .step-item.s2 .sp-num { background: #B08D2E; }
+    .step-item.s3 .sp-num { background: #A8574E; }
+    .step-item .sp-body { flex: 1; }
+    .step-item .sp-title { font-size: 19px; font-weight: 800; color: #232A1F; margin-bottom: 2px; }
+    .step-item .sp-desc { font-size: 19px; color: #333; line-height: 1.6; word-break: keep-all; }
+    .step-item .sp-quote { display: inline-block; margin-top: 6px; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 20px; word-break: keep-all; }
+    .step-item.s1 .sp-quote { background: #EDF1E7; color: #3C4B37; }
+    .step-item.s2 .sp-quote { background: #F7F0DC; color: #75590E; }
+    .step-item.s3 .sp-quote { background: #F8ECE8; color: #8E3E32; }
+
+    /* 기억할 세 가지 */
+    .remember-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .remember-item { background: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(50,70,45,0.06); display: flex; align-items: flex-start; gap: 12px; border-left: 5px solid #A8574E; }
+    .remember-item.ok { border-left-color: #6E8465; }
+    .remember-item .rm-mark { font-size: 26px; font-weight: 900; flex-shrink: 0; line-height: 1.2; color: #A8574E; }
+    .remember-item.ok .rm-mark { color: #4E6247; font-size: 30px; line-height: 1.05; }
+    .remember-item .rm-body { flex: 1; }
+    .remember-item .rm-title { font-size: 19px; font-weight: 800; color: #232A1F; margin-bottom: 2px; }
+    .remember-item .rm-desc { font-size: 19px; color: #333; line-height: 1.6; word-break: keep-all; }
+
+    /* 마무리 */
+    .closing { text-align: center; margin-top: 32px; padding: 24px 18px; background: linear-gradient(135deg, #2E3D2D 0%, #4E6247 100%); color: #fff; border-radius: 16px; position: relative; overflow: hidden; }
+    .closing::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #B08D2E, #E7CE87, #B08D2E); }
+    .closing-title { font-size: 15px; letter-spacing: 3px; color: #E7CE87; font-weight: 700; margin-bottom: 10px; }
+    .closing-msg { font-size: 20px; font-weight: 700; line-height: 1.7; margin-bottom: 12px; word-break: keep-all; }
+    .closing-msg .accent { color: #E7CE87; }
+    .closing-summary { text-align: left; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; }
+    .closing-summary-item { font-size: 18px; line-height: 1.8; color: rgba(255,255,255,0.95); word-break: keep-all; }
+    .closing-summary-item strong { color: #E7CE87; }
+
+    .footer-note { text-align: center; padding: 20px 16px 28px; font-size: 16px; font-weight: 500; color: #555; }
+
+    .fab-top { position: fixed; bottom: 24px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #4E6247; color: #fff; border: none; font-size: 22px; font-weight: 700; box-shadow: 0 3px 12px rgba(64,81,63,0.35); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 90; text-decoration: none; }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .signal-grid-pc { }
+    .factor-grid-pc { }
+    .action-grid-pc { }
+    .channel-grid-pc { }
+    .step-grid-pc { }
+    .remember-grid-pc { }
+    .selfcare-grid-pc { }
+
+    /* ===== PC 반응형 ===== */
+    @media (min-width: 768px) {
+      body { background: #E5E3D5; }
+      .pc-wrapper { max-width: 1100px; margin: 0 auto; background: #F5F3E9; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+      .top-bar { padding: 12px 40px; } .top-bar a { font-size: 16px; } .top-bar .title { font-size: 16px; }
+      .hero { padding: 68px 48px 52px; } .hero h1 { font-size: 38px; letter-spacing: -0.5px; } .hero .sub { font-size: 19px; margin-top: 10px; } .hero .hero-badge { font-size: 14px; margin-bottom: 16px; }
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 8px; margin: 0; padding: 16px 40px; background: #fff; border-bottom: 1px solid #DFE5D6; }
+      .toc-item { flex: 1 1 calc(33.333% - 8px); min-width: 160px; padding: 12px 10px; border-radius: 10px; justify-content: center; gap: 8px; border: 1px solid #DFE5D6; transition: all 0.2s; }
+      .toc-item:hover { border-color: #4E6247; background: #EDF1E7; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(64,81,63,0.1); }
+      .toc-arrow { display: none; } .toc-left { justify-content: center; }
+      .content { padding: 10px 40px 60px; }
+      .chapter { margin-top: 52px; }
+      .chapter-header { gap: 16px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 2px solid #DFE5D6; }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-meta .tag { font-size: 13px; letter-spacing: 1.5px; } .chapter-meta h2 { font-size: 28px; }
+      .highlight-line { font-size: 20px; padding: 16px 24px; border-radius: 12px; margin-bottom: 20px; }
+      .intro-card { padding: 22px 24px; border-radius: 16px; margin-bottom: 20px; }
+      .signal-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+      .signal-list { display: contents; }
+      .signal-item { flex-direction: column; align-items: flex-start; padding: 18px 20px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .signal-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(50,70,45,0.08); }
+      .factor-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+      .factor-list { display: contents; }
+      .factor-card { padding: 22px 24px; border-radius: 16px; border-top-width: 5px; transition: transform 0.2s, box-shadow 0.2s; }
+      .factor-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(50,70,45,0.1); }
+      .factor-card .fc-title { font-size: 21px; }
+      .law-quote { padding: 24px 26px; border-radius: 16px; margin-bottom: 20px; }
+      .law-quote .lq-text { font-size: 20px; }
+      .action-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
+      .action-list { display: contents; }
+      .action-card { padding: 18px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .action-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(50,70,45,0.08); }
+      .channel-grid-pc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+      .channel-list { display: contents; }
+      .channel-card { padding: 22px 24px; border-radius: 16px; border-top-width: 5px; transition: transform 0.2s, box-shadow 0.2s; }
+      .channel-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(50,70,45,0.1); }
+      .step-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+      .step-flow { display: contents; }
+      .step-item { flex-direction: column; align-items: center; text-align: center; padding: 20px 16px; border-radius: 14px; border: 1px solid #E1E7D8; transition: transform 0.2s, box-shadow 0.2s; }
+      .step-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(50,70,45,0.08); }
+      .step-item .sp-title { margin-top: 8px; }
+      .remember-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+      .remember-list { display: contents; }
+      .remember-item { flex-direction: column; align-items: flex-start; padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .remember-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(50,70,45,0.08); }
+      .selfcare-grid-pc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+      .selfcare-grid-pc .action-list { display: contents; }
+      .report-banner { padding: 28px; border-radius: 16px; } .report-banner .rb-title { font-size: 26px; }
+      .closing { margin-top: 48px; padding: 36px 40px; border-radius: 20px; }
+      .closing-title { font-size: 16px; letter-spacing: 4px; } .closing-msg { font-size: 22px; }
+      .closing-summary { padding: 18px 24px; } .closing-summary-item { font-size: 19px; }
+      .footer-note { padding: 28px 40px 36px; font-size: 15px; }
+      .fab-top { width: 50px; height: 50px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 14px; }
+      .progress-bar { height: 4px; }
+      .spot-chip { font-size: 19px; }
+      .spot-row { margin-bottom: 20px; }
+    }
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; } .toc { padding: 18px 56px; } .top-bar { padding: 12px 56px; }
+      .hero { padding: 72px 56px 56px; } .hero h1 { font-size: 44px; } .footer-note { padding: 28px 56px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">건강장해 예방 교육</span>
+    </div>
+
+    <div class="hero" id="heroArea">
+      <span class="hero-badge">MY MIND CARE</span>
+      <h1><span class="accent">내 마음</span>을 지키는 시간<br>참지 말고, 알리고, 돌보세요</h1>
+      <p class="sub">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left"><span class="toc-icon c1">🎭</span><span class="toc-label c1">감정노동이란?</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left"><span class="toc-icon c2">⚠️</span><span class="toc-label c2">관리하지 않으면</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left"><span class="toc-icon c3">⚖️</span><span class="toc-label c3">법이 지켜줍니다</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left"><span class="toc-icon c4">🏠</span><span class="toc-label c4">센터가 하는 일</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left"><span class="toc-icon c5">🛡️</span><span class="toc-label c5">현장 대처 3단계</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch6">
+        <span class="toc-left"><span class="toc-icon c6">🌿</span><span class="toc-label c6">내 마음을 지키는 법</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <section class="chapter" id="ch1">
+        <div class="chapter-header">
+          <div class="chapter-icon c1">🎭</div>
+          <div class="chapter-meta">
+            <span class="tag c1">CHAPTER 1</span>
+            <h2>감정노동이란?</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          나의 실제 감정과 달라도, 일을 위해 <strong>감정을 억누르고 표정과 말투를 관리하는 노동</strong>입니다.
+        </div>
+
+        <div class="intro-card">
+          <div class="ic-title">요양보호사도 감정노동자입니다</div>
+          <div class="ic-desc">
+            항공 승무원, 콜센터 상담사만의 이야기가 아닙니다.
+            정부의 감정노동 직업군 분류에 <strong>돌봄 서비스 직군</strong>으로 요양보호사가 분명하게 올라 있습니다.
+          </div>
+        </div>
+
+        <div class="spot-row">
+          <span class="spot-chip">승무원</span>
+          <span class="spot-chip">상담사</span>
+          <span class="spot-chip">판매원</span>
+          <span class="spot-chip alt">요양보호사</span>
+        </div>
+
+        <div class="signal-grid-pc">
+          <div class="signal-list">
+            <div class="signal-item">
+              <span class="sg-part">몸이 무거운 날</span>
+              <span class="sg-text">어르신 앞에서는 <strong>밝게 인사</strong>합니다</span>
+            </div>
+            <div class="signal-item">
+              <span class="sg-part">서운한 말</span>
+              <span class="sg-text">속상해도 <strong>웃으며 넘깁니다</strong></span>
+            </div>
+            <div class="signal-item">
+              <span class="sg-part">무리한 요구</span>
+              <span class="sg-text">화내지 않고 <strong>차분하게 설명</strong>합니다</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-line gold">
+          감정을 누르고 다듬는 일이 <strong>매일 반복</strong>됩니다.<br>그래서 요양보호사의 마음 건강은 특별한 관리가 필요합니다.
+        </div>
+      </section>
+
+      <!-- ===== 챕터 2 ===== -->
+      <section class="chapter" id="ch2">
+        <div class="chapter-header">
+          <div class="chapter-icon c2">⚠️</div>
+          <div class="chapter-meta">
+            <span class="tag c2">CHAPTER 2</span>
+            <h2>관리하지 않으면</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line warning">
+          억눌린 감정을 그대로 두면 <strong>병이 됩니다.</strong>
+        </div>
+
+        <div class="factor-grid-pc">
+          <div class="factor-list">
+            <div class="factor-card">
+              <div class="fc-head">
+                <span class="fc-num">MIND</span>
+                <span class="fc-title">마음의 병</span>
+              </div>
+              <div class="fc-items">
+                <div class="fc-item">겉으로는 웃지만 <strong>우울감</strong>이 쌓입니다</div>
+                <div class="fc-item">풀지 못한 감정이 쌓이면 <strong>홧병</strong></div>
+                <div class="fc-item">기운이 바닥나는 <strong>소진(번아웃)</strong></div>
+                <div class="fc-item">자신을 탓하며 <strong>자아존중감 저하</strong></div>
+              </div>
+            </div>
+            <div class="factor-card f2">
+              <div class="fc-head">
+                <span class="fc-num">BODY</span>
+                <span class="fc-title">몸의 병</span>
+              </div>
+              <div class="fc-items">
+                <div class="fc-item">심장이 빨리 뛰고 <strong>혈압이 올라갑니다</strong></div>
+                <div class="fc-item">실제 감정과 다른 표정을 반복하는 것만으로도 <strong>피로가 쌓입니다</strong></div>
+              </div>
+            </div>
+            <div class="factor-card f3">
+              <div class="fc-head">
+                <span class="fc-num">LIFE</span>
+                <span class="fc-title">무너지는 생활</span>
+              </div>
+              <div class="fc-items">
+                <div class="fc-item">스트레스를 <strong>술·담배</strong>로 풀게 됩니다</div>
+                <div class="fc-item">잠을 설치고 <strong>식사가 불규칙</strong>해집니다</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-banner">
+          <div class="rb-label">기억하세요</div>
+          <div class="rb-title">개인의 <span class="accent">나약함이 아닙니다</span></div>
+          <div class="rb-sub">폭언과 부당한 요구로 마음의 병을 얻은 노동자가<br>법원에서 <strong>업무상 질병(산업재해)</strong>으로 인정받은 사례가 여러 건 있습니다.</div>
+        </div>
+      </section>
+
+      <!-- ===== 챕터 3 ===== -->
+      <section class="chapter" id="ch3">
+        <div class="chapter-header">
+          <div class="chapter-icon c3">⚖️</div>
+          <div class="chapter-meta">
+            <span class="tag c3">CHAPTER 3</span>
+            <h2>법이 지켜줍니다</h2>
+          </div>
+        </div>
+
+        <div class="law-quote">
+          <div class="lq-label">산업안전보건법 제41조</div>
+          <div class="lq-text">
+            고객을 직접 마주하며 서비스를 제공하는 <strong>고객응대근로자</strong>가
+            고객의 폭언·폭행·지나친 요구로 건강을 해치지 않도록,
+            <strong>사업주는 반드시 보호 조치를 해야 합니다.</strong>
+            요양보호사도 여기에 해당합니다.
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          건강장해가 생겼거나 생길 우려가 있으면, 센터는 <strong>다음 네 가지 조치</strong>를 합니다.
+        </div>
+
+        <div class="action-grid-pc">
+          <div class="action-list">
+            <div class="action-card">
+              <span class="ac-num">1</span>
+              <div class="ac-body">
+                <div class="ac-title">업무의 일시 중단·전환</div>
+                <div class="ac-desc">그 자리에서 벗어나 쉬게 하고, 필요하면 다른 어르신에게로 업무를 바꿉니다.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">2</span>
+              <div class="ac-body">
+                <div class="ac-title">휴게시간 연장</div>
+                <div class="ac-desc">마음을 가라앉힐 시간을 충분히 드립니다.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">3</span>
+              <div class="ac-body">
+                <div class="ac-title">치료와 상담 지원</div>
+                <div class="ac-desc">몸과 마음의 치료, 전문 상담을 받을 수 있도록 돕습니다.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">4</span>
+              <div class="ac-body">
+                <div class="ac-title">법적 대응 지원</div>
+                <div class="ac-desc">필요한 경우 고소·고발, 증거자료 제출 등 법적 절차를 센터가 함께합니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-banner">
+          <div class="rb-label">가장 중요한 것</div>
+          <div class="rb-title">참는 것이 아니라 <span class="accent">요구하는 것</span>이 권리입니다</div>
+          <div class="rb-sub">이 조치를 센터에 당당히 요구할 수 있습니다.<br>요구했다는 이유로 <strong>불이익을 주는 것은 법으로 금지</strong>되어 있습니다.</div>
+        </div>
+      </section>
+
+      <!-- ===== 챕터 4 ===== -->
+      <section class="chapter" id="ch4">
+        <div class="chapter-header">
+          <div class="chapter-icon c4">🏠</div>
+          <div class="chapter-meta">
+            <span class="tag c4">CHAPTER 4</span>
+            <h2>센터가 하는 일</h2>
+          </div>
+        </div>
+
+        <div class="action-grid-pc">
+          <div class="action-list">
+            <div class="action-card gold">
+              <span class="ac-num">1</span>
+              <div class="ac-body">
+                <div class="ac-title">응대 요령과 매뉴얼</div>
+                <div class="ac-desc">폭언이나 무리한 요구가 있을 때를 대비한 대응 기준을 마련해 두고 있습니다.</div>
+              </div>
+            </div>
+            <div class="action-card gold">
+              <span class="ac-num">2</span>
+              <div class="ac-body">
+                <div class="ac-title">건강장해 예방 교육</div>
+                <div class="ac-desc">지금 보고 계신 이 교육처럼, 정기적으로 실시합니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-line">
+          그리고 힘든 일이 있을 때 언제든 이야기할 수 있는 <strong>고충처리 창구 두 곳</strong>을 운영합니다.
+        </div>
+
+        <div class="channel-grid-pc">
+          <div class="channel-list">
+            <div class="channel-card">
+              <div class="cn-title">사무실 고충처리함</div>
+              <div class="cn-desc">센터 사무실에 비치된 <strong>고충처리함</strong>에 쪽지를 넣어 주세요.</div>
+            </div>
+            <div class="channel-card">
+              <div class="cn-title">온라인 고충처리함</div>
+              <div class="cn-desc">센터 <strong>카카오톡 채널 메뉴 → 고충처리함</strong>에서 언제 어디서든 작성할 수 있습니다. <strong>익명</strong>도 가능합니다.</div>
+              <a class="channel-link" href="grievance.html">고충처리지침 자세히 보기</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-line gold">
+          혼자 끙끙 앓지 마세요. <strong>말씀해 주시면, 센터가 움직입니다.</strong>
+        </div>
+      </section>
+
+      <!-- ===== 챕터 5 ===== -->
+      <section class="chapter" id="ch5">
+        <div class="chapter-header">
+          <div class="chapter-icon c5">🛡️</div>
+          <div class="chapter-meta">
+            <span class="tag c5">CHAPTER 5</span>
+            <h2>현장 대처 3단계</h2>
+          </div>
+        </div>
+
+        <div class="step-grid-pc">
+          <div class="step-flow">
+            <div class="step-item s1">
+              <span class="sp-num">1</span>
+              <div class="sp-body">
+                <div class="sp-title">정중하게 자제 요청</div>
+                <div class="sp-desc">화를 가라앉히고 대화로 풀 수 있도록 차분히 안내합니다.</div>
+                <span class="sp-quote">“그렇게 말씀하시면 제가 도와드리기 어렵습니다”</span>
+              </div>
+            </div>
+            <div class="step-item s2">
+              <span class="sp-num">2</span>
+              <div class="sp-body">
+                <div class="sp-title">계속되면 알리기</div>
+                <div class="sp-desc">이런 말과 행동은 법에 어긋날 수 있다는 점을 알립니다.</div>
+                <span class="sp-quote">필요하면 녹음하겠다고 미리 고지</span>
+              </div>
+            </div>
+            <div class="step-item s3">
+              <span class="sp-num">3</span>
+              <div class="sp-body">
+                <div class="sp-title">응대 중단·보고</div>
+                <div class="sp-desc">그 자리에서 벗어나세요. 이후 대응은 센터가 함께합니다.</div>
+                <span class="sp-quote">즉시 관리자에게 보고</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-line warning">
+          여기서 꼭 <strong>기억할 세 가지</strong>가 있습니다.
+        </div>
+
+        <div class="remember-grid-pc">
+          <div class="remember-list">
+            <div class="remember-item">
+              <span class="rm-mark">✕</span>
+              <div class="rm-body">
+                <div class="rm-title">무조건 사과하지 마세요</div>
+                <div class="rm-desc">부당한 요구에 필요 이상으로 저자세를 취할 이유가 없습니다.</div>
+              </div>
+            </div>
+            <div class="remember-item">
+              <span class="rm-mark">✕</span>
+              <div class="rm-body">
+                <div class="rm-title">혼자 해결하려 하지 마세요</div>
+                <div class="rm-desc">참고 견디는 것은 해결이 아닙니다.</div>
+              </div>
+            </div>
+            <div class="remember-item ok">
+              <span class="rm-mark">○</span>
+              <div class="rm-body">
+                <div class="rm-title">여러분의 잘못이 아닙니다</div>
+                <div class="rm-desc">문제는 부당한 행동을 한 상대방에게 있습니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 챕터 6 ===== -->
+      <section class="chapter" id="ch6">
+        <div class="chapter-header">
+          <div class="chapter-icon c6">🌿</div>
+          <div class="chapter-meta">
+            <span class="tag c6">CHAPTER 6</span>
+            <h2>내 마음을 지키는 법</h2>
+          </div>
+        </div>
+
+        <div class="highlight-line gold">
+          안전보건공단이 권하는 방법 가운데 <strong>오늘 바로 해 볼 수 있는 것</strong>들입니다.
+        </div>
+
+        <div class="selfcare-grid-pc">
+          <div class="action-list">
+            <div class="action-card">
+              <span class="ac-num">1</span>
+              <div class="ac-body">
+                <div class="ac-title">복식호흡</div>
+                <div class="ac-desc">양손을 아랫배에 대고 배가 볼록해지도록 깊게. 몇 번만 반복해도 마음이 가라앉습니다.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">2</span>
+              <div class="ac-body">
+                <div class="ac-title">근육 이완</div>
+                <div class="ac-desc">어깨와 목의 힘을 풀고 천천히 늘려 주세요. 몸이 풀리면 마음도 풀립니다.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">3</span>
+              <div class="ac-body">
+                <div class="ac-title">생각 중단하기</div>
+                <div class="ac-desc">속상했던 장면이 떠오르면 속으로 “그만”이라고 말하며 멈추는 연습을 해 보세요.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">4</span>
+              <div class="ac-body">
+                <div class="ac-title">감정 털어놓기</div>
+                <div class="ac-desc">글로 적어 보거나 믿을 수 있는 동료·가족과 이야기하며 풀어냅니다.</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">5</span>
+              <div class="ac-body">
+                <div class="ac-title">자기주장 훈련</div>
+                <div class="ac-desc">상대를 비난하지 않으면서 내 생각을 분명히 말하는 연습. “그 말씀은 제게 상처가 됩니다”</div>
+              </div>
+            </div>
+            <div class="action-card">
+              <span class="ac-num">6</span>
+              <div class="ac-body">
+                <div class="ac-title">생활 습관</div>
+                <div class="ac-desc">규칙적인 운동, 하루 7~8시간 수면, 카페인 줄이기. 기본이 튼튼해야 마음도 버팁니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 마무리 ===== -->
+      <div class="closing">
+        <div class="closing-title">오늘의 정리</div>
+        <div class="closing-msg">참지 말고, <span class="accent">알리고</span>, 돌보세요</div>
+        <div class="closing-summary">
+          <div class="closing-summary-item">· 요양보호사는 <strong>감정노동 종사자</strong>입니다</div>
+          <div class="closing-summary-item">· 힘든 일이 생기면 <strong>업무 중단·휴식·치료와 상담·법적 대응</strong>을 센터에 요구할 수 있습니다</div>
+          <div class="closing-summary-item">· 현장에서는 <strong>자제 요청 → 녹음 고지 → 응대 중단과 보고</strong></div>
+          <div class="closing-summary-item">· 매일 <strong>깊은 호흡, 감정 털어놓기, 충분한 잠</strong></div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <div class="footer-note">&copy; 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a class="fab-top" id="fabTop" href="#heroArea">&uarr;</a>
+
+  <script>
+    var bar = document.getElementById('progressBar');
+    var fab = document.getElementById('fabTop');
+    window.addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? (window.scrollY / h) * 100 : 0;
+      bar.style.width = p + '%';
+      if (window.scrollY > 320) { fab.classList.add('show'); } else { fab.classList.remove('show'); }
+    });
+  </script>
+</body>
+</html>
