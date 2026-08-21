@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>성폭력 예방 및 대응지침 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Gowun+Batang:wght@400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #F6F8FA;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+      word-break: keep-all;
+    }
+
+    .progress-bar {
+      position: fixed; top: 0; left: 0;
+      width: 0%; height: 3px;
+      background: linear-gradient(90deg, #071626, #17557A, #E8C97A);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(246,248,250,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #DDE4EA;
+    }
+    .top-bar a { color: #17557A; text-decoration: none; font-size: 17px; font-weight: 700; }
+    .top-bar .title { font-size: 17px; font-weight: 500; color: #555; font-family: 'Gowun Batang', serif; }
+
+    [id] { scroll-margin-top: 56px; }
+
+    /* ===== 히어로 ===== */
+    .hero {
+      background:
+        radial-gradient(ellipse at 80% 0%, rgba(143,200,232,0.20) 0%, transparent 58%),
+        linear-gradient(165deg, #071626 0%, #0E2338 60%, #16304A 100%);
+      color: #E9F1F7;
+      padding: 34px 22px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .label {
+      display: inline-block;
+      font-size: 14px; font-weight: 700;
+      color: #E8C97A;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      background: rgba(232,201,122,0.10);
+      border: 1.5px solid rgba(232,201,122,0.45);
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: 'Gowun Batang', serif;
+      font-size: 29px; font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .hero .sub { font-size: 17px; color: #B9CBD9; line-height: 1.6; }
+    .hero .org { margin-top: 14px; font-size: 14px; color: #7E93A5; letter-spacing: 0.3px; }
+    .hero .rule {
+      width: 60px; height: 2px; background: #E8C97A;
+      margin: 14px auto 0; position: relative;
+    }
+    .hero .rule::before, .hero .rule::after {
+      content: ''; position: absolute; top: -4px;
+      width: 2px; height: 10px; background: #E8C97A;
+    }
+    .hero .rule::before { left: 0; }
+    .hero .rule::after { right: 0; }
+
+    /* ===== 핵심 한 줄 ===== */
+    .key-quote {
+      margin: 16px 14px 0;
+      padding: 20px 18px;
+      background: #FFF;
+      border: 1px solid #DDE4EA;
+      border-left: 6px solid #E8C97A;
+      border-radius: 0 14px 14px 0;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.07);
+    }
+    .key-quote .line {
+      font-family: 'Gowun Batang', serif;
+      font-size: 21px; font-weight: 700; color: #0E2338;
+      line-height: 1.6;
+    }
+    .key-quote .cite { margin-top: 8px; font-size: 15px; color: #666; }
+
+    /* ===== 목차 ===== */
+    .toc { margin: 14px 14px 0; display: flex; flex-direction: column; gap: 6px; }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px;
+      background: #fff; border-radius: 14px;
+      text-decoration: none; color: #333;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.06);
+      border: 1px solid #DDE4EA;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .toc-item:active { border-color: #17557A; background: #EEF5FA; }
+    .toc-left { display: flex; align-items: center; gap: 11px; }
+    .toc-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+      background: #E8EFF5;
+    }
+    .toc-label { font-size: 17px; font-weight: 600; color: #333; }
+    .toc-num { font-family: 'Gowun Batang', serif; font-size: 13px; color: #98A6B2; margin-right: 4px; }
+    .toc-arrow { color: #17557A; font-size: 22px; font-weight: 600; flex-shrink: 0; }
+
+    .content { padding: 0 14px 40px; }
+
+    /* ===== 챕터 ===== */
+    .chapter { margin-top: 32px; }
+    .chapter-header { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+    .chapter-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 21px; flex-shrink: 0;
+      background: #E8EFF5;
+    }
+    .chapter-meta { flex: 1; }
+    .chapter-tag { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #17557A; }
+    .chapter h2 {
+      font-family: 'Gowun Batang', serif;
+      font-size: 24px; font-weight: 700; color: #0E2338;
+      margin: 2px 0 0; letter-spacing: -0.3px;
+    }
+
+    /* ===== 정보 카드 ===== */
+    .info-card {
+      background: #fff; border-radius: 14px; padding: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+      border: 1px solid #E1E7EC;
+    }
+    .info-card p { font-size: 19px; color: #222; line-height: 1.75; }
+    .info-card strong { color: #17557A; font-weight: 700; }
+    .card-label { font-size: 17px; font-weight: 700; color: #0E2338; margin-bottom: 8px; }
+
+    /* ===== 정의 2카드 ===== */
+    .def-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .def-card {
+      background: #fff; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E1E7EC; border-top: 5px solid #17557A;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .def-card.wide { border-top-color: #4E7E9E; }
+    .def-word { font-size: 20px; font-weight: 700; color: #0E2338; margin-bottom: 4px; }
+    .def-desc { font-size: 18px; color: #333; line-height: 1.65; }
+    .def-desc strong { color: #17557A; font-weight: 700; }
+    .def-tail { margin-top: 8px; font-size: 16px; color: #555; }
+
+    /* ===== 강조 배너 ===== */
+    .accent-banner {
+      background: linear-gradient(135deg, #071626 0%, #14304A 100%);
+      color: #EAF2F8;
+      border-radius: 14px; padding: 18px;
+      margin-bottom: 12px;
+      border-left: 6px solid #E8C97A;
+    }
+    .accent-banner .ab-title { font-size: 15px; font-weight: 700; color: #E8C97A; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .accent-banner p { font-size: 19px; line-height: 1.7; color: #EAF2F8; }
+    .accent-banner strong { color: #F3DFAA; }
+
+    /* ===== 노트 박스 ===== */
+    .note-box {
+      background: #EEF5FA; border-left: 4px solid #17557A;
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px; margin-top: 8px; margin-bottom: 12px;
+      font-size: 17px; color: #21455C; line-height: 1.65;
+    }
+    .note-box strong { color: #0E2338; }
+    .note-box.gold { background: #FCF6E7; border-left-color: #C9A34A; color: #57451C; }
+    .note-box.gold strong { color: #6E5620; }
+
+    /* ===== 적용범위 칩 ===== */
+    .scope-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .scope-chip {
+      font-size: 16px; font-weight: 600; color: #1C4358;
+      background: #E8EFF5; border-radius: 999px; padding: 6px 13px;
+    }
+
+    /* ===== 유형 카드 ===== */
+    .type-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .type-card {
+      background: #fff; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E1E7EC;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .type-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .type-no {
+      width: 30px; height: 30px; border-radius: 9px;
+      background: #071626; color: #E8C97A;
+      font-family: 'Gowun Batang', serif; font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .type-name { font-size: 20px; font-weight: 700; color: #0E2338; }
+    .type-ex { list-style: none; }
+    .type-ex li {
+      font-size: 17px; color: #333; line-height: 1.6;
+      padding-left: 16px; position: relative; margin-top: 5px;
+    }
+    .type-ex li::before {
+      content: ''; position: absolute; left: 2px; top: 11px;
+      width: 5px; height: 5px; border-radius: 50%; background: #8FA9BC;
+    }
+
+    /* ===== 양방향 ===== */
+    .way-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .way-card {
+      background: #fff; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E1E7EC; border-top: 5px solid #B24A3E;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .way-card.reverse { border-top-color: #17557A; }
+    .way-dir { font-size: 15px; font-weight: 700; color: #B24A3E; letter-spacing: 0.3px; }
+    .way-card.reverse .way-dir { color: #17557A; }
+    .way-title { font-size: 19px; font-weight: 700; color: #0E2338; margin: 2px 0 8px; }
+    .way-ex { list-style: none; }
+    .way-ex li {
+      font-size: 17px; color: #333; line-height: 1.6;
+      padding-left: 16px; position: relative; margin-top: 5px;
+    }
+    .way-ex li::before {
+      content: ''; position: absolute; left: 2px; top: 11px;
+      width: 5px; height: 5px; border-radius: 50%; background: #A9B7C2;
+    }
+
+    /* ===== 수칙 리스트 ===== */
+    .rule-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .rule-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: #fff; border-radius: 12px; padding: 14px 16px;
+      border: 1px solid #E1E7EC;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .rule-no {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px;
+      background: #071626; color: #E8C97A;
+      font-size: 15px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .rule-text { font-size: 18px; color: #333; line-height: 1.6; flex: 1; }
+    .rule-text strong { color: #0E2338; font-weight: 700; }
+
+    /* ===== 칩 목록 ===== */
+    .flat-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .flat-chip {
+      font-size: 16px; font-weight: 600; color: #2A3B47;
+      background: #F0F3F6; border-radius: 8px; padding: 6px 12px;
+      border-left: 3px solid #A9B7C2;
+    }
+
+    /* ===== 대응 단계 ===== */
+    .step-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .step-card {
+      background: #fff; border-radius: 14px; padding: 16px 16px 14px;
+      border: 1px solid #E1E7EC;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #071626; color: #E8C97A;
+      font-family: 'Gowun Batang', serif;
+      font-size: 17px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 19px; font-weight: 700; color: #0E2338; flex: 1; line-height: 1.4; }
+    .step-desc { font-size: 18px; color: #333; line-height: 1.65; }
+    .say-line {
+      margin-top: 8px; padding: 12px 14px;
+      background: #071626; color: #FFFFFF;
+      border-radius: 12px; border-left: 4px solid #E8C97A;
+      font-family: 'Gowun Batang', serif;
+      font-size: 19px; font-weight: 700; line-height: 1.6;
+    }
+
+    /* ===== 전화 ===== */
+    .tel-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .tel-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: #fff; border: 1px solid #E1E7EC; border-radius: 12px;
+      padding: 13px 16px;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+      text-decoration: none;
+    }
+    .tel-name { font-size: 17px; font-weight: 600; color: #2A3B47; }
+    .tel-name span { display: block; font-size: 15px; font-weight: 500; color: #5D6B76; }
+    .tel-num {
+      font-size: 22px; font-weight: 800; color: #0E2338;
+      letter-spacing: 0.5px; white-space: nowrap; text-decoration: none;
+    }
+
+    /* ===== 처리 절차 ===== */
+    .flow-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .flow-card {
+      background: #fff; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E1E7EC; border-left: 6px solid #17557A;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .flow-stage { font-size: 13px; font-weight: 700; color: #17557A; letter-spacing: 1px; }
+    .flow-title { font-size: 19px; font-weight: 700; color: #0E2338; margin: 2px 0 5px; }
+    .flow-desc { font-size: 18px; color: #333; line-height: 1.65; }
+
+    /* ===== 보호 카드 ===== */
+    .protect-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .protect-card {
+      background: #fff; border-radius: 14px; padding: 15px 16px;
+      border: 1px solid #E1E7EC;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .protect-icon {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 11px;
+      background: #E8EFF5; font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .protect-body { flex: 1; }
+    .protect-title { font-size: 18px; font-weight: 700; color: #0E2338; margin-bottom: 2px; }
+    .protect-desc { font-size: 17px; color: #444; line-height: 1.6; }
+
+    /* ===== 창구 ===== */
+    .desk-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .desk-card {
+      background: #fff; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E1E7EC; border-left: 6px solid #E8C97A;
+      box-shadow: 0 1px 4px rgba(7,22,38,0.05);
+    }
+    .desk-name { font-size: 19px; font-weight: 700; color: #0E2338; margin-bottom: 3px; }
+    .desk-how { font-size: 17px; color: #444; line-height: 1.6; }
+    .desk-how a { color: #17557A; font-weight: 700; text-decoration: none; }
+    .desk-tag {
+      display: inline-block; font-size: 13px; font-weight: 700;
+      color: #071626; background: #E8C97A; border-radius: 8px;
+      padding: 2px 8px; margin-left: 6px; vertical-align: 2px;
+    }
+
+    /* ===== 마무리 ===== */
+    .closing-card {
+      background: linear-gradient(160deg, #071626 0%, #16304A 100%);
+      border-radius: 16px; padding: 24px 18px;
+      text-align: center; margin-top: 24px;
+      color: #E9F1F7;
+    }
+    .closing-card .ck-line {
+      font-family: 'Gowun Batang', serif;
+      font-size: 20px; font-weight: 700; line-height: 1.7; color: #FFFFFF;
+    }
+    .closing-card .ck-sub { margin-top: 10px; font-size: 15px; color: #8FA3B4; }
+    .closing-badges {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 7px;
+      margin-top: 14px;
+    }
+    .closing-badges span {
+      font-size: 14px; font-weight: 700; color: #F3DFAA;
+      background: rgba(232,201,122,0.12);
+      border: 1px solid rgba(232,201,122,0.35);
+      border-radius: 999px; padding: 4px 12px;
+    }
+
+    .legal-box {
+      margin-top: 16px;
+      background: #F0F3F6; border: 1px dashed #B7C2CC;
+      border-radius: 14px; padding: 16px 18px;
+      font-size: 16px; color: #38454F; line-height: 1.7;
+    }
+    .legal-box strong { color: #0E2338; }
+
+    .footer-note { text-align: center; padding: 24px 16px 32px; font-size: 14px; font-weight: 500; color: #9AA6B0; }
+
+    .fab-top {
+      position: fixed; bottom: 24px; right: 20px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #071626; color: #E8C97A; border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(7,22,38,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90; text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    /* ===== PC 반응형 ===== */
+    @media (min-width: 768px) {
+      body { background: #DFE5EB; }
+
+      .pc-wrapper {
+        max-width: 1100px; margin: 0 auto;
+        background: #F6F8FA; min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+
+      .top-bar { padding: 12px 40px; }
+      .hero { padding: 64px 48px 52px; }
+      .hero h1 { font-size: 40px; }
+      .hero .sub { font-size: 19px; }
+      .hero .label { font-size: 15px; padding: 5px 18px; }
+
+      .key-quote { margin: 24px 40px 0; padding: 26px 30px; }
+      .key-quote .line { font-size: 26px; }
+
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 10px; margin: 18px 40px 0; }
+      .toc-item {
+        flex: 1 1 calc(25% - 10px); min-width: 200px;
+        padding: 14px; border-radius: 12px;
+        justify-content: flex-start; gap: 10px;
+        transition: all 0.2s;
+      }
+      .toc-item:hover {
+        border-color: #17557A; background: #EEF5FA;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(23,85,122,0.14);
+      }
+      .toc-arrow { display: none; }
+
+      .content { padding: 10px 40px 60px; }
+
+      .chapter { margin-top: 56px; }
+      .chapter-header { gap: 16px; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 2px solid #DDE4EA; }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-tag { font-size: 13px; letter-spacing: 1.5px; }
+      .chapter h2 { font-size: 30px; }
+
+      .info-card { padding: 26px 30px; border-radius: 16px; margin-bottom: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .info-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(7,22,38,0.08); }
+      .card-label { font-size: 18px; }
+
+      .def-grid { flex-direction: row; gap: 14px; }
+      .def-card { flex: 1; padding: 24px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .def-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(7,22,38,0.1); }
+      .def-word { font-size: 22px; }
+      .def-desc { font-size: 19px; }
+
+      .accent-banner { padding: 26px 30px; border-radius: 16px; }
+      .accent-banner p { font-size: 20px; }
+
+      .note-box { padding: 16px 22px; font-size: 18px; border-radius: 0 14px 14px 0; }
+
+      .scope-chip { font-size: 17px; padding: 7px 15px; }
+
+      .type-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .type-card { padding: 22px 24px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .type-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7,22,38,0.08); }
+      .type-name { font-size: 21px; }
+      .type-ex li { font-size: 18px; }
+
+      .way-grid { flex-direction: row; gap: 14px; }
+      .way-card { flex: 1; padding: 24px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .way-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(7,22,38,0.1); }
+      .way-ex li { font-size: 18px; }
+
+      .rule-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .rule-item { padding: 18px 20px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .rule-item:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7,22,38,0.08); }
+      .rule-text { font-size: 18px; }
+
+      .flat-chip { font-size: 17px; padding: 7px 14px; }
+
+      .step-list { gap: 14px; }
+      .step-card { padding: 22px 24px 20px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .step-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(7,22,38,0.08); }
+      .step-num { width: 38px; height: 38px; font-size: 19px; }
+      .step-title { font-size: 21px; }
+      .step-desc { font-size: 19px; }
+      .say-line { font-size: 21px; padding: 16px 20px; }
+
+      .tel-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .tel-item { padding: 18px 22px; border-radius: 14px; }
+      .tel-num { font-size: 25px; }
+
+      .flow-list { flex-direction: row; }
+      .flow-card { flex: 1; padding: 24px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .flow-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(7,22,38,0.08); }
+
+      .protect-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .protect-card { padding: 20px 22px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .protect-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(7,22,38,0.08); }
+      .protect-icon { width: 46px; height: 46px; font-size: 23px; }
+      .protect-title { font-size: 19px; }
+
+      .desk-list { flex-direction: row; }
+      .desk-card { flex: 1; padding: 24px; border-radius: 16px; }
+      .desk-name { font-size: 21px; }
+
+      .closing-card { padding: 36px 28px; margin-top: 36px; border-radius: 18px; }
+      .closing-card .ck-line { font-size: 24px; }
+      .closing-card .ck-sub { font-size: 16px; }
+
+      .legal-box { padding: 22px 26px; font-size: 17px; border-radius: 16px; }
+
+      .footer-note { padding: 32px 40px 40px; font-size: 15px; }
+
+      .fab-top { width: 52px; height: 52px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 16px; }
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { margin: 18px 56px 0; }
+      .top-bar { padding: 14px 56px; }
+      .hero { padding: 76px 56px 60px; }
+      .hero h1 { font-size: 46px; }
+      .key-quote { margin: 28px 56px 0; padding: 32px 36px; }
+      .footer-note { padding: 36px 56px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">성폭력 예방 및 대응지침</span>
+    </div>
+
+    <!-- ===== 히어로 ===== -->
+    <div class="hero" id="heroArea">
+      <span class="label">지켜야 할 선</span>
+      <h1>성폭력 예방 및 대응지침</h1>
+      <p class="sub">나를 지키고<br>어르신을 지키는 기준</p>
+      <div class="rule"></div>
+      <p class="org">실로암방문요양지원센터 &middot; 급여제공지침 교육</p>
+    </div>
+
+    <!-- ===== 핵심 한 줄 ===== -->
+    <div class="key-quote">
+      <p class="line">기준은 내 의도가 아니라<br>상대방의 의사입니다.</p>
+      <p class="cite">센터 「성폭력 예방 및 대응지침」 제2조 · 제4조</p>
+    </div>
+
+    <!-- ===== 목차 ===== -->
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left">
+          <span class="toc-icon">📖</span>
+          <span class="toc-label"><span class="toc-num">01</span>정확히 알기</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left">
+          <span class="toc-icon">🗂️</span>
+          <span class="toc-label"><span class="toc-num">02</span>4가지 유형</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left">
+          <span class="toc-icon">🏠</span>
+          <span class="toc-label"><span class="toc-num">03</span>우리 현장에서</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left">
+          <span class="toc-icon">🤝</span>
+          <span class="toc-label"><span class="toc-num">04</span>예방 수칙</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left">
+          <span class="toc-icon">🚨</span>
+          <span class="toc-label"><span class="toc-num">05</span>대응 4단계</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch6">
+        <span class="toc-left">
+          <span class="toc-icon">📋</span>
+          <span class="toc-label"><span class="toc-num">06</span>센터의 처리 절차</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch7">
+        <span class="toc-left">
+          <span class="toc-icon">🛡️</span>
+          <span class="toc-label"><span class="toc-num">07</span>피해자 보호</span>
+        </span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <span class="chapter-icon">📖</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 1</div>
+            <h2>정확히 알기</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>방문요양은 <strong>어르신 댁이라는 사적인 공간</strong>에서 단둘이 마주하는 시간이 많고, 몸씻기와 기저귀 케어처럼 <strong>신체 접촉이 꼭 필요한 급여</strong>도 제공합니다. 그래서 다른 어떤 일터보다 분명한 기준이 필요합니다.</p>
+        </div>
+
+        <div class="def-grid">
+          <div class="def-card">
+            <div class="def-word">성희롱</div>
+            <div class="def-desc">지위를 이용하거나 <strong>업무와 관련하여</strong> 성적인 말과 행동으로 성적 굴욕감이나 혐오감을 느끼게 하는 것.</div>
+            <div class="def-tail">성적인 요구에 따르지 않았다는 이유로 불이익을 주는 것도 성희롱입니다.</div>
+          </div>
+          <div class="def-card wide">
+            <div class="def-word">성폭력</div>
+            <div class="def-desc">성을 매개로 <strong>상대방의 의사에 반하여</strong> 가해지는 모든 성적인 말과 행동.</div>
+            <div class="def-tail">강간뿐 아니라 희롱, 음란전화, 신체 노출, 추행까지 모두 포함하는 넓은 개념입니다.</div>
+          </div>
+        </div>
+
+        <div class="accent-banner">
+          <div class="ab-title">판단 기준</div>
+          <p>내 의도가 어땠는지가 아니라, <strong>상대방이 원하지 않는</strong> 성적인 말과 행동이었는지가 기준입니다. 성폭력은 사람의 존엄성과 성적 자기결정권을 침해하는 <strong>명백한 인권침해</strong>입니다.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-label">이 지침이 적용되는 범위</div>
+          <p>센터의 <strong>모든 임직원</strong>에게 적용되고, <strong>근무시간 안팎을 가리지 않습니다.</strong></p>
+          <div class="scope-chips">
+            <span class="scope-chip">직원 ↔ 어르신</span>
+            <span class="scope-chip">직원 ↔ 보호자·가족</span>
+            <span class="scope-chip">근무시간 밖</span>
+            <span class="scope-chip">전화·문자</span>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <strong>직원과 직원 사이의 일은 따로 다룹니다.</strong> 동료·관리자 사이에서 일어난 직장 내 성희롱은 <a href="workplace-harassment.html" style="color:#17557A;font-weight:700;">직장 내 성희롱 예방교육</a>에서 확인해 주세요.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <span class="chapter-icon">🗂️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 2</div>
+            <h2>4가지 유형</h2>
+          </div>
+        </div>
+
+        <div class="type-list">
+          <div class="type-card">
+            <div class="type-head">
+              <span class="type-no">1</span>
+              <span class="type-name">육체적 행위</span>
+            </div>
+            <ul class="type-ex">
+              <li>입맞춤, 포옹, 뒤에서 껴안기</li>
+              <li>가슴·엉덩이 등 특정 신체 부위를 만지는 행위</li>
+              <li>안마나 애무를 강요하는 행위</li>
+              <li>접촉이 필요한 급여를 제공하면서 신체를 더듬는 행위</li>
+            </ul>
+          </div>
+          <div class="type-card">
+            <div class="type-head">
+              <span class="type-no">2</span>
+              <span class="type-name">언어적 행위</span>
+            </div>
+            <ul class="type-ex">
+              <li>음란한 농담이나 상스러운 이야기 — 전화도 포함</li>
+              <li>외모에 대한 성적인 비유나 평가</li>
+              <li>성적인 관계를 강요하거나 회유하는 행위</li>
+              <li>성적인 사생활을 캐묻거나 소문을 퍼뜨리는 행위</li>
+            </ul>
+          </div>
+          <div class="type-card">
+            <div class="type-head">
+              <span class="type-no">3</span>
+              <span class="type-name">시각적 행위</span>
+            </div>
+            <ul class="type-ex">
+              <li>음란한 사진·그림·영상을 보여주거나 붙여 두는 행위</li>
+              <li>휴대전화나 컴퓨터로 음란물을 보내는 행위</li>
+              <li>자신의 특정 신체 부위를 고의로 노출하는 행위</li>
+            </ul>
+          </div>
+          <div class="type-card">
+            <div class="type-head">
+              <span class="type-no">4</span>
+              <span class="type-name">그 밖의 행위</span>
+            </div>
+            <ul class="type-ex">
+              <li>사회 통념상 성적 굴욕감을 주는 모든 말과 행동</li>
+              <li>몰래카메라 촬영, 통신매체를 이용한 음란행위</li>
+              <li>강간·강제추행 등 법으로 처벌되는 범죄</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note-box gold">
+          <strong>4가지 유형에 공통점이 하나 있습니다.</strong> 상대방의 의사와 상관없이 이루어졌다는 것. 친밀함의 표현이라고 생각한 행동도 상대방이 원하지 않았다면 성폭력이 됩니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 3 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <span class="chapter-icon">🏠</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 3</div>
+            <h2>우리 현장에서</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>성폭력은 <strong>어느 한쪽 방향으로만</strong> 일어나지 않습니다. 직원이 어르신에게, 어르신이 직원에게 — <strong>양쪽 모두에서</strong> 일어날 수 있습니다.</p>
+        </div>
+
+        <div class="way-grid">
+          <div class="way-card">
+            <div class="way-dir">직원 → 어르신</div>
+            <div class="way-title">돌봄을 핑계로 삼지 않습니다</div>
+            <ul class="way-ex">
+              <li>기저귀 케어를 하며 신체 부위를 고의로 만지거나 노출시키는 행위</li>
+              <li>어르신 외모에 대한 성적인 비유나 평가</li>
+              <li>음란한 농담이나 사진을 보여주는 행위</li>
+            </ul>
+          </div>
+          <div class="way-card reverse">
+            <div class="way-dir">어르신·보호자 → 직원</div>
+            <div class="way-title">참고 넘길 일이 아닙니다</div>
+            <ul class="way-ex">
+              <li>몸단장·세안 케어 중 직원의 손을 계속 잡거나 만지는 행위</li>
+              <li>목욕 케어 중 신체 부위를 고의로 노출하거나 만지는 행위</li>
+              <li>안마나 애무를 강요하는 행위</li>
+              <li>성적인 관계를 요구하거나 사생활을 캐묻는 행위</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accent-banner">
+          <div class="ab-title">꼭 필요한 접촉이라도</div>
+          <p>어르신이 수치심을 느낄 수 있는 부위를 <strong>동의 없이</strong>, 또는 <strong>거절 의사를 밝혔는데도</strong> 고의로 접촉한다면 성폭력이 될 수 있습니다.</p>
+        </div>
+
+        <div class="note-box">
+          <strong>치매 어르신의 돌발행동은 어떻게 하나요?</strong> 질병으로 판단이 어려운 어르신에게서 예상하지 못한 행동이 나올 수 있습니다. 감정적으로 맞서지 말고 침착하게 상황을 판단해 주세요. 판단이 어려울 때는 <strong>혼자 고민하지 말고 관리자와 상의</strong>합니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 4 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <span class="chapter-icon">🤝</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 4</div>
+            <h2>예방 수칙</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>일이 생긴 뒤 수습하는 것보다 <strong>일어나지 않게 하는 것</strong>이 훨씬 중요합니다. 예방의 기본은 존중입니다.</p>
+        </div>
+
+        <p style="font-size:17px;font-weight:700;color:#17557A;margin:16px 0 8px 4px;">어르신을 대할 때 — 직원 수칙</p>
+        <div class="rule-list">
+          <div class="rule-item">
+            <span class="rule-no">1</span>
+            <span class="rule-text">어르신의 인격과 존엄성을 존중하고 평소 <strong>존칭을 사용</strong>합니다</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-no">2</span>
+            <span class="rule-text">옷이나 기저귀를 갈 때는 <strong>다른 사람이 보지 않도록 가려</strong> 수치심을 덜어 드립니다</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-no">3</span>
+            <span class="rule-text"><strong>불필요한 신체 접촉은 자제</strong>하고, 사생활을 침해할 수 있는 행동은 먼저 의사를 묻습니다</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-no">4</span>
+            <span class="rule-text">서비스 제공이나 신체 돌봄 중에 <strong>음담패설을 하지 않습니다</strong></span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-no">5</span>
+            <span class="rule-text">어르신이 불쾌한 표정을 짓거나 자리를 피하면 <strong>거절로 받아들이고 즉시 멈춥니다</strong></span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-no">6</span>
+            <span class="rule-text">분명하게 표현하지 않았다고 해서 <strong>동의한 것으로 오해하지 않습니다</strong></span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-label">어르신·보호자께 안내드리는 수칙</div>
+          <p>센터는 아래 내용을 어르신과 보호자께도 안내하고 있습니다.</p>
+          <div class="flat-list">
+            <span class="flat-chip">직원에게 음담패설하지 않기</span>
+            <span class="flat-chip">입맞춤·포옹·신체 접촉 강요하지 않기</span>
+            <span class="flat-chip">외모·사생활에 지나치게 간섭하지 않기</span>
+            <span class="flat-chip">거부 의사를 밝히면 즉시 멈추기</span>
+            <span class="flat-chip">사적인 만남 강요하지 않기</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-label">센터 안에서</div>
+          <p>서로를 인격과 존엄성을 가진 존재로 인정하고 <strong>상호 존칭</strong>을 사용합니다. 공적인 일과 사적인 일을 구분하고, <strong>지위를 이용해 사적인 행위를 강요하지 않습니다.</strong></p>
+        </div>
+
+        <div class="note-box">
+          센터는 매년 전 직원을 대상으로 예방교육을 실시하고, 성폭력이 용납되지 않는 분위기를 만들며, 문제가 생기면 <strong>신속히 처리해 2차 피해를 막습니다.</strong>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <span class="chapter-icon">🚨</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 5</div>
+            <h2>대응 4단계</h2>
+          </div>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-title">단호하게 거부합니다</span>
+            </div>
+            <p class="step-desc">감정적으로 맞서기보다 분명하고 단호하게 말합니다. 필요하면 어르신의 가족에게도 사정을 알리고 시정을 요청합니다.</p>
+            <p class="say-line">“어르신, 그런 말씀은 불쾌합니다.<br>하지 말아 주세요.”</p>
+          </div>
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-title">기록을 남깁니다</span>
+            </div>
+            <p class="step-desc">시정을 요구했는데도 같은 행동이 반복된다면 <strong>날짜와 상황을 일지에 적어 두거나 녹취</strong>해 둡니다. 기록은 나를 지키는 가장 확실한 근거가 됩니다.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-title">관리자에게 보고합니다</span>
+            </div>
+            <p class="step-desc">혼자 참고 넘기지 말고 <strong>반드시 관리자에게 보고</strong>해 주세요. 사소해 보이는 일도 반복되면 큰 피해가 됩니다. 보고는 빠를수록 좋습니다.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">4</span>
+              <span class="step-title">외부 전문기관의 도움을 받습니다</span>
+            </div>
+            <p class="step-desc">심리 상담이나 법적 대응이 필요하다고 판단되면 성폭력상담소 등 외부 전문기관의 도움을 받을 수 있습니다.</p>
+          </div>
+        </div>
+
+        <div class="tel-list">
+          <a class="tel-item" href="tel:1366">
+            <span class="tel-name">여성긴급전화<span>365일 24시간 상담</span></span>
+            <span class="tel-num">1366</span>
+          </a>
+          <a class="tel-item" href="tel:112">
+            <span class="tel-name">경찰<span>긴급한 상황일 때</span></span>
+            <span class="tel-num">112</span>
+          </a>
+        </div>
+
+        <p style="font-size:17px;font-weight:700;color:#17557A;margin:16px 0 8px 4px;">센터 접수 창구</p>
+        <div class="desk-list">
+          <div class="desk-card">
+            <div class="desk-name">관리자에게 직접<span class="desk-tag">가장 빠름</span></div>
+            <div class="desk-how">전화·문자 <strong>031-222-1153</strong><br>이메일 siloamcare@naver.com</div>
+          </div>
+          <div class="desk-card">
+            <div class="desk-name">고충처리함<span class="desk-tag">익명</span></div>
+            <div class="desk-how">사무실에 비치된 함에 쪽지를 넣거나, 카카오톡 채널 메뉴 → 고충처리함<br><a href="https://naver.me/Fl2bzFJu" target="_blank" rel="noopener">온라인 고충처리함 바로가기</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 6 ===== -->
+      <div class="chapter" id="ch6">
+        <div class="chapter-header">
+          <span class="chapter-icon">📋</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 6</div>
+            <h2>센터의 처리 절차</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>피해 사실이 접수되면 센터는 <strong>정해진 절차</strong>에 따라 처리합니다. 미리 알아 두시면 말씀하실 때 마음이 조금 놓이실 겁니다.</p>
+        </div>
+
+        <div class="flow-list">
+          <div class="flow-card">
+            <div class="flow-stage">STEP 1</div>
+            <div class="flow-title">접수 · 조사</div>
+            <p class="flow-desc">서면, 전화, 온라인, 방문 — <strong>어떤 방법으로든</strong> 상담을 신청하거나 신고할 수 있습니다. 접수되면 신속하게 조사하고 진행 상황을 알려 드립니다.</p>
+          </div>
+          <div class="flow-card">
+            <div class="flow-stage">STEP 2</div>
+            <div class="flow-title">사건의 종결</div>
+            <p class="flow-desc">성폭력에 해당한다고 인정되면 행위자에게 <strong>징계 등 제재 절차</strong>가 이루어집니다. 행위자가 서비스 이용자라면 재발 방지 약속이나 서비스 중단 등의 조치를 취합니다. 처리 결과는 피해자에게 알려 드립니다.</p>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <strong>조사할 때 지키는 원칙</strong><br>
+          조사 과정에서 알게 된 개인정보는 <strong>반드시 비밀로</strong> 지킵니다. 피해자의 입장을 고려해 <strong>가해자와 마주하는 대질조사는 피하고</strong>, 참고인·증인의 이야기로 대신할 수 있습니다. 공정한 조사를 위해 외부 전문가의 자문을 받을 수 있습니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 7 ===== -->
+      <div class="chapter" id="ch7">
+        <div class="chapter-header">
+          <span class="chapter-icon">🛡️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag">CHAPTER 7</div>
+            <h2>피해자 보호</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>말씀하시는 것이 걱정되실 수 있습니다. 이 모든 과정에서 <strong>피해자는 확실하게 보호받습니다.</strong></p>
+        </div>
+
+        <div class="protect-list">
+          <div class="protect-card">
+            <span class="protect-icon">🚫</span>
+            <div class="protect-body">
+              <div class="protect-title">불이익을 주지 않습니다</div>
+              <div class="protect-desc">상담이나 신고를 이유로 어떠한 고용상의 불이익도 받지 않습니다. 원하지 않는 업무 배치 같은 불리한 조치도 금지됩니다.</div>
+            </div>
+          </div>
+          <div class="protect-card">
+            <span class="protect-icon">🔒</span>
+            <div class="protect-body">
+              <div class="protect-title">신원을 지킵니다</div>
+              <div class="protect-desc">피해자의 동의 없이는 신원이 드러날 수 있는 어떠한 자료도 공개하거나 알리지 않습니다.</div>
+            </div>
+          </div>
+          <div class="protect-card">
+            <span class="protect-icon">👥</span>
+            <div class="protect-body">
+              <div class="protect-title">혼자 겪지 않아도 됩니다</div>
+              <div class="protect-desc">처리 과정에서 대리인을 동반하거나 선임할 권리가 있습니다.</div>
+            </div>
+          </div>
+          <div class="protect-card">
+            <span class="protect-icon">✋</span>
+            <div class="protect-body">
+              <div class="protect-title">답하지 않을 권리도 있습니다</div>
+              <div class="protect-desc">사건 처리 과정에서 질문에 대한 답변을 거부할 권리가 보장됩니다.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accent-banner">
+          <div class="ab-title">그러니 안심하고 말씀해 주세요</div>
+          <p>말하는 것이 <strong>나를 지키는 첫걸음</strong>입니다.</p>
+        </div>
+
+        <div class="closing-card">
+          <p class="ck-line">
+            서로의 존엄을 지키는 것이<br>
+            좋은 돌봄의 시작입니다
+          </p>
+          <div class="closing-badges">
+            <span>기준은 상대방의 의사</span>
+            <span>양쪽 모두에서</span>
+            <span>거부 · 기록 · 보고</span>
+            <span>1366 · 112</span>
+          </div>
+          <p class="ck-sub">실로암방문요양지원센터 · 직원 교육</p>
+        </div>
+
+        <div class="legal-box">
+          <strong>근거</strong> — 센터 「성폭력 예방 및 대응지침」(제1조~제8조), 「남녀고용평등과 일·가정 양립 지원에 관한 법률」 제12조(직장 내 성희롱의 금지) · 제14조의2(고객 등에 의한 성희롱 방지).<br>
+          지침 전문은 센터 사무실에서 열람하실 수 있습니다. 직원 상호 간에 발생한 직장 내 성희롱은 「직장 내 성희롱 예방지침」을 우선 적용합니다.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
