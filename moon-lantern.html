@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>보름달 소원등 인지자극 프로그램 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌕</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Nanum+Myeongjo:wght@700;800&family=Nanum+Pen+Script&display=swap');
+    :root {
+      --red: #B8322A; --blue: #2E4A8B; --yel: #D9A83A; --green: #3F7A5A;
+      --red-bg: #F8E4E1; --blue-bg: #E4EAF6; --yel-bg: #FBF0D6; --green-bg: #E2EEE6;
+      --hanji: #FBF7EE; --line: #EAE1CF; --ink: #222;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--hanji);
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+      word-break: keep-all;
+    }
+
+    /* 스크롤 프로그레스 바 */
+    .progress-bar {
+      position: fixed; top: 0; left: 0;
+      width: 0%; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--red), var(--yel), var(--green));
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* 색동 띠 */
+    .saekdong {
+      height: 8px;
+      background: repeating-linear-gradient(90deg, var(--blue) 0 40px, #F7F1E3 40px 80px, var(--red) 80px 120px, var(--yel) 120px 160px, var(--green) 160px 200px, #F7F1E3 200px 240px);
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,247,238,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .top-bar a { color: var(--red); text-decoration: none; font-size: 17px; font-weight: 600; }
+    .top-bar .title { font-size: 17px; font-weight: 700; color: #555; font-family: 'Nanum Myeongjo', serif; }
+
+    [id] { scroll-margin-top: 56px; }
+
+    /* 히어로 */
+    .hero {
+      background:
+        radial-gradient(circle at 84% 22%, rgba(217,168,58,0.45) 0%, rgba(217,168,58,0.18) 18%, transparent 34%),
+        radial-gradient(ellipse at 10% 100%, rgba(184,50,42,0.10) 0%, transparent 55%),
+        linear-gradient(160deg, #FFFCF4 0%, #FBF7EE 60%, #F2F0E6 100%);
+      padding: 34px 22px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .deco {
+      position: absolute; font-size: 34px; opacity: 0.55; pointer-events: none;
+    }
+    .hero .deco.tl { top: 14px; left: 16px; }
+    .hero .deco.tr { top: 14px; right: 16px; }
+    .hero .label {
+      display: inline-block;
+      font-size: 14px; font-weight: 700;
+      color: #fff; background: var(--red);
+      letter-spacing: 2px;
+      padding: 5px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 34px; font-weight: 800;
+      color: #17181A;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 em { font-style: normal; color: var(--red); }
+    .hero .sub { font-size: 17px; color: #555; line-height: 1.6; }
+    .hero .org { margin-top: 14px; font-size: 14px; color: #888; letter-spacing: 0.3px; }
+
+    /* 노래 인용 */
+    .song-quote {
+      margin: 18px 14px 0;
+      padding: 22px 18px 20px;
+      background: #FFFCF4;
+      border: 1.5px dashed #D9B9B5;
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+    }
+    .song-quote::before {
+      content: "🎵";
+      position: absolute;
+      top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--hanji);
+      padding: 0 8px;
+      font-size: 22px;
+    }
+    .song-quote .line {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 28px;
+      color: #2B2622;
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+    }
+    .song-quote .src { margin-top: 8px; font-size: 14px; color: #999; }
+
+    /* 목차 */
+    .toc { margin: 14px 14px 0; display: flex; flex-direction: column; gap: 6px; }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px;
+      background: #fff;
+      border-radius: 14px;
+      text-decoration: none; color: #333;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.06);
+      border: 1px solid var(--line);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .toc-item:active { border-color: var(--red); background: #FFF6F3; }
+    .toc-left { display: flex; align-items: center; gap: 11px; }
+    .toc-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .c1 { background: var(--red-bg); }
+    .c2 { background: var(--blue-bg); }
+    .c3 { background: var(--yel-bg); }
+    .c4 { background: var(--green-bg); }
+    .c5 { background: var(--red-bg); }
+    .c6 { background: var(--blue-bg); }
+    .c7 { background: var(--yel-bg); }
+    .toc-label { font-size: 17px; font-weight: 600; color: #333; }
+    .toc-num { font-family: 'Nanum Myeongjo', serif; font-size: 13px; color: #999; margin-right: 4px; }
+    .toc-arrow { color: var(--red); font-size: 22px; font-weight: 600; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .content { padding: 0 14px 40px; }
+
+    /* 챕터 */
+    .chapter { margin-top: 32px; }
+    .chapter-header { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+    .chapter-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 21px; flex-shrink: 0;
+    }
+    .chapter-meta { flex: 1; }
+    .chapter-tag { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #999; }
+    .chapter-tag.t1, .chapter-tag.t5 { color: var(--red); }
+    .chapter-tag.t2, .chapter-tag.t6 { color: var(--blue); }
+    .chapter-tag.t3, .chapter-tag.t7 { color: #A8801E; }
+    .chapter-tag.t4 { color: var(--green); }
+    .chapter h2 {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 24px; font-weight: 800; color: #222;
+      margin: 2px 0 0; letter-spacing: -0.3px;
+    }
+
+    /* 정보 카드 */
+    .info-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+    }
+    .info-card p { font-size: 19px; color: #222; line-height: 1.75; }
+    .info-card strong { color: var(--red); font-weight: 700; }
+
+    /* 메타 정보 */
+    .meta-list {
+      background: #fff;
+      border-radius: 14px;
+      padding: 6px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+    }
+    .meta-row { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-key { flex-shrink: 0; font-size: 15px; font-weight: 700; color: var(--red); width: 74px; padding-top: 1px; }
+    .meta-val { font-size: 18px; color: #222; line-height: 1.65; flex: 1; }
+    .meta-val strong { color: #111; font-weight: 700; }
+    .day-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+    .day-chip {
+      display: inline-block;
+      font-size: 16px; font-weight: 600;
+      color: var(--red); background: var(--red-bg);
+      border-radius: 999px; padding: 5px 13px;
+    }
+    .day-chip.blue { color: var(--blue); background: var(--blue-bg); }
+
+    /* 활동 목표 카드 */
+    .goal-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .goal-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--blue);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .goal-card.g2 { border-left-color: var(--red); }
+    .goal-card.g3 { border-left-color: var(--yel); }
+    .goal-emoji {
+      font-size: 32px; flex-shrink: 0;
+      width: 50px; height: 50px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--blue-bg);
+    }
+    .goal-card.g2 .goal-emoji { background: var(--red-bg); }
+    .goal-card.g3 .goal-emoji { background: var(--yel-bg); }
+    .goal-body { flex: 1; }
+    .goal-title { font-size: 18px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+    .goal-card.g2 .goal-title { color: var(--red); }
+    .goal-card.g3 .goal-title { color: #A8801E; }
+    .goal-desc { font-size: 17px; color: #333; line-height: 1.65; }
+
+    /* 준비물 */
+    .supply-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .supply-item {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border-radius: 12px; padding: 13px 16px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+    }
+    .supply-emoji {
+      font-size: 26px; flex-shrink: 0;
+      width: 42px; height: 42px; background: #F5F1EA; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .supply-name { font-size: 18px; font-weight: 600; color: #222; flex: 1; }
+    .supply-name .qty {
+      display: inline-block; font-size: 14px; font-weight: 600;
+      color: var(--blue); background: var(--blue-bg);
+      padding: 2px 8px; border-radius: 8px; margin-left: 6px;
+    }
+    .supply-sub { font-size: 16px; font-weight: 700; color: var(--blue); margin: 14px 0 8px; padding-left: 4px; }
+    .pencil-row { display: flex; gap: 8px; }
+    .pencil-chip {
+      flex: 1;
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 12px 8px; text-align: center;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+    }
+    .pencil-dot { width: 26px; height: 26px; border-radius: 50%; margin: 0 auto 6px; }
+    .pencil-dot.yellow { background: #F2C230; }
+    .pencil-dot.orange { background: #E8853D; }
+    .pencil-dot.free { background: conic-gradient(var(--blue), var(--green), var(--yel), var(--red), var(--blue)); }
+    .pencil-name { font-size: 17px; font-weight: 700; color: #222; }
+    .pencil-use { font-size: 15px; color: #555; margin-top: 2px; }
+
+    /* 도안 미리보기 (텍스트 다이어그램) */
+    .sheet-board {
+      background: #fff; border: 1px solid var(--line); border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.06);
+      padding: 14px; margin: 12px 0;
+    }
+    .sheet-cap { font-size: 15px; font-weight: 700; color: #777; text-align: center; margin-bottom: 10px; letter-spacing: 1px; }
+    .sheet {
+      border: 2px solid #2B2622; border-radius: 6px; padding: 12px 12px 14px;
+      background: #FFFDF8; max-width: 300px; margin: 0 auto;
+    }
+    .sheet-top { display: flex; justify-content: space-between; font-size: 13px; color: #555; border-bottom: 1px dashed #BBB; padding-bottom: 6px; margin-bottom: 10px; }
+    .sheet-moon {
+      width: 120px; height: 120px; border-radius: 50%; margin: 0 auto;
+      border: 2px solid #2B2622; background: radial-gradient(circle at 40% 35%, #FFF7D6, #FBEBB0);
+      display: flex; align-items: center; justify-content: center; font-size: 46px;
+    }
+    .sheet-moon-cap { text-align: center; font-size: 14px; color: #555; margin: 6px 0 12px; }
+    .sheet-lantern {
+      border: 2px solid #2B2622; border-radius: 14px 14px 18px 18px; padding: 10px 12px;
+      background: #FFF; position: relative;
+    }
+    .sheet-lantern::before { content: ""; display: block; width: 40%; height: 6px; background: #2B2622; border-radius: 3px 3px 0 0; margin: -10px auto 8px; }
+    .sheet-line { border-bottom: 1.5px solid #666; height: 26px; font-size: 14px; color: #666; display: flex; align-items: flex-end; justify-content: flex-end; padding-bottom: 2px; }
+    .sheet-line.first { justify-content: space-between; }
+    .sheet-line.first .lbl { color: #999; }
+    .sheet-lantern-cap { text-align: center; font-size: 14px; color: #555; margin-top: 8px; }
+
+    /* 노트 박스 */
+    .note-box {
+      background: #FFF8F0;
+      border-left: 4px solid #D9B9B5;
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px; margin-top: 8px;
+      font-size: 17px; color: #4A3A2A; line-height: 1.65;
+    }
+    .note-box strong { color: var(--red); }
+    .note-box.blue { border-left-color: #A9B7DB; background: #F3F5FB; color: #1C2C57; }
+    .note-box.blue strong { color: var(--blue); }
+
+    /* 단계 카드 */
+    .step-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .step-card {
+      background: #fff; border-radius: 14px; padding: 16px 16px 14px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+    }
+    .step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--green-bg); color: var(--green);
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 17px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-card.s-c5 .step-num { background: var(--red-bg); color: var(--red); }
+    .step-card.s-c6 .step-num { background: var(--blue-bg); color: var(--blue); }
+    .step-icon { font-size: 22px; flex-shrink: 0; }
+    .step-title { font-size: 18px; font-weight: 700; color: #222; flex: 1; line-height: 1.4; }
+    .step-desc { font-size: 17px; color: #333; line-height: 1.65; }
+    .step-desc strong { color: var(--red); }
+    .step-tip {
+      margin-top: 8px;
+      background: #FFF8F0; border-left: 3px solid #D9B9B5;
+      border-radius: 0 10px 10px 0;
+      padding: 9px 13px; font-size: 16px; color: #4A3A2A; line-height: 1.6;
+    }
+    .step-tip strong { color: var(--red); }
+    .step-tip.warn { border-left-color: #E09A94; background: #FFF4F2; }
+    .step-tip.blue { border-left-color: #A9B7DB; background: #F3F5FB; color: #1C2C57; }
+    .step-tip.blue strong { color: var(--blue); }
+
+    /* 소원 3토막 */
+    .wish-row { display: flex; gap: 8px; margin: 10px 0 4px; }
+    .wish-chip {
+      flex: 1; text-align: center;
+      background: #FFFDF8; border: 1.5px solid var(--line); border-radius: 12px;
+      padding: 10px 6px;
+    }
+    .wish-chip .k { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #999; }
+    .wish-chip .v { font-size: 17px; font-weight: 800; color: #222; margin-top: 2px; }
+    .wish-chip.w1 { border-color: #B9C3E0; } .wish-chip.w1 .k { color: var(--blue); }
+    .wish-chip.w2 { border-color: #E0B9B5; } .wish-chip.w2 .k { color: var(--red); }
+    .wish-chip.w3 { border-color: #E6D3A0; } .wish-chip.w3 .k { color: #A8801E; }
+    .wish-example {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 26px; color: var(--blue); text-align: center;
+      background: #fff; border: 1.5px dashed var(--blue); border-radius: 12px;
+      padding: 8px 12px; margin-top: 8px; line-height: 1.4;
+    }
+
+    /* 유의사항 */
+    .warn-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .warn-card {
+      background: #fff; border-radius: 14px;
+      padding: 14px 16px 14px 14px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+      border-left: 5px solid #E09A94;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .warn-card.advice { border-left-color: #E6C56E; }
+    .warn-card.tip { border-left-color: #A9B7DB; }
+    .warn-num {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+      background: var(--red-bg); color: var(--red);
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .warn-card.advice .warn-num { background: var(--yel-bg); color: #A8801E; }
+    .warn-card.tip .warn-num { background: var(--blue-bg); color: var(--blue); }
+    .warn-body { flex: 1; }
+    .warn-title { font-size: 17px; font-weight: 700; color: #222; line-height: 1.45; margin-bottom: 3px; }
+    .warn-desc { font-size: 16px; color: #555; line-height: 1.6; }
+
+    /* 다운로드 카드 */
+    .download-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+    .download-card {
+      background: #fff; border-radius: 14px; padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(90,70,70,0.05);
+      border: 1px solid var(--line);
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: #222;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .download-card:active { border-color: var(--red); background: #FFF6F3; }
+    .dl-icon {
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 11px;
+      background: var(--red-bg); color: var(--red); font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dl-info { flex: 1; min-width: 0; }
+    .dl-name { font-size: 17px; font-weight: 700; color: #222; margin-bottom: 2px; line-height: 1.4; }
+    .dl-meta { font-size: 15px; color: #666; }
+    .dl-arrow { flex-shrink: 0; font-size: 22px; color: var(--red); font-weight: 700; }
+
+    /* 클로징 */
+    .closing-card {
+      background: linear-gradient(160deg, #FFFCF4 0%, #FBF7EE 60%, #F2F0E6 100%);
+      border: 1.5px solid #D9B9B5;
+      border-radius: 16px;
+      padding: 22px 18px; text-align: center; margin-top: 24px;
+    }
+    .closing-card .ck-line {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 19px; color: #222; font-weight: 800; line-height: 1.7;
+    }
+    .closing-card .ck-sub { margin-top: 8px; font-size: 15px; color: #777; }
+
+    .footer-note { text-align: center; padding: 24px 16px 32px; font-size: 14px; font-weight: 500; color: #999; }
+
+    .fab-top {
+      position: fixed; bottom: 24px; right: 20px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--red); color: #fff; border: none;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(184,50,42,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90; text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    .pc-wrapper { }
+    .step-grid-pc { }
+
+    /* ===== PC 반응형 (768px 이상) ===== */
+    @media (min-width: 768px) {
+      body { background: #E9E4D8; }
+      .pc-wrapper {
+        max-width: 1100px; margin: 0 auto;
+        background: var(--hanji); min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+      .saekdong { height: 10px; }
+      .top-bar { padding: 12px 40px; }
+      .hero { padding: 60px 48px 48px; }
+      .hero h1 { font-size: 44px; }
+      .hero .sub { font-size: 19px; margin-top: 4px; }
+      .hero .label { font-size: 15px; padding: 6px 20px; }
+      .hero .deco { font-size: 50px; }
+
+      .song-quote { margin: 24px 40px 0; padding: 28px 24px 24px; }
+      .song-quote .line { font-size: 34px; }
+
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 10px; margin: 18px 40px 0; }
+      .toc-item {
+        flex: 1 1 calc(25% - 10px); min-width: 180px;
+        padding: 14px; border-radius: 12px;
+        justify-content: flex-start; gap: 10px;
+        transition: all 0.2s;
+      }
+      .toc-item:hover { border-color: var(--red); background: #FFF6F3; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(184,50,42,0.1); }
+      .toc-arrow { display: none; }
+
+      .content { padding: 10px 40px 60px; }
+      .chapter { margin-top: 56px; }
+      .chapter-header { gap: 16px; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 2px solid var(--line); }
+      .chapter-icon { width: 56px; height: 56px; border-radius: 14px; font-size: 26px; }
+      .chapter-tag { font-size: 13px; letter-spacing: 1.5px; }
+      .chapter h2 { font-size: 30px; }
+
+      .info-card { padding: 26px 30px; border-radius: 16px; margin-bottom: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .info-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(90,70,70,0.08); }
+
+      .meta-list { padding: 6px 30px; border-radius: 16px; }
+      .meta-row { padding: 16px 0; }
+      .meta-key { font-size: 16px; width: 92px; }
+      .meta-val { font-size: 19px; }
+      .day-chip { font-size: 17px; padding: 6px 15px; }
+
+      .goal-grid { flex-direction: row; gap: 14px; }
+      .goal-card { flex: 1; flex-direction: column; align-items: stretch; padding: 22px 20px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .goal-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(90,70,70,0.1); }
+      .goal-emoji { width: 60px; height: 60px; font-size: 36px; border-radius: 14px; }
+      .goal-title { font-size: 19px; margin-top: 12px; }
+
+      .supply-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .supply-item { padding: 16px 18px; border-radius: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+      .supply-item:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(90,70,70,0.08); }
+      .pencil-row { gap: 14px; }
+      .pencil-chip { padding: 18px 10px; border-radius: 14px; }
+      .pencil-dot { width: 34px; height: 34px; }
+      .pencil-name { font-size: 19px; }
+      .pencil-use { font-size: 16px; }
+
+      .sheet-board { padding: 22px; }
+      .sheet { max-width: 340px; }
+
+      .note-box { padding: 16px 22px; font-size: 18px; border-radius: 0 14px 14px 0; }
+
+      .step-list { gap: 14px; }
+      .step-card { padding: 22px 24px 20px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .step-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(90,70,70,0.08); }
+      .step-num { width: 38px; height: 38px; font-size: 19px; }
+      .step-icon { font-size: 26px; }
+      .step-title { font-size: 20px; }
+      .step-desc { font-size: 18px; }
+      .step-tip { font-size: 17px; padding: 12px 18px; border-radius: 0 12px 12px 0; }
+      .wish-row { gap: 14px; }
+      .wish-chip .v { font-size: 19px; }
+      .wish-example { font-size: 31px; }
+
+      .warn-list { gap: 14px; }
+      .warn-card { padding: 18px 22px 18px 18px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .warn-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(90,70,70,0.08); }
+      .warn-num { width: 36px; height: 36px; font-size: 18px; }
+      .warn-title { font-size: 19px; }
+      .warn-desc { font-size: 17px; }
+
+      .download-card { padding: 18px 20px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.15s; }
+      .download-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(90,70,70,0.1); border-color: #D9B9B5; }
+      .dl-icon { width: 52px; height: 52px; font-size: 26px; border-radius: 13px; }
+      .dl-name { font-size: 18px; }
+
+      .closing-card { padding: 32px 24px; margin-top: 36px; border-radius: 18px; }
+      .closing-card .ck-line { font-size: 22px; }
+      .closing-card .ck-sub { font-size: 16px; }
+      .footer-note { padding: 32px 40px 40px; font-size: 15px; }
+      .fab-top { width: 52px; height: 52px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 16px; }
+      .progress-bar { height: 4px; }
+    }
+
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { margin: 18px 56px 0; }
+      .top-bar { padding: 14px 56px; }
+      .hero { padding: 72px 56px 56px; }
+      .hero h1 { font-size: 50px; }
+      .song-quote { margin: 28px 56px 0; padding: 36px 28px; }
+      .song-quote .line { font-size: 38px; }
+      .footer-note { padding: 36px 56px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="saekdong"></div>
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">보름달 소원등</span>
+    </div>
+
+    <!-- ===== 히어로 ===== -->
+    <div class="hero" id="heroArea">
+      <span class="deco tl">🏮</span>
+      <span class="deco tr">🌕</span>
+      <span class="label">인지자극 프로그램 · 5등급</span>
+      <h1>보름달 <em>소원등</em></h1>
+      <p class="sub">보름달에 띄우는 우리 가족 이야기</p>
+      <p class="org">실로암방문요양지원센터 &middot; 요양보호사 교육</p>
+    </div>
+
+    <!-- ===== 노래 인용 ===== -->
+    <div class="song-quote">
+      <p class="line">
+        달 달 무슨 달<br>
+        쟁반같이 둥근 달
+      </p>
+      <p class="src">동요 「달」 · 도입과 마무리에 한 소절만 함께 부르는 노래</p>
+    </div>
+
+    <!-- ===== 목차 ===== -->
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1">
+        <span class="toc-left"><span class="toc-icon c1">🌕</span><span class="toc-label"><span class="toc-num">01</span>프로그램 개요</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch2">
+        <span class="toc-left"><span class="toc-icon c2">🎯</span><span class="toc-label"><span class="toc-num">02</span>활동 목표</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch3">
+        <span class="toc-left"><span class="toc-icon c3">🖍️</span><span class="toc-label"><span class="toc-num">03</span>준비물</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch4">
+        <span class="toc-left"><span class="toc-icon c4">👋</span><span class="toc-label"><span class="toc-num">04</span>도입 활동</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch5">
+        <span class="toc-left"><span class="toc-icon c5">✏️</span><span class="toc-label"><span class="toc-num">05</span>본 활동</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch6">
+        <span class="toc-left"><span class="toc-icon c6">👏</span><span class="toc-label"><span class="toc-num">06</span>마무리</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+      <a class="toc-item" href="#ch7">
+        <span class="toc-left"><span class="toc-icon c7">⚠️</span><span class="toc-label"><span class="toc-num">07</span>유의사항</span></span>
+        <span class="toc-arrow">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <span class="chapter-icon c1">🌕</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t1">CHAPTER 1</div>
+            <h2>프로그램 개요</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>추석 보름달을 색칠하고, 가족을 떠올려 <strong>소원을 한 문장으로 만들어 등에 적은 뒤, 소리 내어 읽는</strong> 활동입니다. 머릿속 생각을 말과 글로 꺼내는 힘을 기릅니다.</p>
+        </div>
+
+        <div class="meta-list">
+          <div class="meta-row">
+            <span class="meta-key">출처</span>
+            <span class="meta-val">실로암방문요양지원센터 <strong>자체 기획</strong></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">진행 형식</span>
+            <span class="meta-val"><strong>개인 · 집단 모두 가능</strong></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">활용 시기</span>
+            <span class="meta-val">
+              추석 전후
+              <span class="day-chips">
+                <span class="day-chip">추석</span>
+                <span class="day-chip blue">정월대보름</span>
+                <span class="day-chip blue">달 밝은 가을 저녁</span>
+              </span>
+            </span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">중심축</span>
+            <span class="meta-val"><strong>글쓰기 · 발화</strong> 중심 (말수가 줄어드신 어르신께 권장)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <span class="chapter-icon c2">🎯</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t2">CHAPTER 2</div>
+            <h2>활동 목표</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>소원 한 문장을 만들어 쓰고 읽는 활동으로 <strong>세 가지 인지 자극</strong>을 동시에 노립니다.</p>
+        </div>
+
+        <div class="goal-grid">
+          <div class="goal-card g1">
+            <div class="goal-emoji">✏️</div>
+            <div class="goal-body">
+              <div class="goal-title">표현 언어 · 글쓰기</div>
+              <div class="goal-desc">듣고 따라 하는 것이 아니라, 어르신께서 스스로 소원을 문장으로 만들어 쓰고 소리 내어 읽습니다.</div>
+            </div>
+          </div>
+          <div class="goal-card g2">
+            <div class="goal-emoji">💭</div>
+            <div class="goal-body">
+              <div class="goal-title">기억 · 회상</div>
+              <div class="goal-desc">소원을 보낼 가족의 이름을 떠올리고, 예전 추석 이야기를 하며 오래된 기억을 자연스럽게 꺼냅니다.</div>
+            </div>
+          </div>
+          <div class="goal-card g3">
+            <div class="goal-emoji">📅</div>
+            <div class="goal-body">
+              <div class="goal-title">시간 지남력 · 정서 안정</div>
+              <div class="goal-desc">오늘 날짜와 추석·보름달을 연결해 계절 감각을 되살리고, 소원을 말하며 따뜻한 기분을 느낍니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 3 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <span class="chapter-icon c3">🖍️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t3">CHAPTER 3</div>
+            <h2>준비물</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>준비물은 아주 간단합니다. <strong>도안 한 장과 색연필</strong>이면 됩니다. 가위나 풀은 필요 없습니다.</p>
+        </div>
+
+        <div class="supply-list">
+          <div class="supply-item">
+            <span class="supply-emoji">📄</span>
+            <span class="supply-name">소원등 도안<span class="qty">1장</span></span>
+          </div>
+          <div class="supply-item">
+            <span class="supply-emoji">✏️</span>
+            <span class="supply-name">연필 · 지우개</span>
+          </div>
+        </div>
+
+        <div class="supply-sub">🖍️ 색연필 — 노랑·주황은 꼭</div>
+        <div class="pencil-row">
+          <div class="pencil-chip">
+            <div class="pencil-dot yellow"></div>
+            <div class="pencil-name">노랑</div>
+            <div class="pencil-use">보름달</div>
+          </div>
+          <div class="pencil-chip">
+            <div class="pencil-dot orange"></div>
+            <div class="pencil-name">주황</div>
+            <div class="pencil-use">보름달</div>
+          </div>
+          <div class="pencil-chip">
+            <div class="pencil-dot free"></div>
+            <div class="pencil-name">자유 색</div>
+            <div class="pencil-use">달토끼 · 등</div>
+          </div>
+        </div>
+
+        <div class="sheet-board">
+          <div class="sheet-cap">도안 구성</div>
+          <div class="sheet">
+            <div class="sheet-top"><span>날짜: ____</span><span>성함: ____</span></div>
+            <div class="sheet-moon">🐇</div>
+            <div class="sheet-moon-cap">위쪽 — 절구 찧는 달토끼가 있는 큰 보름달</div>
+            <div class="sheet-lantern">
+              <div class="sheet-line first"><span class="lbl">이름</span><span>에게</span></div>
+              <div class="sheet-line"></div>
+              <div class="sheet-line">바랍니다</div>
+            </div>
+            <div class="sheet-lantern-cap">아래쪽 — 소원을 적는 등 (3줄)</div>
+          </div>
+        </div>
+
+        <div class="download-list">
+          <a class="download-card" href="printables/보름달소원등_도안_A4.pdf" target="_blank" rel="noopener">
+            <span class="dl-icon">🖨️</span>
+            <span class="dl-info">
+              <span class="dl-name">보름달 소원등 도안 (A4)</span>
+              <span class="dl-meta">PDF · 인쇄해서 사용하세요</span>
+            </span>
+            <span class="dl-arrow">&rsaquo;</span>
+          </a>
+        </div>
+
+        <div class="note-box blue">
+          <strong>👓 글을 쓰는 활동입니다.</strong> 어르신 안경이나 돋보기를 미리 확인해 주세요. 도안은 설명이 끝난 뒤에 드리도록 따로 두세요.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 4 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <span class="chapter-icon c4">👋</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t4">CHAPTER 4</div>
+            <h2>도입 활동</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>본 활동에 들어가기 전 <strong>네 단계로 호흡을 맞춥니다.</strong> 천천히, 따뜻하게.</p>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-icon">📅</span>
+              <span class="step-title">시간 지남력 인사</span>
+            </div>
+            <p class="step-desc">오늘 날짜와 추석을 연결해서 인사를 건넵니다. 어르신께서 "보름달"이라고 답하시면 자연스럽게 주제로 들어갑니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"오늘은 9월 며칠이고, 추석이 며칠 남았어요. 추석날 밤에는 어떤 달이 뜨지요?"</strong>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-icon">🏮</span>
+              <span class="step-title">완성본 먼저 보여드리기</span>
+            </div>
+            <p class="step-desc">색칠과 소원이 적힌 완성된 소원등을 보여드리며 오늘 활동을 소개합니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"오늘은 이렇게 보름달에 소원을 띄워 볼 거예요."</strong>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-icon">🎵</span>
+              <span class="step-title">「달」 노래 한 소절</span>
+            </div>
+            <p class="step-desc">"달 달 무슨 달, 쟁반같이 둥근 달" 한 소절만 함께 부릅니다. 진행자가 먼저 부르고 어르신께서 따라 부르시면 됩니다.</p>
+            <div class="step-tip warn">
+              ⚠ <strong>음정·박자는 틀려도 괜찮습니다.</strong> 함께 부르는 즐거움이 우선입니다.
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-head">
+              <span class="step-num">4</span>
+              <span class="step-icon">💭</span>
+              <span class="step-title">추석 추억 질문</span>
+            </div>
+            <p class="step-desc">추석과 얽힌 옛 기억을 여쭙고 천천히 경청합니다. 이 이야기가 오늘의 소원으로 이어지는 실마리가 됩니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"추석에 보름달 보면서 소원 빌어 보셨어요?"</strong> · <strong>"추석이면 집에 누가 누가 오셨어요?"</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <span class="chapter-icon c5">✏️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t5">CHAPTER 5</div>
+            <h2>본 활동</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>본 활동은 <strong>날짜·성함 → 보름달 색칠 → 가족 이름 → 소원 문장 → 등 색칠 → 소리 내어 읽기</strong> 여섯 단계입니다.</p>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-icon">📄</span>
+              <span class="step-title">도안 배부 · 날짜와 성함 쓰기</span>
+            </div>
+            <p class="step-desc">도안 맨 위 칸에 <strong>오늘 날짜와 성함</strong>을 직접 쓰시도록 안내합니다. 이것만으로도 시간 지남력 훈련이 됩니다.</p>
+          </div>
+
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-icon">🌕</span>
+              <span class="step-title">보름달 색칠</span>
+            </div>
+            <p class="step-desc">달은 <strong>노랑과 주황</strong>으로, 달토끼는 원하시는 색으로 자유롭게 칠합니다.</p>
+            <div class="step-tip blue">
+              💙 손을 움직이며 마음을 여는 시간입니다. <strong>천천히 하시도록</strong> 격려해 주세요.
+            </div>
+          </div>
+
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-icon">👨‍👩‍👧</span>
+              <span class="step-title">소원을 보낼 가족 떠올리기</span>
+            </div>
+            <p class="step-desc">"소원을 누구에게 보낼까요?" 자녀·손주·배우자·형제 등 떠오르는 분의 이름을 <strong>소리 내어 말씀</strong>하신 뒤, 등의 첫째 줄 "에게" 앞에 적습니다.</p>
+            <div class="step-tip">
+              이름이 바로 떠오르지 않으시면 <strong>"큰아들", "막내 손녀"</strong>처럼 관계로 적으셔도 충분합니다.
+            </div>
+          </div>
+
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">4</span>
+              <span class="step-icon">💬</span>
+              <span class="step-title">소원 문장 만들기</span>
+            </div>
+            <p class="step-desc">소원은 <strong>세 토막</strong>으로 만듭니다. 진행자가 먼저 예를 하나 보여 주세요.</p>
+            <div class="wish-row">
+              <div class="wish-chip w1"><div class="k">하나</div><div class="v">누구에게</div></div>
+              <div class="wish-chip w2"><div class="k">둘</div><div class="v">무엇을</div></div>
+              <div class="wish-chip w3"><div class="k">셋</div><div class="v">바랍니다</div></div>
+            </div>
+            <div class="wish-example">"손주 ○○에게, 건강하게 자라기를, 바랍니다."</div>
+            <div class="step-tip">
+              어르신께서 <strong>말로 먼저</strong> 소원을 만드시게 하고, 정리된 문장을 둘째 줄에 연필로 적습니다.
+            </div>
+            <div class="step-tip blue">
+              💙 글쓰기가 어려우시면 <strong>진행자가 대신 받아 적고</strong>, 어르신은 성함만 쓰셔도 됩니다.
+            </div>
+          </div>
+
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">5</span>
+              <span class="step-icon">🏮</span>
+              <span class="step-title">등 색칠</span>
+            </div>
+            <p class="step-desc">소원을 다 적으셨으면 등 부분을 원하시는 색으로 칠합니다.</p>
+            <div class="step-tip warn">
+              ⚠ 글씨가 가려지지 않도록 <strong>글자 칸은 비워 두고 테두리 쪽을</strong> 칠하시도록 안내해 주세요.
+            </div>
+          </div>
+
+          <div class="step-card s-c5">
+            <div class="step-head">
+              <span class="step-num">6</span>
+              <span class="step-icon">🗣️</span>
+              <span class="step-title">소원 소리 내어 읽기</span>
+            </div>
+            <p class="step-desc">완성된 소원 문장을 어르신께서 <strong>또박또박 소리 내어 읽으시고</strong>, 진행자가 한 번 더 따라 읽어 드립니다.</p>
+            <div class="step-tip blue">
+              💙 자기가 만든 문장을 자기 목소리로 듣는 <strong>이 순간이 오늘 활동의 핵심</strong>입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 6 ===== -->
+      <div class="chapter" id="ch6">
+        <div class="chapter-header">
+          <span class="chapter-icon c6">👏</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t6">CHAPTER 6</div>
+            <h2>마무리</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p><strong>박수와 칭찬, 그리고 사진 한 장</strong>으로 따뜻하게 마무리합니다.</p>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card s-c6">
+            <div class="step-head">
+              <span class="step-num">1</span>
+              <span class="step-icon">👏</span>
+              <span class="step-title">두 손으로 들어 보이기 · 박수</span>
+            </div>
+            <p class="step-desc">완성한 소원등을 어르신께서 두 손으로 들어 보시게 하고, 크게 박수와 칭찬을 보내 주세요.</p>
+          </div>
+
+          <div class="step-card s-c6">
+            <div class="step-head">
+              <span class="step-num">2</span>
+              <span class="step-icon">📷</span>
+              <span class="step-title">사진 찍어 가족께 전하기</span>
+            </div>
+            <p class="step-desc">사진을 찍어 두셨다가 보호자나 소원을 받을 가족께 <strong>"어르신께서 보내신 소원"</strong>으로 전해 드리면 더욱 좋습니다.</p>
+          </div>
+
+          <div class="step-card s-c6">
+            <div class="step-head">
+              <span class="step-num">3</span>
+              <span class="step-icon">🎶</span>
+              <span class="step-title">「달」 노래 한 번 더 · 끝인사</span>
+            </div>
+            <p class="step-desc">도입 때 부른 노래를 한 번 더 함께 부르고 인사로 마칩니다.</p>
+            <div class="step-tip">
+              예시 — <strong>"추석 잘 보내세요."</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 7 ===== -->
+      <div class="chapter" id="ch7">
+        <div class="chapter-header">
+          <span class="chapter-icon c7">⚠️</span>
+          <div class="chapter-meta">
+            <div class="chapter-tag t7">CHAPTER 7</div>
+            <h2>유의사항</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>진행 중에 <strong>꼭 기억해 주실 다섯 가지</strong>입니다.</p>
+        </div>
+
+        <div class="warn-list">
+          <div class="warn-card tip">
+            <span class="warn-num">1</span>
+            <div class="warn-body">
+              <div class="warn-title">글쓰기가 어려우시면 말로 만들기</div>
+              <div class="warn-desc">소원을 말로 만들어 내신 것만으로 충분합니다. 진행자가 받아 적고, 어르신은 성함과 날짜만 쓰시거나 색칠만 하셔도 괜찮습니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card tip">
+            <span class="warn-num">2</span>
+            <div class="warn-body">
+              <div class="warn-title">이름이 떠오르지 않아도 재촉하지 않기</div>
+              <div class="warn-desc">정답을 강요하지 마세요. "큰딸", "손주"처럼 관계로 대신하고 자연스럽게 넘어갑니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card">
+            <span class="warn-num">3</span>
+            <div class="warn-body">
+              <div class="warn-title">슬픈 이야기가 나와도 평가하지 않기</div>
+              <div class="warn-desc">"그러셨군요." 하고 받아 드리면 됩니다. 어르신께서 만드신 소원 내용을 고쳐 드리지 않습니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card advice">
+            <span class="warn-num">4</span>
+            <div class="warn-body">
+              <div class="warn-title">편마비 어르신 — 도안 4면 고정</div>
+              <div class="warn-desc">도안 네 면을 테이프로 테이블에 붙여 두시면 한 손만으로도 색칠하고 쓰실 수 있습니다.</div>
+            </div>
+          </div>
+
+          <div class="warn-card advice">
+            <span class="warn-num">5</span>
+            <div class="warn-body">
+              <div class="warn-title">글씨 크기 · 맞춤법은 고치지 않기</div>
+              <div class="warn-desc">크게, 편하게 쓰시도록 격려해 주세요. 정확함보다 표현하는 즐거움이 우선입니다.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="closing-card">
+          <p class="ck-line">
+            소원 한 문장을 쓰고 읽는 그 순간,<br>
+            어르신의 말과 기억이 함께 깨어납니다 🌕
+          </p>
+          <p class="ck-sub">실로암방문요양지원센터 · 요양보호사 교육</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
