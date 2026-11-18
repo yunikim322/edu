@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>개인정보보호지침 | 실로암 교육</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #F4F0E6;
+      color: #222;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+      word-break: keep-all;
+    }
+
+    .progress-bar {
+      position: fixed; top: 0; left: 0;
+      width: 0%; height: 3px;
+      background: linear-gradient(90deg, #0d1f17, #2F5A45, #CFA75E);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(244,240,230,0.96);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #E0D8C6;
+    }
+    .top-bar a { color: #1F4434; text-decoration: none; font-size: 17px; font-weight: 700; }
+    .top-bar .title { font-size: 16px; font-weight: 500; color: #555; }
+
+    [id] { scroll-margin-top: 56px; }
+
+    /* ===== 히어로 ===== */
+    .hero {
+      background:
+        radial-gradient(ellipse at 85% 10%, rgba(47,90,69,0.55) 0%, transparent 60%),
+        linear-gradient(160deg, #0d1f17 0%, #08150f 60%, #050d09 100%);
+      color: #EFE7D6;
+      padding: 30px 22px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .emb { width: 92px; height: 92px; margin: 0 auto 10px; display: block; }
+    .hero .label {
+      display: inline-block;
+      font-size: 13px; font-weight: 800;
+      color: #CFA75E;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-size: 27px; font-weight: 900;
+      color: #EFE7D6;
+      letter-spacing: -0.8px;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .hero h1 em { font-style: normal; color: #CFA75E; }
+    .hero .sub { font-size: 17px; color: #B9D3BF; font-weight: 500; }
+    .hero .bar { width: 48px; height: 3px; background: #CFA75E; margin: 14px auto 0; }
+    .hero .org { margin-top: 12px; font-size: 14px; color: #8FA79A; letter-spacing: 0.5px; }
+
+    /* ===== 핵심 한 줄 ===== */
+    .key-quote {
+      margin: 16px 14px 0;
+      padding: 18px 18px;
+      background: #FFFDF8;
+      border: 1px solid #E0D8C6;
+      border-left: 6px solid #CFA75E;
+      border-radius: 0 14px 14px 0;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.07);
+    }
+    .key-quote .line { font-size: 20px; font-weight: 800; color: #0d1f17; line-height: 1.6; }
+    .key-quote .line em { font-style: normal; color: #8A6A2B; }
+
+    /* ===== 목차 ===== */
+    .toc { margin: 14px 14px 0; display: flex; flex-direction: column; gap: 6px; }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      background: #FFFDF8; border-radius: 14px;
+      text-decoration: none; color: #222;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.06);
+      border: 1px solid #E0D8C6;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .toc-item:active { border-color: #1F4434; background: #EEF2EC; }
+    .toc-left { display: flex; align-items: center; gap: 12px; }
+    .toc-no {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: #0d1f17; color: #CFA75E;
+      font-size: 15px; font-weight: 800; flex-shrink: 0;
+    }
+    .toc-label { font-size: 18px; font-weight: 600; color: #222; }
+    .toc-arrow { color: #1F4434; font-size: 22px; font-weight: 600; flex-shrink: 0; }
+
+    .content { padding: 0 14px 40px; }
+
+    /* ===== 챕터 ===== */
+    .chapter { margin-top: 34px; }
+    .chapter-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .chapter-no {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: #0d1f17; color: #CFA75E;
+      font-size: 19px; font-weight: 900; flex-shrink: 0;
+    }
+    .chapter-tag { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: #8A6A2B; }
+    .chapter h2 { font-size: 24px; font-weight: 800; color: #0d1f17; margin: 1px 0 0; letter-spacing: -0.5px; }
+
+    /* ===== 정보 카드 ===== */
+    .info-card {
+      background: #FFFDF8; border-radius: 14px; padding: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+      border: 1px solid #E6DFCF;
+    }
+    .info-card p { font-size: 19px; color: #222; line-height: 1.75; }
+    .info-card strong { color: #1F4434; font-weight: 800; }
+
+    /* ===== 정의 ===== */
+    .def-card {
+      background: #FFFDF8; border-radius: 14px; padding: 18px;
+      margin-bottom: 12px;
+      border: 1px solid #E6DFCF; border-top: 5px solid #1F4434;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .def-word { font-size: 15px; font-weight: 800; color: #8A6A2B; letter-spacing: 1px; margin-bottom: 4px; }
+    .def-main { font-size: 21px; font-weight: 800; color: #0d1f17; line-height: 1.5; }
+    .def-main em { font-style: normal; color: #1F4434; background: linear-gradient(transparent 62%, rgba(207,167,94,0.35) 62%); }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .chip {
+      font-size: 17px; font-weight: 600; color: #1F3A2D;
+      background: #E9EEE6; border-radius: 999px; padding: 5px 14px;
+    }
+
+    /* ===== 합치면 ===== */
+    .combine {
+      background: #0d1f17; border-radius: 14px; padding: 18px;
+      margin-bottom: 12px; color: #EFE7D6;
+    }
+    .combine .c-title { font-size: 15px; font-weight: 800; color: #CFA75E; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .combine .c-row { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: nowrap; }
+    .combine .c-piece {
+      font-size: 18px; font-weight: 700; color: #EFE7D6;
+      border: 1.5px solid rgba(207,167,94,0.55); border-radius: 10px;
+      padding: 6px 12px; white-space: nowrap;
+    }
+    .combine .c-plus { font-size: 20px; font-weight: 800; color: #CFA75E; }
+    .combine .c-result { margin-top: 12px; font-size: 19px; line-height: 1.6; text-align: center; color: #EFE7D6; }
+    .combine .c-result strong { color: #E3C688; }
+
+    /* ===== 보호 대상 ===== */
+    .media-list { display: flex; gap: 8px; margin-top: 12px; }
+    .media {
+      flex: 1; text-align: center;
+      background: #F3EFE4; border-radius: 12px; padding: 12px 6px 10px;
+      border: 1px solid #E6DFCF;
+    }
+    .media svg { width: 34px; height: 34px; display: block; margin: 0 auto 4px; }
+    .media span { font-size: 16px; font-weight: 700; color: #1F3A2D; }
+
+    /* ===== 관리자 ===== */
+    .manager {
+      background: #FFFDF8; border-radius: 14px; padding: 16px 18px;
+      margin-bottom: 12px;
+      border: 1px solid #E6DFCF; border-left: 6px solid #CFA75E;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .manager .m-title { font-size: 19px; font-weight: 800; color: #0d1f17; margin-bottom: 8px; }
+    .manager ul { list-style: none; }
+    .manager li { font-size: 18px; color: #222; padding-left: 18px; position: relative; margin-top: 4px; line-height: 1.6; }
+    .manager li::before { content: ''; position: absolute; left: 3px; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: #CFA75E; }
+    .manager .m-ask { margin-top: 10px; font-size: 18px; font-weight: 700; color: #1F4434; }
+
+    /* ===== 목적 (어르신/직원) ===== */
+    .who-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .who-card {
+      background: #FFFDF8; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E6DFCF;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .who-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .who-tag {
+      font-size: 15px; font-weight: 800; color: #FFFDF8;
+      background: #1F4434; border-radius: 8px; padding: 3px 10px;
+    }
+    .who-card.staff .who-tag { background: #8A6A2B; }
+    .who-head .who-title { font-size: 19px; font-weight: 800; color: #0d1f17; }
+    .purpose { list-style: none; counter-reset: p; }
+    .purpose li {
+      counter-increment: p;
+      font-size: 18px; color: #222; line-height: 1.55;
+      padding: 7px 0 7px 34px; position: relative;
+      border-top: 1px dashed #E0D8C6;
+    }
+    .purpose li:first-child { border-top: none; }
+    .purpose li::before {
+      content: counter(p, decimal-leading-zero);
+      position: absolute; left: 0; top: 8px;
+      font-size: 14px; font-weight: 800; color: #8A6A2B;
+    }
+
+    .accent-banner {
+      background: linear-gradient(135deg, #0d1f17 0%, #173326 100%);
+      color: #EFE7D6;
+      border-radius: 14px; padding: 16px 18px;
+      margin-bottom: 12px;
+      border-left: 6px solid #CFA75E;
+    }
+    .accent-banner p { font-size: 20px; font-weight: 700; line-height: 1.6; }
+    .accent-banner strong { color: #E3C688; }
+
+    /* ===== 수집 항목 ===== */
+    .item-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .item-card {
+      background: #FFFDF8; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E6DFCF; border-top: 5px solid #1F4434;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .item-card.staff { border-top-color: #8A6A2B; }
+    .item-card .who-head { margin-bottom: 8px; }
+    .item-card .chips { margin-top: 0; }
+    .chip.hot { background: #F6E9CC; color: #5C4518; }
+    .item-note { margin-top: 10px; font-size: 17px; color: #444; line-height: 1.6; }
+    .item-note strong { color: #8A6A2B; }
+
+    /* ===== 보관 기간 ===== */
+    .period-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .period {
+      background: #0d1f17; border-radius: 14px; padding: 16px 18px; color: #EFE7D6;
+    }
+    .period .p-who { font-size: 17px; font-weight: 800; color: #CFA75E; margin-bottom: 10px; }
+    .p-flow { display: flex; align-items: stretch; gap: 6px; }
+    .p-step {
+      flex: 1; text-align: center; border-radius: 10px; padding: 8px 4px;
+      border: 1px solid rgba(207,167,94,0.4);
+    }
+    .p-step .k { font-size: 14px; font-weight: 700; color: #B9D3BF; }
+    .p-step .v { font-size: 17px; font-weight: 800; color: #EFE7D6; line-height: 1.4; }
+    .p-step.big { background: rgba(207,167,94,0.16); border-color: #CFA75E; }
+    .p-step.big .v { font-size: 26px; color: #E3C688; }
+    .p-step .law { font-size: 13px; color: #B9D3BF; }
+    .p-arrow { align-self: center; color: #CFA75E; font-size: 18px; font-weight: 800; }
+
+    /* ===== 약속 ===== */
+    .promise-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .promise {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: #FFFDF8; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E6DFCF;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .promise-no {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      border: 2px solid #CFA75E; color: #8A6A2B;
+      font-size: 16px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .promise-title { font-size: 20px; font-weight: 800; color: #0d1f17; line-height: 1.4; }
+    .promise-desc { margin-top: 4px; font-size: 18px; color: #333; line-height: 1.6; }
+    .promise-sub { margin-top: 6px; font-size: 17px; color: #555; }
+    .promise-sub strong { color: #8A6A2B; }
+
+    /* ===== 현장 조심 ===== */
+    .care-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .care {
+      background: #FFFDF8; border-radius: 14px; overflow: hidden;
+      border: 1px solid #E6DFCF;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .care-head {
+      display: flex; align-items: center; gap: 10px;
+      background: #0d1f17; padding: 10px 16px;
+    }
+    .care-head svg { width: 26px; height: 26px; flex-shrink: 0; }
+    .care-head span { font-size: 19px; font-weight: 800; color: #EFE7D6; }
+    .care-body { padding: 14px 18px 16px; }
+    .care-body p { font-size: 18px; color: #222; line-height: 1.65; }
+    .care-body p + p { margin-top: 6px; }
+    .care-body strong { color: #1F4434; }
+    .care-steps { list-style: none; margin-top: 10px; counter-reset: c; }
+    .care-steps li {
+      counter-increment: c;
+      font-size: 18px; color: #222; font-weight: 600; line-height: 1.5;
+      padding: 9px 12px 9px 44px; position: relative;
+      background: #F3EFE4; border-radius: 10px; margin-top: 6px;
+    }
+    .care-steps li::before {
+      content: counter(c);
+      position: absolute; left: 12px; top: 9px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #CFA75E; color: #0d1f17;
+      font-size: 14px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .care-tip { margin-top: 8px; font-size: 17px; color: #555; }
+
+    /* ===== 유출 ===== */
+    .leak-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .leak {
+      background: #FFFDF8; border-radius: 12px; padding: 13px 16px;
+      border: 1px solid #E6DFCF; border-left: 5px solid #A2553A;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .leak-title { font-size: 19px; font-weight: 800; color: #0d1f17; line-height: 1.45; }
+    .leak-ex { margin-top: 2px; font-size: 17px; color: #555; }
+    .note-box {
+      background: #F6E9CC; border-left: 4px solid #CFA75E;
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px; margin-bottom: 12px;
+      font-size: 18px; color: #3F3016; line-height: 1.6;
+    }
+    .note-box strong { color: #0d1f17; }
+
+    /* ===== 유출됐다면 ===== */
+    .alert-card {
+      background: linear-gradient(150deg, #0d1f17 0%, #173326 100%);
+      border-radius: 14px; padding: 20px 18px; margin-bottom: 12px;
+      text-align: center; color: #EFE7D6;
+    }
+    .alert-card .a-pre { font-size: 17px; color: #B9D3BF; }
+    .alert-card .a-main { margin-top: 4px; font-size: 24px; font-weight: 900; color: #E3C688; }
+    .alert-card .a-flow { margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .alert-card .a-flow span { font-size: 17px; font-weight: 700; border: 1.5px solid rgba(207,167,94,0.55); border-radius: 10px; padding: 5px 12px; }
+    .alert-card .a-flow i { font-style: normal; color: #CFA75E; font-weight: 800; }
+    .alert-card .a-sub { margin-top: 12px; font-size: 17px; color: #EFE7D6; }
+
+    .sub-title { font-size: 19px; font-weight: 800; color: #0d1f17; margin: 18px 0 10px; }
+    .act-list { display: flex; gap: 8px; margin-bottom: 12px; }
+    .act {
+      flex: 1; background: #FFFDF8; border: 1px solid #E6DFCF; border-radius: 12px;
+      padding: 12px 8px; text-align: center;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .act b { display: block; font-size: 14px; color: #8A6A2B; font-weight: 900; }
+    .act span { font-size: 17px; font-weight: 700; color: #0d1f17; line-height: 1.45; display: block; margin-top: 2px; }
+
+    .notify {
+      background: #FFFDF8; border-radius: 14px; padding: 18px;
+      margin-bottom: 12px; border: 2px solid #CFA75E;
+    }
+    .notify .n-top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .notify .n-big { font-size: 34px; font-weight: 900; color: #0d1f17; line-height: 1.2; }
+    .notify .n-big em { font-style: normal; color: #8A6A2B; }
+    .notify .n-lead { font-size: 18px; color: #222; font-weight: 600; }
+    .notify .n-more { margin-top: 6px; font-size: 18px; color: #222; line-height: 1.6; }
+    .notify .n-more strong { color: #1F4434; }
+    .notify .chips { margin-top: 10px; }
+
+    .tel-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: #0d1f17; border-radius: 14px; padding: 16px 18px;
+      margin-bottom: 12px; text-decoration: none;
+    }
+    .tel-name { font-size: 18px; font-weight: 700; color: #EFE7D6; line-height: 1.4; }
+    .tel-name span { display: block; font-size: 15px; font-weight: 500; color: #B9D3BF; }
+    .tel-num { font-size: 34px; font-weight: 900; color: #E3C688; letter-spacing: 1px; white-space: nowrap; }
+
+    .resp-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .resp {
+      background: #FFFDF8; border-radius: 14px; padding: 16px 18px;
+      border: 1px solid #E6DFCF; border-left: 6px solid #1F4434;
+      box-shadow: 0 1px 4px rgba(13,31,23,0.05);
+    }
+    .resp.staff { border-left-color: #A2553A; }
+    .resp-who { font-size: 16px; font-weight: 800; color: #8A6A2B; }
+    .resp-what { font-size: 19px; color: #222; line-height: 1.6; margin-top: 2px; }
+    .resp-what strong { color: #0d1f17; }
+
+    /* ===== 마무리 ===== */
+    .closing-card {
+      background: linear-gradient(160deg, #0d1f17 0%, #050d09 100%);
+      border-radius: 16px; padding: 24px 18px;
+      margin-top: 28px; color: #EFE7D6;
+    }
+    .closing-card .ck-title { text-align: center; font-size: 15px; font-weight: 800; color: #CFA75E; letter-spacing: 1px; margin-bottom: 12px; }
+    .ck-cols { display: flex; flex-direction: column; gap: 10px; }
+    .ck-col { border: 1px solid rgba(207,167,94,0.35); border-radius: 12px; padding: 12px 14px; }
+    .ck-col .ck-who { font-size: 16px; font-weight: 800; color: #E3C688; margin-bottom: 4px; }
+    .ck-col li { list-style: none; font-size: 18px; line-height: 1.6; padding-left: 22px; position: relative; color: #EFE7D6; }
+    .ck-col li::before { content: '✓'; position: absolute; left: 0; color: #CFA75E; font-weight: 800; }
+    .closing-card .ck-line { margin-top: 16px; text-align: center; font-size: 19px; font-weight: 700; line-height: 1.7; color: #FFFFFF; }
+    .closing-card .ck-line em { font-style: normal; color: #E3C688; }
+
+    .legal-box {
+      margin-top: 16px;
+      background: #EEE8DA; border: 1px dashed #BFB49B;
+      border-radius: 14px; padding: 16px 18px;
+      font-size: 16px; color: #3A3426; line-height: 1.7;
+    }
+    .legal-box strong { color: #0d1f17; }
+
+    .footer-note { text-align: center; padding: 24px 16px 32px; font-size: 14px; font-weight: 500; color: #8C8574; }
+
+    .fab-top {
+      position: fixed; bottom: 24px; right: 20px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #0d1f17; color: #CFA75E;
+      font-size: 22px; font-weight: 700;
+      box-shadow: 0 3px 12px rgba(13,31,23,0.35);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 90; text-decoration: none;
+    }
+    .fab-top.show { opacity: 1; pointer-events: auto; }
+
+    /* ===== PC 반응형 ===== */
+    .pc-wrapper { }
+    @media (min-width: 768px) {
+      body { background: #E4DED0; }
+      .pc-wrapper {
+        max-width: 1100px; margin: 0 auto;
+        background: #F4F0E6; min-height: 100vh;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+      .top-bar { padding: 12px 40px; }
+      .hero { padding: 56px 48px 48px; }
+      .hero .emb { width: 120px; height: 120px; }
+      .hero h1 { font-size: 40px; }
+      .hero .sub { font-size: 19px; }
+
+      .key-quote { margin: 24px 40px 0; padding: 24px 30px; }
+      .key-quote .line { font-size: 24px; }
+
+      .toc { flex-direction: row; flex-wrap: wrap; gap: 10px; margin: 18px 40px 0; }
+      .toc-item {
+        flex: 1 1 calc(25% - 10px); min-width: 210px;
+        padding: 13px 14px; border-radius: 12px;
+        justify-content: flex-start;
+        transition: all 0.2s;
+      }
+      .toc-item:hover { border-color: #1F4434; background: #EEF2EC; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(13,31,23,0.12); }
+      .toc-arrow { display: none; }
+
+      .content { padding: 10px 40px 60px; }
+      .chapter { margin-top: 56px; }
+      .chapter-header { gap: 16px; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 2px solid #E0D8C6; }
+      .chapter-no { width: 56px; height: 56px; border-radius: 14px; font-size: 24px; }
+      .chapter-tag { font-size: 13px; }
+      .chapter h2 { font-size: 30px; }
+
+      .info-card, .def-card, .manager, .who-card { padding: 24px 28px; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+      .info-card:hover, .def-card:hover, .manager:hover, .who-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(13,31,23,0.09); }
+      .info-card p { font-size: 20px; }
+      .def-main { font-size: 24px; }
+
+      .ch1-grid-pc { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+      .ch1-grid-pc > * { margin-bottom: 0; }
+
+      .combine { padding: 24px 28px; border-radius: 16px; }
+      .combine .c-piece { font-size: 20px; padding: 8px 16px; }
+      .combine .c-result { font-size: 20px; }
+
+      .who-grid { flex-direction: row; gap: 14px; }
+      .who-card { flex: 1; }
+      .purpose li { font-size: 19px; }
+
+      .accent-banner { padding: 22px 30px; border-radius: 16px; }
+      .accent-banner p { font-size: 22px; }
+
+      .item-grid, .period-grid, .resp-grid { flex-direction: row; gap: 14px; }
+      .item-card, .period, .resp { flex: 1; }
+      .item-card, .resp, .promise, .care, .leak, .notify { transition: transform 0.2s, box-shadow 0.2s; }
+      .item-card:hover, .resp:hover, .promise:hover, .care:hover, .leak:hover, .notify:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(13,31,23,0.09); }
+      .item-card, .resp { padding: 22px 26px; border-radius: 16px; }
+      .period { padding: 22px 26px; border-radius: 16px; }
+      .promise-list, .care-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .promise { padding: 22px 24px; border-radius: 16px; }
+      .care { border-radius: 16px; }
+      .care-head { padding: 12px 22px; }
+      .care-body { padding: 18px 22px 20px; }
+      .leak-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .leak { padding: 16px 20px; }
+      .note-box { padding: 16px 22px; font-size: 19px; }
+      .alert-card { padding: 30px 28px; border-radius: 16px; }
+      .alert-card .a-main { font-size: 30px; }
+      .act-list { gap: 14px; }
+      .act { padding: 18px 12px; border-radius: 14px; }
+      .act span { font-size: 19px; }
+      .notify { padding: 24px 28px; border-radius: 16px; }
+      .notify .n-big { font-size: 40px; }
+      .tel-item { padding: 22px 28px; border-radius: 16px; }
+      .tel-num { font-size: 40px; }
+      .closing-card { padding: 36px 32px; border-radius: 18px; margin-top: 40px; }
+      .ck-cols { flex-direction: row; gap: 14px; }
+      .ck-col { flex: 1; padding: 16px 20px; }
+      .closing-card .ck-line { font-size: 23px; }
+      .legal-box { padding: 22px 26px; font-size: 17px; border-radius: 16px; }
+
+      .footer-note { padding: 32px 40px 40px; font-size: 15px; }
+      .fab-top { width: 52px; height: 52px; font-size: 24px; bottom: 32px; right: 32px; border-radius: 16px; }
+      .progress-bar { height: 4px; }
+    }
+    @media (min-width: 1200px) {
+      .pc-wrapper { max-width: 1200px; }
+      .content { padding: 10px 56px 60px; }
+      .toc { margin: 18px 56px 0; }
+      .top-bar { padding: 14px 56px; }
+      .hero { padding: 64px 56px 54px; }
+      .hero h1 { font-size: 46px; }
+      .key-quote { margin: 28px 56px 0; padding: 28px 36px; }
+      .footer-note { padding: 36px 56px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="pc-wrapper">
+    <div class="top-bar">
+      <a href="index.html">&larr; 목록</a>
+      <span class="title">개인정보보호지침</span>
+    </div>
+
+    <!-- ===== 히어로 ===== -->
+    <div class="hero">
+      <svg class="emb" viewBox="0 0 200 200" fill="none" stroke-linecap="round" aria-hidden="true">
+        <circle cx="100" cy="100" r="96" stroke="#CFA75E" stroke-width="1.5" opacity=".35"/>
+        <circle cx="100" cy="100" r="80" stroke="#CFA75E" stroke-width="3"/>
+        <circle cx="100" cy="100" r="66" stroke="#CFA75E" stroke-width="1.5" opacity=".5" stroke-dasharray="2 6"/>
+        <g stroke="#CFA75E" stroke-width="3" opacity=".7">
+          <path d="M100 22 V30"/><path d="M100 22 V30" transform="rotate(45 100 100)"/><path d="M100 22 V30" transform="rotate(90 100 100)"/><path d="M100 22 V30" transform="rotate(135 100 100)"/><path d="M100 22 V30" transform="rotate(180 100 100)"/><path d="M100 22 V30" transform="rotate(225 100 100)"/><path d="M100 22 V30" transform="rotate(270 100 100)"/><path d="M100 22 V30" transform="rotate(315 100 100)"/>
+        </g>
+        <path d="M100 66 C88 66 80 75 80 86 C80 94 85 100 91 103 L86 136 H114 L109 103 C115 100 120 94 120 86 C120 75 112 66 100 66 Z" fill="#CFA75E"/>
+      </svg>
+      <div class="label">개인정보보호지침</div>
+      <h1>어르신의 이야기를<br><em>지키는</em> 일</h1>
+      <p class="sub">문 안쪽에서 알게 된 것을 지키는 방법</p>
+      <div class="bar"></div>
+      <p class="org">실로암방문요양지원센터 &middot; 급여제공지침 교육</p>
+    </div>
+
+    <!-- ===== 핵심 한 줄 ===== -->
+    <div class="key-quote">
+      <p class="line">업무로 알게 된 것은 <em>말하지 않고</em>,<br>유출이 의심돼도 <em>바로 관리자에게</em>.</p>
+    </div>
+
+    <!-- ===== 목차 ===== -->
+    <nav class="toc" id="tocArea">
+      <a class="toc-item" href="#ch1"><span class="toc-left"><span class="toc-no">01</span><span class="toc-label">개인정보란</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch2"><span class="toc-left"><span class="toc-no">02</span><span class="toc-label">왜 수집할까요</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch3"><span class="toc-left"><span class="toc-no">03</span><span class="toc-label">무엇을, 언제까지</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch4"><span class="toc-left"><span class="toc-no">04</span><span class="toc-label">네 가지 약속</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch5"><span class="toc-left"><span class="toc-no">05</span><span class="toc-label">현장에서는</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch6"><span class="toc-left"><span class="toc-no">06</span><span class="toc-label">이런 것이 유출</span></span><span class="toc-arrow">&rsaquo;</span></a>
+      <a class="toc-item" href="#ch7"><span class="toc-left"><span class="toc-no">07</span><span class="toc-label">유출됐다면</span></span><span class="toc-arrow">&rsaquo;</span></a>
+    </nav>
+
+    <div class="content">
+
+      <!-- ===== 챕터 1 ===== -->
+      <div class="chapter" id="ch1">
+        <div class="chapter-header">
+          <span class="chapter-no">01</span>
+          <div>
+            <h2>개인정보란</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>요양보호사는 어르신 댁 문 안쪽에서 <strong>병과 약, 가족 이야기</strong>까지 누구보다 많은 것을 알게 됩니다. 어르신이 그만큼 믿고 계신다는 뜻입니다.</p>
+        </div>
+
+        <div class="ch1-grid-pc">
+          <div class="def-card">
+            <div class="def-word">개인정보</div>
+            <div class="def-main">살아 있는 사람에 관한 정보 중<br><em>누구인지 알아볼 수 있는</em> 정보</div>
+            <div class="chips">
+              <span class="chip">이름</span>
+              <span class="chip">주민등록번호</span>
+              <span class="chip">얼굴 사진·영상</span>
+            </div>
+          </div>
+
+          <div class="combine">
+            <div class="c-title">하나만으로는 몰라도, 합치면 알아본다면</div>
+            <div class="c-row">
+              <span class="c-piece">빌라 2층</span>
+              <span class="c-plus">+</span>
+              <span class="c-piece">치매 어르신</span>
+            </div>
+            <p class="c-result">동네 사람은 누구인지 압니다.<br><strong>이것도 개인정보입니다.</strong></p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>업무 때문에 다루는 개인정보는 <strong>모두 보호 대상</strong>입니다. 수급자 서류철처럼 찾아보기 쉽게 모아 둔 것은 <strong>개인정보파일</strong>이라고 합니다.</p>
+          <div class="media-list">
+            <div class="media">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#1F4434" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 6h17l9 9v27H12z"/><path d="M29 6v9h9"/><path d="M18 24h14M18 30h14M18 36h9"/></svg>
+              <span>종이 서류</span>
+            </div>
+            <div class="media">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#1F4434" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="6" y="9" width="36" height="24" rx="2"/><path d="M18 40h12M24 33v7"/></svg>
+              <span>컴퓨터</span>
+            </div>
+            <div class="media">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#1F4434" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="14" y="5" width="20" height="38" rx="3"/><path d="M21 37h6"/></svg>
+              <span>휴대폰</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="manager">
+          <div class="m-title">개인정보를 책임지는 관리자</div>
+          <ul>
+            <li>개인정보 보호 계획을 세우고 교육합니다</li>
+            <li>제대로 관리되는지 점검합니다</li>
+            <li>불만이나 피해가 생기면 처리합니다</li>
+          </ul>
+          <p class="m-ask">궁금하거나 걱정되는 일은 언제든 관리자에게</p>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 2 ===== -->
+      <div class="chapter" id="ch2">
+        <div class="chapter-header">
+          <span class="chapter-no">02</span>
+          <div>
+            <h2>왜 수집할까요</h2>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p>센터는 개인정보보호법에 따라 <strong>장기요양 서비스에 꼭 필요한 정보만</strong> 수집하고 이용합니다.</p>
+        </div>
+
+        <div class="who-grid">
+          <div class="who-card">
+            <div class="who-head"><span class="who-tag">어르신</span><span class="who-title">정보를 쓰는 곳</span></div>
+            <ul class="purpose">
+              <li>본인 확인</li>
+              <li>장기요양 급여계약서 작성</li>
+              <li>욕구 사정과 급여 계획 수립</li>
+              <li>공단 급여 통보와 비용 청구</li>
+              <li>공단·지자체 자료 제출</li>
+              <li>문자·전화 안내</li>
+            </ul>
+          </div>
+          <div class="who-card staff">
+            <div class="who-head"><span class="who-tag">직원</span><span class="who-title">정보를 쓰는 곳</span></div>
+            <ul class="purpose">
+              <li>본인 확인</li>
+              <li>채용·재직·퇴직 인사 관리</li>
+              <li>임금과 사회보험</li>
+              <li>건강검진 결과 관리</li>
+              <li>재직증명서 등 증명서 발급</li>
+              <li>공단·지자체 자료 제출</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accent-banner">
+          <p>핵심은 하나, <strong>정해진 목적에만 씁니다.</strong></p>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 3 ===== -->
+      <div class="chapter" id="ch3">
+        <div class="chapter-header">
+          <span class="chapter-no">03</span>
+          <div><h2>무엇을, 언제까지</h2></div>
+        </div>
+
+        <div class="item-grid">
+          <div class="item-card">
+            <div class="who-head"><span class="who-tag">어르신</span><span class="who-title">수집하는 정보</span></div>
+            <div class="chips">
+              <span class="chip">주민등록번호</span>
+              <span class="chip">이름·주소·연락처</span>
+              <span class="chip">인정번호·등급·유효기간</span>
+              <span class="chip hot">신체·인지·질병·영양</span>
+              <span class="chip hot">가족 사항·보호자 정보</span>
+              <span class="chip">결제 정보(카드·자동이체 시)</span>
+            </div>
+            <p class="item-note"><strong>건강과 가족</strong>에 관한 아주 민감한 정보까지 들어 있습니다.</p>
+          </div>
+          <div class="item-card staff">
+            <div class="who-head"><span class="who-tag" style="background:#8A6A2B">직원</span><span class="who-title">수집하는 정보</span></div>
+            <div class="chips">
+              <span class="chip">주민등록번호</span>
+              <span class="chip">이름·주소·연락처</span>
+              <span class="chip">자격증·교육 이력</span>
+              <span class="chip">서비스 제공 이력</span>
+              <span class="chip">건강검진</span>
+              <span class="chip">임금·금융 정보</span>
+            </div>
+            <p class="item-note">동료의 정보도 똑같이 조심히 다룹니다.</p>
+          </div>
+        </div>
+
+        <div class="period-grid">
+          <div class="period">
+            <div class="p-who">어르신 정보</div>
+            <div class="p-flow">
+              <div class="p-step"><div class="k">이용</div><div class="v">급여 시작<br>~ 계약 끝</div></div>
+              <span class="p-arrow">&rsaquo;</span>
+              <div class="p-step big"><div class="k">보관</div><div class="v">5년</div><div class="law">장기요양보험법</div></div>
+              <span class="p-arrow">&rsaquo;</span>
+              <div class="p-step"><div class="k">그다음</div><div class="v">파기</div></div>
+            </div>
+          </div>
+          <div class="period">
+            <div class="p-who">직원 정보</div>
+            <div class="p-flow">
+              <div class="p-step"><div class="k">이용</div><div class="v">채용<br>~ 퇴사</div></div>
+              <span class="p-arrow">&rsaquo;</span>
+              <div class="p-step big"><div class="k">보관</div><div class="v">3년</div><div class="law">근로기준법</div></div>
+              <span class="p-arrow">&rsaquo;</span>
+              <div class="p-step"><div class="k">그다음</div><div class="v">파기</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accent-banner">
+          <p>정해진 기간 동안만 쓰고, <strong>센터가 안전하게 파기합니다.</strong></p>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 4 ===== -->
+      <div class="chapter" id="ch4">
+        <div class="chapter-header">
+          <span class="chapter-no">04</span>
+          <div><h2>네 가지 약속</h2></div>
+        </div>
+
+        <div class="info-card">
+          <p>개인정보를 다룰 때 <strong>센터와 모든 직원</strong>이 함께 지키는 약속입니다.</p>
+        </div>
+
+        <div class="promise-list">
+          <div class="promise">
+            <span class="promise-no">1</span>
+            <div>
+              <div class="promise-title">목적 밖으로 쓰지 않습니다</div>
+              <div class="promise-desc">다른 용도로 쓰거나 다른 사람에게 넘기지 않습니다. 어기면 처벌을 받을 수 있습니다.</div>
+              <div class="promise-sub"><strong>예외</strong> 어르신의 별도 동의, 법에 정한 경우</div>
+            </div>
+          </div>
+          <div class="promise">
+            <span class="promise-no">2</span>
+            <div>
+              <div class="promise-title">볼 수 있는 사람만 봅니다</div>
+              <div class="promise-desc">그 어르신을 <strong>담당하는 직원과 관리자</strong>만 볼 수 있습니다.</div>
+              <div class="promise-sub">프로그램은 사람마다 아이디·비밀번호 따로</div>
+            </div>
+          </div>
+          <div class="promise">
+            <span class="promise-no">3</span>
+            <div>
+              <div class="promise-title">알게 된 것은 말하지 않습니다</div>
+              <div class="promise-desc">업무로 알게 된 어르신의 정보를 함부로 남에게 알리지 않습니다.</div>
+              <div class="promise-sub"><strong>일을 그만둔 뒤에도</strong> 마찬가지입니다</div>
+            </div>
+          </div>
+          <div class="promise">
+            <span class="promise-no">4</span>
+            <div>
+              <div class="promise-title">잠가서 보관합니다</div>
+              <div class="promise-desc">개인정보가 담긴 서류는 <strong>잠금장치가 있는 보관함</strong>에 둡니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 5 ===== -->
+      <div class="chapter" id="ch5">
+        <div class="chapter-header">
+          <span class="chapter-no">05</span>
+          <div><h2>현장에서는</h2></div>
+        </div>
+
+        <div class="care-list">
+          <div class="care">
+            <div class="care-head">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#CFA75E" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M8 10h32v22H22l-9 7v-7H8z"/></svg>
+              <span>말조심</span>
+            </div>
+            <div class="care-body">
+              <p>어르신의 병이나 집안 사정을 <strong>다른 어르신 댁, 이웃, 내 가족</strong>에게 이야기하지 않습니다.</p>
+              <p class="care-tip">걱정되는 마음에서 한 말이라도, 어르신에게는 비밀이 새어 나간 것입니다.</p>
+            </div>
+          </div>
+          <div class="care">
+            <div class="care-head">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#CFA75E" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M6 15h9l4-5h10l4 5h9v23H6z"/><circle cx="24" cy="26" r="7"/></svg>
+              <span>사진 조심</span>
+            </div>
+            <div class="care-body">
+              <p>어르신 얼굴·집 안·서류가 나온 사진은 <strong>개인 단체 대화방이나 SNS에 올리지 않습니다.</strong></p>
+              <ol class="care-steps">
+                <li>카카오톡 채널 내 상담 채팅으로만 전송</li>
+                <li>보낸 뒤 사진첩에서 바로 삭제</li>
+                <li>최근 삭제한 항목까지 삭제</li>
+              </ol>
+            </div>
+          </div>
+          <div class="care">
+            <div class="care-head">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#CFA75E" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><rect x="13" y="4" width="22" height="40" rx="3"/><rect x="19" y="22" width="10" height="8" rx="1"/><path d="M21 22v-3a3 3 0 0 1 6 0v3"/></svg>
+              <span>휴대폰 조심</span>
+            </div>
+            <div class="care-body">
+              <p>휴대폰에는 <strong>화면 잠금</strong>을 걸어 둡니다.</p>
+              <p class="care-tip">어르신과 보호자의 연락처, 업무 메시지가 모두 휴대폰 안에 있습니다.</p>
+            </div>
+          </div>
+          <div class="care">
+            <div class="care-head">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#CFA75E" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M12 6h17l9 9v27H12z"/><path d="M29 6v9h9"/><path d="M18 24h14M18 31h14"/></svg>
+              <span>서류 조심</span>
+            </div>
+            <div class="care-body">
+              <p>기록지나 메모를 <strong>어르신 댁이나 차 안</strong>에 두고 다니지 않습니다.</p>
+              <p class="care-tip">다 쓴 메모는 찢어 버리거나 센터로 가져옵니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 챕터 6 ===== -->
+      <div class="chapter" id="ch6">
+        <div class="chapter-header">
+          <span class="chapter-no">06</span>
+          <div><h2>이런 것이 유출</h2></div>
+        </div>
+
+        <div class="leak-list">
+          <div class="leak">
+            <div class="leak-title">잃어버리거나 도난당한 경우</div>
+            <div class="leak-ex">서류 · 휴대폰 · 저장장치</div>
+          </div>
+          <div class="leak">
+            <div class="leak-title">권한 없는 사람이 프로그램에 들어간 경우</div>
+          </div>
+          <div class="leak">
+            <div class="leak-title">엉뚱한 사람에게 전달된 경우</div>
+            <div class="leak-ex">문자 · 단체 대화방에 잘못 보낸 것도</div>
+          </div>
+          <div class="leak">
+            <div class="leak-title">그 밖에 권한 없는 사람이 보게 된 경우</div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          새어 나간 것뿐 아니라, 누군가 <strong>함부로 고치거나 망가뜨린 경우</strong>도 똑같이 알려야 하는 사고입니다.
+        </div>
+      </div>
+
+      <!-- ===== 챕터 7 ===== -->
+      <div class="chapter" id="ch7">
+        <div class="chapter-header">
+          <span class="chapter-no">07</span>
+          <div><h2>유출됐다면</h2></div>
+        </div>
+
+        <div class="alert-card">
+          <p class="a-pre">유출이 됐거나, 됐을지도 모른다면</p>
+          <p class="a-main">숨기지 말고 바로 관리자에게</p>
+          <div class="a-flow"><span>나</span><i>&rsaquo;</i><span>관리자</span><i>&rsaquo;</i><span>센터의 조치</span></div>
+          <p class="a-sub">빨리 알릴수록 피해를 줄일 수 있습니다.</p>
+        </div>
+
+        <div class="sub-title">그다음은 센터가 맡습니다</div>
+        <div class="act-list">
+          <div class="act"><b>01</b><span>더 퍼지지<br>않게 막기</span></div>
+          <div class="act"><b>02</b><span>증거를<br>남기기</span></div>
+          <div class="act"><b>03</b><span>약한 곳<br>점검·보완</span></div>
+        </div>
+
+        <div class="notify">
+          <div class="n-top">
+            <span class="n-big"><em>72</em>시간 안에</span>
+            <span class="n-lead">정보의 주인에게 알립니다</span>
+          </div>
+          <p class="n-more">유출 사실을 안 때부터 계산합니다. 확실하지 않아도 <strong>가능성이 높으면 먼저</strong> 알립니다. 어르신과 연락이 닿지 않으면 <strong>보호자나 가족</strong>에게 알립니다.</p>
+          <div class="chips">
+            <span class="chip">무엇이·언제·어떻게</span>
+            <span class="chip">피해를 줄이는 방법</span>
+            <span class="chip">센터의 대응</span>
+            <span class="chip">연락할 곳</span>
+          </div>
+        </div>
+
+        <a class="tel-item" href="tel:118">
+          <span class="tel-name">개인정보침해 신고센터<span>한국인터넷진흥원 · 국번 없이</span></span>
+          <span class="tel-num">118</span>
+        </a>
+
+        <div class="sub-title">유출의 책임</div>
+        <div class="resp-grid">
+          <div class="resp">
+            <div class="resp-who">센터</div>
+            <p class="resp-what">피해를 본 사람이 센터를 상대로 <strong>손해배상을 청구</strong>할 수 있습니다.</p>
+          </div>
+          <div class="resp staff">
+            <div class="resp-who" style="color:#A2553A">직원</div>
+            <p class="resp-what"><strong>고의로 유출</strong>하면 벌금이나 징역형에 처해질 수 있습니다.</p>
+          </div>
+        </div>
+
+        <div class="closing-card">
+          <div class="ck-title">오늘 교육 정리</div>
+          <div class="ck-cols">
+            <div class="ck-col">
+              <div class="ck-who">센터는</div>
+              <ul>
+                <li>꼭 필요한 정보만</li>
+                <li>정해진 목적에만</li>
+                <li>정해진 기간 동안만</li>
+              </ul>
+            </div>
+            <div class="ck-col">
+              <div class="ck-who">여러분은</div>
+              <ul>
+                <li>알게 된 것은 말하지 않고</li>
+                <li>사진·휴대폰·서류 조심</li>
+                <li>유출이 의심돼도 바로 관리자에게</li>
+              </ul>
+            </div>
+          </div>
+          <p class="ck-line">어르신이 문을 열어 주시는 것은<br>여러분을 <em>믿기 때문</em>입니다</p>
+        </div>
+
+        <div class="legal-box">
+          <strong>근거</strong> — 센터 「개인정보 보호 지침」, 「개인정보 보호법」 및 같은 법 시행령.<br>
+          지침 전문은 센터 사무실에서 열람하실 수 있습니다.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">&copy; 2026 실로암방문요양지원센터</div>
+  </div><!-- /pc-wrapper -->
+
+  <a href="#tocArea" class="fab-top" id="fabTop" aria-label="목차로 이동">&uarr;</a>
+
+  <script>
+    var progressBar = document.getElementById('progressBar');
+    var fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      fabTop.classList.toggle('show', scrollTop > 400);
+    });
+  </script>
+
+</body>
+</html>
